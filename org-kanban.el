@@ -66,7 +66,7 @@
 (defun org-kanban/shift (left-or-right)
   "Move Ttodo to LEFT-OR-RIGHT (repeatedly)."
   (interactive "p")
-  (org-kanban/move inc)
+  (org-kanban/move left-or-right)
   (message "Use j and k to shift")
   (set-transient-map
    (let* ((map (make-sparse-keymap)))

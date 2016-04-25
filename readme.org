@@ -1,1 +1,21 @@
 * Kanban dynamic block for org-mode
+Inspired by some of the kanban resources for emacs out there ([[http://www.agilesoc.com/2011/08/08/emacs-org-mode-kanban-pomodoro-oh-my/][Emacs,
+org-mode, Kanban, Pomodoro… Oh my…]], or [[http://www.draketo.de/files/kanban.el][kanban.el]]), I came
+up with this solution.
+
+** Solution
+It uses a custom org-mode dynamic block and provides some operations
+on the table rows.
+
+** Example
+#+BEGIN_SRC org-mode
+#+BEGIN: kanban
+#+END:
+#+END_SRC
+and =C-c C-c= gives you a kanban table, using your TODO keywords as
+swimlanes and puts the headings of your TODOS on the respective ones.
+
+You can use =org-kanban/shift= on a row, to move the TODO one keyword
+back or forth.
+
+Please see [[https://asciinema.org/a/4gijw6gs9jlcf5dxnlj0f12bh][this]] short demonstration on how to use it.
