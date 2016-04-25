@@ -63,19 +63,31 @@
   (interactive)
   (org-kanban/move 'left))
 
+(defun org-kanban/shift (left-or-right)
+  "Move Ttodo to LEFT-OR-RIGHT (repeatedly)."
+  (interactive "p")
+  (org-kanban/move inc)
+  (message "Use j and k to shift")
+  (set-transient-map
+   (let* ((map (make-sparse-keymap)))
+     (define-key map "j" (lambda () (interactive) (org-kanban/shift 'left)))
+     (define-key map "k" (lambda () (interactive) (org-kanban/shift 'right)))
+     map)))
+
 (defun org-kanban/move (direction)
   "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
-  (let* ((todo (org-kanban/find))
-         (line (line-number-at-pos)))
-    (if todo
-        (progn
-          (save-excursion
-            (goto-char todo)
-            (org-todo direction))
-          (org-dblock-update)
-          (goto-char 0)
-          (forward-line (1- line))
-          (goto-char (search-forward "[["))) nil)))
+  (if (memq direction (list 'left 'right))
+      (let* ((todo (org-kanban/find))
+             (line (line-number-at-pos)))
+        (if todo
+            (progn
+              (save-excursion
+                (goto-char todo)
+                (org-todo direction))
+              (org-dblock-update)
+              (goto-char 0)
+              (forward-line (1- line))
+              (goto-char (search-forward "[[")))))))
 
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.  PARAMS are ignored right now."
@@ -84,7 +96,7 @@
    (let*
        (
         (todos (org-map-entries (lambda() (org-heading-components))))
-        (rows (-map 'row-for-kanban (-filter (lambda(todo) (-intersection (list (org-kanban/get-todo todo)) org-todo-keywords-1)) todos)))
+        (rows (-map 'org-kanban/row-for (-filter (lambda(todo) (-intersection (list (org-kanban/get-todo todo)) org-todo-keywords-1)) todos)))
         (table (--reduce (format "%s\n%s" acc it) rows))
         (table-title (string-join org-todo-keywords-1 "|"))
         )
