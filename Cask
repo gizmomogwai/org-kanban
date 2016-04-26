@@ -11,4 +11,6 @@
  (depends-on "dash")
  (depends-on "cask")
  (depends-on "undercover")
- (depends-on "ert-expectations"))
+ (depends-on "ert-expectations")
+ (depends-on "ecukes")
+ (depends-on "espuds"))
