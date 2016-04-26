@@ -1,5 +1,10 @@
-(require 'org-kanban)
+;;; org-kanban-test.el --- oh my
+;;; Commentary:
+
+;;; Code:
+
 (require 'ert-expectations)
+(require 'org)
 
 (expectations
   (desc "should place in correct column")
@@ -7,4 +12,4 @@
                            (setq org-todo-keywords-1 (list "A" "B" "C"))
                            (org-kanban/row-for (list 1 2 "A" nil "Test"))))
   )
-o
+;;; org-kanban-test.el ends here

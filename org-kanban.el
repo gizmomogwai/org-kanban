@@ -1,9 +1,15 @@
-;;; org-kanban --- kanban dynamic block for org-mode.
-;;; Commentary:
-;;; Each org TODO with a property Kanban is added to the table.
+;;; org-kanban.el --- kanban dynamic block for org-mode. -*- lexical-binding: t
+
+;; Copyright (C) 2016 Christian Köstlin
+
+;; Author: Christian Köstlin <christian.koestlin@gmail.com>
+;; Keywords: org-mode, org, kanban
+;; Package-Requires: ((dash "2.2.0"))
+;; Package-Version: 0.1
+;; Homepage: http://github.com/gizmomogwai/org-kanban
+
 ;;; Code:
 
-;; -*- mode: Lisp; lexical-binding: t
 (require 'org)
 (require 'dash)
 (require 'subr-x)
