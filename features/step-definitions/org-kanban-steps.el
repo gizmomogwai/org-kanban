@@ -3,26 +3,31 @@
 ;; loaded automatically by Ecukes.
 
 (Given "^I have \"\\(.+\\)\"$"
-  (lambda (something)
-    ;; ...
-    ))
+       (lambda (something)
+         ;; ...
+         ))
 
 (When "^I have \"\\(.+\\)\"$"
-  (lambda (something)
-    ;; ...
-    ))
+      (lambda (something)
+        ;; ...
+        ))
 
 (Then "^I should have \"\\(.+\\)\"$"
-  (lambda (something)
-    ;; ...
-    ))
+      (lambda (something)
+        ;; ...
+        ))
 
 (And "^I have \"\\(.+\\)\"$"
-  (lambda (something)
-    ;; ...
-    ))
+     (lambda (something)
+       ;; ...
+       ))
 
 (But "^I should not have \"\\(.+\\)\"$"
-  (lambda (something)
-    ;; ...
-    ))
+     (lambda (something)
+       ;; ...
+       ))
+
+(And "^I run org-kanban/shift$"
+     (lambda ()
+       (org-kanban/shift)
+       ))
