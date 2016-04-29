@@ -27,7 +27,7 @@
        ;; ...
        ))
 
-(And "^I run org-kanban/shift$"
-     (lambda ()
-       (org-kanban/shift)
+(And "^I run \\(.+\\)$"
+     (lambda (function)
+       (funcall (intern function))
        ))

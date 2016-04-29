@@ -97,7 +97,6 @@
 
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.  PARAMS are ignored right now."
-  (message "%s" org-todo-keywords-1)
   (insert
    (let*
        (
