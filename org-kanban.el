@@ -8,11 +8,30 @@
 ;; Package-Version: 0.1
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
+;;; Commentary:
+;; To create a kanban table for an org file, simply put the dynamic block
+;; `
+;; #+BEGIN: kanban
+;; #+END:
+;; '
+;; somewhere and run `C-c C-c' on it.
+
 ;;; Code:
 
 (require 'org)
 (require 'dash)
 (require 'subr-x)
+
+(defgroup org-kanban nil
+  "Settings for org-kanban."
+  :group 'org
+  :prefix "org-kanban")
+(defcustom org-kanban/prev-key "j"
+  "Key for promoting an entry of a kanban table to the previous state."
+  :group 'org-kanban)
+(defcustom org-kanban/next-key "k"
+  "Key for promoting an entry of a kanban table to the next state."
+  :group 'org-kanban)
 
 (defun org-kanban/get-title (todo)
   "Get the title from a heading TODO."
@@ -73,11 +92,11 @@
   "Move todo to LEFT-OR-RIGHT (repeatedly)."
   (interactive)
   (org-kanban/move (if left-or-right left-or-right 'right))
-  (message "Use j and k to shift")
+  (message (format "Use %s and %s to shift" org-kanban/prev-key org-kanban/next-key))
   (set-transient-map
    (let* ((map (make-sparse-keymap)))
-     (define-key map "j" (lambda () (interactive) (org-kanban/shift 'left)))
-     (define-key map "k" (lambda () (interactive) (org-kanban/shift 'right)))
+     (define-key map org-kanban/prev-key (lambda () (interactive) (org-kanban/shift 'left)))
+     (define-key map org-kanban/next-key (lambda () (interactive) (org-kanban/shift 'right)))
      map)))
 
 (defun org-kanban/move (direction)
