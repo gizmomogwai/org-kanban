@@ -1,0 +1,16 @@
+#+TODO: Todo Plan Develop Test Done
+* Task One
+* Todo Two
+* Develop Three
+* Test Four
+* Done Five
+* Kanban
+#+BEGIN: kanban
+| Todo | Plan | Develop | Test | Done |
+|------+------+---------+------+------|
+| [[Two]]  |      |         |      |      |
+|      |      | [[Three]]   |      |      |
+|      |      |         | [[Four]] |      |
+|      |      |         |      | [[Five]] |
+|      |      |         |      |      |
+#+END:

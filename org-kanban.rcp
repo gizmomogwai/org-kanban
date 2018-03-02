@@ -1,0 +1,7 @@
+(:name org-kanban
+       :description "Kanban extension to org-mode."
+       :type github
+       :pkgname "gizmomogwai/org-kanban"
+       :features org-kanban
+       :depends org-mode dash
+       )

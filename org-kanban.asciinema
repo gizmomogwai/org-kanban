@@ -1,0 +1,2266 @@
+{
+  "version": 1,
+  "width": 102,
+  "height": 28,
+  "duration": 38.997484,
+  "command": "emacs -nw -l org-kanban.el test.org",
+  "title": "org-kanban",
+  "env": {
+    "TERM": "xterm-256color",
+    "SHELL": "/usr/local/bin/fish"
+  },
+  "stdout": [
+    [
+      0.030613,
+      "\u001b[?1049h\u001b[?12;25h\u001b[?1h\u001b="
+    ],
+    [
+      0.006482,
+      "\u001b[H\u001b[2J"
+    ],
+    [
+      0.000025,
+      "\u001b[28d\u001b[K\u001b[?1l\u001b\u003e\u001b[?12l\u001b[?25h\u001b[?1049l\u001b[39;49m\r"
+    ],
+    [
+      0.000091,
+      "\u001b[?1049h\u001b[?12;25h\u001b[?1h\u001b="
+    ],
+    [
+      0.000034,
+      "\u001b[H\u001b[2J"
+    ],
+    [
+      0.006464,
+      "\u001b[H\u001b[2J"
+    ],
+    [
+      0.017711,
+      "\u001b[27d\u001b[?25l\u001b[30m\u001b[47m-UUU:----F1  \u001b[39;49m\u001b[1m\u001b[30m\u001b[47m*scratch*   \u001b[0m\u001b[39;49m\u001b[30m\u001b[47m   All L1     (Fundamental) -------------------------------------------------\u001b[39;49m\r\n\u001b[A\u001b[2d\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000197,
+      "\u001b[28d\u001b[?25lLoading /Users/gizmo/.emacs.d/activators/001-ui-activator.el (source)...\u001b[K\u001b[H\n\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000616,
+      "\u001b[28;73H\u001b[?25ldone\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000033,
+      "\u001b[28d\u001b[?25l/Users/gizmo/.emacs.d/activators/001-ui-activator.el loaded in 0.804s\u001b[K\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000081,
+      "\u001b[28d\u001b[?25lloading /Users/gizmo/.emacs.d/activators/002-el-get-activator.el\u001b[K\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000190,
+      "\u001b[28d\u001b[?25lLoading /Users/gizmo/.emacs.d/activators/002-el-get-activator.el (source)...\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.107708,
+      "\u001b[28;31H\u001b[?25lel-get-user/init/init-color-theme-zenburn...\u001b[K\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.018337,
+      "\u001b[H\u001b[2J"
+    ],
+    [
+      0.000116,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/el-get-user/init/init-color-theme-zenburn...done                       \u001b[39;49m\r\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.243323,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mad-handle-definition: `tramp-read-passwd' got redefined                       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.024325,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/el-get-user/init/init-helm...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000482,
+      "\u001b[28;60H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000876,
+      "\u001b[28;57H\u001b[?25l\u001b[37m\u001b[40m-fuzzier...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001496,
+      "\u001b[28;68H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001216,
+      "\u001b[28;54H\u001b[?25l\u001b[37m\u001b[40mungry-delete...   \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001566,
+      "\u001b[28;69H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.008386,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mpowerline...        \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000448,
+      "\u001b[28;65H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001262,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40maggressive-indent-mode...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002446,
+      "\u001b[28;78H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004188,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mundo-tree...                 \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.012976,
+      "\u001b[28;65H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.015950,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mmulti-term...   \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000428,
+      "\u001b[28;66H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.003996,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mcompany-mode...  \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.039214,
+      "\u001b[28;68H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001352,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mdiminish...        \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000507,
+      "\u001b[28;64H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001449,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mexpand-region...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.019067,
+      "\u001b[28;69H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001554,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mtff...              \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000456,
+      "\u001b[28;59H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002338,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mprojectile...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      1.088131,
+      "\u001b[28;66H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.044821,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mmagit...         \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000478,
+      "\u001b[28;61H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.196570,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mparedit...  \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.008019,
+      "\u001b[28;63H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004372,
+      "\u001b[28;53H\u001b[?25l\u001b[37m\u001b[40mkey-chord...  \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000440,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mKey Chord mode on                                               \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000248,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/el-get-user/init/init-key-chord...done\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.008967,
+      "\u001b[28;31H\u001b[?25l\u001b[37m\u001b[40mactivators/002-el-get-activator.el (source)...done\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000033,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/002-el-get-activator.el loaded in 1.867675s    \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000075,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/003-custom-activator.el            \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000287,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/003-custom-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000575,
+      "\u001b[28;31H\u001b[?25l\u001b[37m\u001b[40mcustom.el (source)...                         \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.022258,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40meditorconfig/editorconfig...               \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001769,
+      "\u001b[28;37H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002990,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40mautorevert...                   \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004237,
+      "\u001b[28;22H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002355,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40mdiff-hl/diff-hl...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.036897,
+      "\u001b[28;27H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.003533,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40mhl-line...            \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001476,
+      "\u001b[28;19H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002859,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40mwhitespace... \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004440,
+      "\u001b[28;22H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002825,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40mrecentf...       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.014739,
+      "\u001b[28;19H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002698,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40mwhich-func... \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005125,
+      "\u001b[28;22H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002385,
+      "\u001b[28;9H\u001b[?25l\u001b[37m\u001b[40myasnippet/yasnippet...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.037416,
+      "\u001b[28;31H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.135611,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mProblems while trying to load feature `org-jsinfo'\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.023197,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/recentf...          \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000931,
+      "\u001b[28;41H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.016351,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40m[yas] Discovered there was already *scratch* in fundamental-mode\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000062,
+      "\u001b[28;36H\u001b[?25l\u001b[37m\u001b[40m *code-conversion-work* in fundamental-mode\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000051,
+      "\u001b[28;38H\u001b[?25l\u001b[37m\u001b[40mload* in fundamental-mode                \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000049,
+      "\u001b[28;38H\u001b[?25l\u001b[37m\u001b[40mEcho Area 0* in fundamental-mode\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000050,
+      "\u001b[28;48H\u001b[?25l\u001b[37m\u001b[40m1\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000049,
+      "\u001b[28;38H\u001b[?25l\u001b[37m\u001b[40mload*-205235\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000054,
+      "\u001b[28;44H\u001b[?25l\u001b[37m\u001b[40m76392 in fundamental-mode \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.028793,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mgizmo/.emacs.d/el-get/yasnippet/snippets/fundamental-mode) (quote fundamental-mode)))!               \u001b[39;49m\r\u001b[H\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000028,
+      "\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000014,
+      "\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000068,
+      "\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000049,
+      "\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000103,
+      "\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[37m\u001b[40m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[33m\u001b[40m - 0 UUU: \u001b[39;49m\u001b[1m\u001b[33m\u001b[40m*scratch*\u001b[0m\u001b[39;49m\u001b[33m\u001b[40m \u001b[39;49m\u001b[30m\u001b[40m\u001b[39;49m\u001b[33m\u001b[40m Fundamental Paredit Undo-Tree h Helm \u001b[39;49m\u001b[30m\u001b[40m\u001b[39;49m\u001b[33m\u001b[40m                   \u001b[39;49m\u001b[30m\u001b[40m\u001b[39;49m\u001b[33m\u001b[40m     1 :  0 \u001b[39;49m\u001b[30m\u001b[40m\u001b[39;49m\u001b[33m\u001b[40m All    \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000017,
+      "\n\u001b[37m\u001b[40m[yas] Loading for `fundamental-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/\\\u001b[39;49m\r\n\u001b[A\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000265,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40m                                                                                      \u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[27;15H\u001b[37m\u001b[40msnippet files from /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/fundamental-mode     \u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000208,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/fundamental-mode/.yas-setup.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000864,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40me\u001b[39;49m"
+    ],
+    [
+      0.000004,
+      "\u001b[27;99H\u001b[37m\u001b[40mdon\\\u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000322,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40m \u001b[39;49m"
+    ],
+    [
+      0.000018,
+      "\u001b[A\u0008\u001b[37m\u001b[40m[yas] Prepared just-in-time loading for /Users/gizmo/.emacs.d/el-get/yasnippet/snippets               \u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001794,
+      "\u001b[27;41H\u001b[?25l\u001b[37m\u001b[40m~/.emacs.d/snippets                            \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000029,
+      "\u001b[27;7H\u001b[?25l\u001b[37m\u001b[40mReloaded everything (snippets will load just-in-time)....\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000289,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/custom.el (source)...done        \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000215,
+      "\u001b[27;31H\u001b[?25l\u001b[37m\u001b[40mactivators/003-custom-activator.el (source)...done\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000071,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/003-custom-activator.el loaded in 0.358339s    \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000111,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/003-dired-activator.el             \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000196,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/003-dired-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001143,
+      "\u001b[27;76H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000068,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/003-dired-activator.el loaded in 0.1325s      \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000056,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/004-font-activator.el           \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000275,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/004-font-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001495,
+      "\u001b[27;75H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000059,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/004-font-activator.el loaded in 0.1770s      \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000047,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/006-y-n-activator.el           \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000167,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/006-y-n-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000564,
+      "\u001b[27;74H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000056,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/006-y-n-activator.el loaded in 0.732s       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000047,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/500-org-mode-activator.el    \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000160,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/500-org-mode-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.021589,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m`epa-file' already enabled                                                    \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000313,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/500-org-mode-activator.el (source)...done\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000119,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/500-org-mode-activator.el loaded in 0.22060s     \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000075,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/700-my-desktop-activator.el         \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000259,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/700-my-desktop-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.009797,
+      "\u001b[27;81H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000036,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/700-my-desktop-activator.el loaded in 0.10039s     \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000088,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/800-clang-autocomplete-async-activator.el\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000245,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/800-clang-autocomplete-async-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000618,
+      "\u001b[27;95H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000090,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/800-clang-autocomplete-async-activator.el loaded in 0.845s       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000096,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/888-browser-activator.el                          \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000243,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/888-browser-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000590,
+      "\u001b[27;78H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000027,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/888-browser-activator.el loaded in 0.800s       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000084,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/890-multi-cursor-activator.el    \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000208,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/890-multi-cursor-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.011864,
+      "\u001b[27;31H\u001b[?25l\u001b[37m\u001b[40m.mc-lists.el (source)...                            \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000606,
+      "\u001b[27;55H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.013084,
+      "\u001b[27;31H\u001b[?25l\u001b[37m\u001b[40mactivators/890-multi-cursor-activator.el (source)...done\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000052,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/890-multi-cursor-activator.el loaded in 0.25740s     \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000055,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/900-epg-activator.el                    \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000235,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/900-epg-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000644,
+      "\u001b[27;74H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000090,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/900-epg-activator.el loaded in 0.850s       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000103,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/900-git-gutter-activator.el  \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000255,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/900-git-gutter-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.008153,
+      "\u001b[27;81H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000110,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/900-git-gutter-activator.el loaded in 0.8386s      \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000036,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/900-keybindings-activator.el         \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000222,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/900-keybindings-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000702,
+      "\u001b[27;82H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000076,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/900-keybindings-activator.el loaded in 0.905s       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000092,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/901-snippets-activator.el            \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000255,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/901-snippets-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001041,
+      "\u001b[27;79H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000056,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/901-snippets-activator.el loaded in 0.1270s      \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000116,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/999-ejep-activator.el              \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000247,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/999-ejep-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.012240,
+      "\u001b[27;75H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000042,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/999-ejep-activator.el loaded in 0.12447s     \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000091,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/999-misc-activator.el           \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000234,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/999-misc-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000788,
+      "\u001b[27;75H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000098,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/999-misc-activator.el loaded in 0.1019s      \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000057,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mloading /Users/gizmo/.emacs.d/activators/999-multi-term-activator.el    \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000264,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/activators/999-multi-term-activator.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000596,
+      "\u001b[27;81H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000121,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40m/Users/gizmo/.emacs.d/activators/999-multi-term-activator.el loaded in 0.860s       \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000094,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mMy .emacs loaded in 2.319526s                                                \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.075749,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40msers/gizmo/.emacs.d/el-get/yasnippet/snippets/lisp-interaction-mode) (quote lisp-interaction-mode)))!\u001b[39;49m\r\u001b[A\u001b[37m\u001b[40m[yas] Loading for `lisp-interaction-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /U\\\u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000176,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40me                                                                                                    \u001b[39;49m"
+    ],
+    [
+      0.000029,
+      "\u001b[27;15H\u001b[37m\u001b[40msnippet files from /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/lisp-interaction-mod\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000848,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mizmo/.emacs.d/el-get/yasnippet/snippets/emacs-lisp-mode) (quote emacs-lisp-mode)))!\u001b[39;49m"
+    ],
+    [
+      0.000019,
+      "\u001b[27;15H\u001b[37m\u001b[40mfor `emacs-lisp-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/g\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000225,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40m                                                                                   \u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[27;15H\u001b[37m\u001b[40msnippet files from /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/emacs-lisp-mode      \u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.053769,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40mizmo/.emacs.d/snippets/emacs-lisp-mode) (quote emacs-lisp-mode)))!\u001b[39;49m\u001b[27;15H\u001b[37m\u001b[40mfor `emacs-lisp-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/g\\\u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000187,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40m                                                                  \u001b[39;49m"
+    ],
+    [
+      0.000015,
+      "\u001b[27;15H\u001b[37m\u001b[40msnippet files from /Users/gizmo/.emacs.d/snippets/emacs-lisp-mode                       \u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001476,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40memacs.d/el-get/yasnippet/snippets/prog-mode) (quote prog-mode)))!\u001b[39;49m\u001b[27;15H\u001b[37m\u001b[40mfor `prog-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/gizmo/.\\\u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000212,
+      "\u001b[28d\u001b[?25l\u001b[37m\u001b[40m                                                                 \u001b[39;49m\u001b[27;15H\u001b[37m\u001b[40msnippet files from /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/prog-mode            \u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000203,
+      "\u001b[27d\u001b[?25l\u001b[37m\u001b[40mLoading /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/prog-mode/.yas-setup.el (source)...\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000782,
+      "\u001b[27;92H\u001b[?25l\u001b[37m\u001b[40mdone\u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.074495,
+      "\u001b[\u003e0c"
+    ],
+    [
+      0.013076,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                                                                                                     \u001b[39;49m\r\u001b[H\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000014,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000066,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000052,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000071,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000093,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;108m\u001b[48;5;235m - 0 UUU: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235m*scratch*\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m =\u003e h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m     1 :  0 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m All    \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000006,
+      "\n\u001b[38;5;188m\u001b[48;5;237mLoading /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/prog-mode/.yas-setup.el (source)...done       \u001b[39;49m\r\n\u001b[A\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001588,
+      "\u001b[1;27r\u001b[26;1H\u001b[1L\u001b[1;28r\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mFor information about GNU Emacs and the GNU system, type C-h C-a.\u001b[39;49m"
+    ],
+    [
+      0.000008,
+      "\u001b[26;1H\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005656,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mtest.org has auto save data; consider M-x recover-this-file      \u001b[39;49m\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      1.189726,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mmacs.d/el-get/yasnippet/snippets/org-mode) (quote org-mode)))!                                       \u001b[39;49m\r\u001b[H\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000024,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000075,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000212,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000021,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                   "
+    ],
+    [
+      0.000045,
+      "                                                                   \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;108m\u001b[48;5;235m - 0 UUU: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235m*scratch*\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m =\u003e h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m     1 :  0 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m All    \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000007,
+      "\n\u001b[38;5;188m\u001b[48;5;237m[yas] Loading for `org-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/gizmo/.e\\\u001b[39;49m\r\n\u001b[A\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000286,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                                                              \u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[27;15H\u001b[38;5;188m\u001b[48;5;237msnippet files from /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/org-mode             \u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.003892,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237memacs.d/el-get/yasnippet/snippets/text-mode) (quote text-mode)))!\u001b[39;49m\u001b[27;15H\u001b[38;5;188m\u001b[48;5;237mfor `text-mode', just-in-time: (lambda nil (yas--load-directory-1 (quote /Users/gizmo/.\\\u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000224,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                                                                 \u001b[39;49m"
+    ],
+    [
+      0.000008,
+      "\u001b[27;15H\u001b[38;5;188m\u001b[48;5;237msnippet files from /Users/gizmo/.emacs.d/el-get/yasnippet/snippets/text-mode            \u001b[39;49m\r\n\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.118619,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                                                                                                     \u001b[39;49m\r\u001b[H\u001b[38;5;108m\u001b[48;5;237m#+TODO: Todo Plan Develop Test Done\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                   \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000084,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                            \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Three\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Four\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000031,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Five\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000066,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* Kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m...                                                                                           \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000107,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000022,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                   "
+    ],
+    [
+      0.000019,
+      "                                                                   \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000065,
+      "\n\u001b[38;5;108m\u001b[48;5;235m - 136 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m     1 :  0 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m All    \u001b[39;49m\r\n\u001b[A\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002030,
+      "\u001b[?25l\u001b[38;5;108m\u001b[48;5;237m#+TODO: Todo Plan Develop Test Done\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                   \u001b[39;49m\r\n"
+    ],
+    [
+      0.000004,
+      "\u001b[A\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.524476,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                                                                                                     \u001b[39;49m\r\u001b[H\u001b[38;5;108m\u001b[48;5;237m#+TODO: Todo Plan Develop Test Done\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                   \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000057,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                            \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Three\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Four\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000056,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Five\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000050,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* Kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m...                                                                                           \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000088,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000017,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000037,
+      "\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000036,
+      "\n\u001b[38;5;108m\u001b[48;5;235m - 136 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m     1 :  0 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m All    \u001b[39;49m\r\n\u001b[A\u001b[H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.375060,
+      "\u001b[?25l\u001b[38;5;108m\u001b[48;5;237m#+TODO: Todo Plan Develop Test Done\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                   \u001b[39;49m\r\n"
+    ],
+    [
+      0.000008,
+      "\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n"
+    ],
+    [
+      0.000037,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m2\u001b[39;49m\u001b[H\n\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.173952,
+      "\u001b[?25l\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                            \u001b[39;49m\r\n"
+    ],
+    [
+      0.000009,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m3\u001b[39;49m\u001b[H\n\n\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.183746,
+      "\u001b[?25l\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                            \u001b[39;49m\r\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Three\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n"
+    ],
+    [
+      0.000007,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m4\u001b[39;49m\u001b[4;1H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.176345,
+      "\u001b[?25l\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Three\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Four\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n"
+    ],
+    [
+      0.000017,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m5\u001b[39;49m\u001b[5;1H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.184974,
+      "\u001b[?25l\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Four\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Five\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n"
+    ],
+    [
+      0.000007,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m6\u001b[39;49m\u001b[6;1H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.199485,
+      "\u001b[?25l\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Five\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[38;5;180m\u001b[48;5;237m* Kanban\u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m7\u001b[39;49m\u001b[7;1H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.124872,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mSUBTREE (NO CHILDREN)\u001b[39;49m\u001b[7;1H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002907,
+      "\t\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m#+BEGIN: kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                     \u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                                     \u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m#+END:\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n"
+    ],
+    [
+      0.000006,
+      "\u001b[7d\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.589103,
+      "\u001b[28d\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                     \u001b[39;49m"
+    ],
+    [
+      0.000039,
+      "\u001b[27;92H\u001b[38;5;108m\u001b[48;5;237m1\u001b[39;49m\u001b[7;2H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.223929,
+      "\u001b[27;92H\u001b[?25l\u001b[38;5;108m\u001b[48;5;237m2\u001b[39;49m\u001b[7;3H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.176063,
+      "\u001b[27;92H\u001b[?25l\u001b[38;5;108m\u001b[48;5;237m3\u001b[39;49m\u001b[7;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.183988,
+      "\u001b[27;92H\u001b[?25l\u001b[38;5;108m\u001b[48;5;237m4\u001b[39;49m\u001b[7;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.216707,
+      "\u001b[27;92H\u001b[?25l\u001b[38;5;108m\u001b[48;5;237m5\u001b[39;49m\u001b[7;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.283411,
+      "\r\u001b[?25l\u001b[38;5;180m\u001b[48;5;237m* Kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n\u001b[8;3H\u001b[38;5;108m\u001b[48;5;237m#+BEGIN: kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                     \u001b[39;49m\r\n"
+    ],
+    [
+      0.000047,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m8 :  3\u001b[39;49m\u001b[8;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.619907,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[8;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000119,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[8;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.051519,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[8;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.003232,
+      "\n\u0008\u0008\u0008\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m| Todo     | Plan | Develop | Test | Done |\u001b[39;49m\u001b[10;3H\u001b[38;5;151m\u001b[48;5;237m|----------+------+---------+------+------|\u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000201,
+      "\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mThree\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m   |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          |      |         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          |      |         |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48"
+    ],
+    [
+      0.000027,
+      ";5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m#+END:\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n"
+    ],
+    [
+      0.000037,
+      "\u001b[27;2H\u001b[38;5;108m\u001b[48;5;235m* 463\u001b[39;49m\u001b[8;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.541918,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                                                \u001b[39;49m"
+    ],
+    [
+      0.000015,
+      "\u001b[8;3H\u001b[38;5;108m\u001b[48;5;237m#+BEGIN: kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                     \u001b[39;49m\r\n\u001b[9;3H\u001b[38;5;151m\u001b[48;5;237m| Todo     | Plan | Develop | Test | Done |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m9\u001b[39;49m\u001b[9;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.191724,
+      "\u0008\u0008\u0008\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m| Todo     | Plan | Develop | Test | Done |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[C\u001b[C\u001b[38;5;151m\u001b[48;5;237m|----------+------+---------+------+------|\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000007,
+      "\u001b[27;86H\u001b[38;5;108m\u001b[48;5;237m10\u001b[39;49m\u001b[10;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.183188,
+      "\u0008\u0008\u0008\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m|----------+------+---------+------+------|\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[C\u001b[C\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000008,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m1\u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.648715,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;223m\u001b[48;5;237mM-x \u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                                 \u001b[39;49m\r\u001b[H\u001b[38;5;108m\u001b[48;5;237m#+TODO: Todo Plan Develop Test Done\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                   \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000072,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                            \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Three\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                       \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Four\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000016,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* \u001b[39;49m\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Five\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                           \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000176,
+      "\n\u001b[38;5;180m\u001b[48;5;237m* Kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m#+BEGIN: kanban\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                     \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m| Todo     | Plan | Develop | Test | Done |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|----------+------+---------+------+------|\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |"
+    ],
+    [
+      0.000041,
+      "         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mThree\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m   |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          |      |         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;237m"
+    ],
+    [
+      0.000005,
+      "\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m|          |      |         |      | \u001b[39;49m\u001b[4m\u001b["
+    ],
+    [
+      0.000064,
+      "38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;108m\u001b[48;5;235m * 463 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    11 :  3 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m Top    \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000094,
+      "\n\u001b[38;5;108m\u001b[48;5;237m C-j: Describe this command (keeping session)                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[1m\u001b[38;5;223m\u001b[48;5;235mEmacs Commands                                                                                        \u001b[0m\u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;239mBuffer-menu-delete-backwards                                                                          \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237mBuffer-menu-execute                                                                                   \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237mBuffer-menu-this-window                                                                               \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000055,
+      "\n\u001b[38;5;188m\u001b[48;5;237mInfo-validate                                                                                         \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237mLaTeX-mode                                                                                            \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237mad-activate                                                                                           \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237mad-recover                                                                                            \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237mauto-insert                                                                                           \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000028,
+      "\n\u001b[38;5;65m\u001b[48;5;237m \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;237m*helm M-x*  \u001b[0m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;237m L1   \u001b[39;49m\u001b[38;5;151m\u001b[48;5;235m[100 Candidate(s)]\u001b[39;49m\u001b[38;5;65m\u001b[48;5;237m C/M-RET:Empty C-h m:Help TAB:Act RET/f1/f2/f-n:NthAct C-!:Tog.su\u001b[39;49m\r\n\u001b[A\u001b[28;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.169896,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mo\u001b[39;49m\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.059757,
+      "\u001b[16;22H\u001b[?25l\u001b[38;5;237m\u001b[48;5;239m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;239m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;239m\u001b[48;5;242m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;242m                              \u001b[39;49m\u001b[38;5;239m\u001b[48;5;242m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;239m    11 :  3 \u001b[39;49m\u001b[38;5;237m\u001b[48;5;239m\u001b[39;49m"
+    ],
+    [
+      0.000033,
+      "\r\n\n\n\u001b[38;5;220m\u001b[48;5;239mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;239mrgtbl-ret                  \u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;237mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mrg-shiftup (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237m\u003cS-up\u003e\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;237mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mrg-src-mode           \u001b[39;49m"
+    ],
+    [
+      0.000105,
+      "\r\n\u001b[38;5;220m\u001b[48;5;237mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mrg-open-line (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-o\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;237mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mrg-ctrl-c-ret (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c RET\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;237mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mrg-toggle-item\u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;237mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mrgtbl-send-table\u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;237mo\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mrg-move-item-down\u001b[39;49m"
+    ],
+    [
+      0.000020,
+      "\u001b[28;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.180357,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mr\u001b[39;49m\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.030476,
+      "\u001b[19;2H\u001b[?25l\u001b[38;5;220m\u001b[48;5;239mr\u001b[39;49m\n\u0008\u001b[38;5;220m\u001b[48;5;237mr\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mg-reveal (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c C-r\u001b[0m\u001b[39;49m\r\n\u001b[C\u001b[38;5;220m\u001b[48;5;237mr\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mg-shiftup (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237m\u003cS-up\u003e\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m"
+    ],
+    [
+      0.000049,
+      "\r\n\u001b[C\u001b[38;5;220m\u001b[48;5;237mr\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mg-src-mode       \u001b[39;49m\r\n\u001b[C\u001b[38;5;220m\u001b[48;5;237mr\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mg-clock-in (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c C-x TAB\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\r\n\u001b[C\u001b[38;5;220m\u001b[48;5;237mr\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mg-open-line (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-o\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\r\n\u001b[C\u001b[38;5;220m\u001b[48;5;237mr\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mg-metaright (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c C-x r\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\r\n\u001b[C\u001b[38;5;220m\u001b[48;5;237mr\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mg-table-sum (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c +\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m"
+    ],
+    [
+      0.000004,
+      "\u001b[28;7H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.224703,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mg\u001b[39;49m\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.026985,
+      "\u001b[19;3H\u001b[?25l\u001b[38;5;220m\u001b[48;5;239mg\u001b[39;49m\n\u0008\u001b[38;5;220m\u001b[48;5;237mg\u001b[39;49m\n\u0008\u001b[38;5;220m\u001b[48;5;237mg\u001b[39;49m"
+    ],
+    [
+      0.000038,
+      "\n\u0008\u001b[38;5;220m\u001b[48;5;237mg\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m-columns (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c C-x C-c\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\u001b[23;3H\u001b[38;5;220m\u001b[48;5;237mg\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m-publish               \u001b[39;49m\u001b[24;3H\u001b[38;5;220m\u001b[48;5;237mg\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m-src-mode       \u001b[39;49m\u001b[25;3H\u001b[38;5;220m\u001b[48;5;237mg\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m-clock-in (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c C-x TAB\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\u001b[26;3H\u001b[38;5;220m\u001b[48;5;237mg\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m-tbl-menu         \u001b[39;49m"
+    ],
+    [
+      0.000004,
+      "\r\n\n\t\u0008\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.053531,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m-\u001b[39;49m\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.032286,
+      "\u001b[19;4H\u001b[?25l\u001b[38;5;220m\u001b[48;5;239m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;239mreveal (\u001b[39;49m\u001b[38;5;214m\u001b[48;5;239mC-c C-r\u001b[39;49m\u001b[38;5;188m\u001b[48;5;239m)\u001b[39;49m\u001b[20;4H\u001b[38;5;220m\u001b[48;5;237m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mshiftup (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237m\u003cS-up\u003e\u001b[0m\u001b[39;49m\u001b[21;4H\u001b[38;5;220m\u001b[48;5;237m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mcolumns (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c C-x C-c\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m"
+    ],
+    [
+      0.000046,
+      "\u001b[22;4H\u001b[38;5;220m\u001b[48;5;237m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mpublish              \u001b[39;49m\u001b[23;4H\u001b[38;5;220m\u001b[48;5;237m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237msrc-mode\u001b[39;49m\u001b[24;4H\u001b[38;5;220m\u001b[48;5;237m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mclock-in (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-c C-x TAB\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m\u001b[25;4H\u001b[38;5;220m\u001b[48;5;237m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mtbl-menu              \u001b[39;49m\u001b[26;4H\u001b[38;5;220m\u001b[48;5;237m-\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mopen-line (\u001b[39;49m\u001b[4m\u001b[38;5;214m\u001b[48;5;237mC-o\u001b[0m\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m)\u001b[39;49m"
+    ],
+    [
+      0.000005,
+      "\r\n\n\t\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.359597,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mka\u001b[39;49m\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.017452,
+      "\u001b[1;23r\u001b[17;1H\u001b[5L\u001b[1;28r"
+    ],
+    [
+      0.000017,
+      "\u001b[16;1H\u001b[?25l\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m#+END:\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n"
+    ],
+    [
+      0.000081,
+      "\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A\n\u001b[38;5;108m\u001b[48;5;235m * 463 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;237m\u001b[48;5;239m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;239m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;239m\u001b[48;5;242m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;242m                              \u001b[39;49m\u001b[38;5;239m\u001b[48;5;242m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;239m    11 :  3 \u001b[39;49m\u001b[38;5;237m\u001b[48;5;239m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m All    \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000058,
+      "\n\n\n\u001b[38;5;220m\u001b[48;5;239morg-ka\u001b[39;49m\u001b[38;5;188m\u001b[48;5;239mnban/next                                                                                       \u001b[39;49m\r\n\u001b[25;5H\u001b[38;5;220m\u001b[48;5;237mka\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mnban/prev\u001b[39;49m\u001b[26;5H\u001b[38;5;220m\u001b[48;5;237mka\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mnban/shift   \u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\n\u001b[C\u001b[38;5;151m\u001b[48;5;235m3 Candidate(s)]  \u001b[39;49m\u001b[28;11H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.134685,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mn\u001b[39;49m\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.017072,
+      "\u001b[24;7H\u001b[?25l\u001b[38;5;220m\u001b[48;5;239mn\u001b[39;49m\n\u0008\u001b[38;5;220m\u001b[48;5;237mn\u001b[39;49m\n\u0008\u001b[38;5;220m\u001b[48;5;237mn\u001b[39;49m\u001b[28;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.649390,
+      "\u001b[24;1H\u001b[?25l\u001b[38;5;220m\u001b[48;5;237morg-kan\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mban/next                                                                                       \u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;239morg-kan\u001b[39;49m\u001b[38;5;188m\u001b[48;5;239mban/prev                                                                                       \u001b[39;49m\r\n\n\t\t\u0008\u001b[38;5;65m\u001b[48;5;237m2\u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.182811,
+      "\u001b[25;1H\u001b[?25l\u001b[38;5;220m\u001b[48;5;237morg-kan\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mban/prev                                                                                       \u001b[39;49m\r\n\u001b[38;5;220m\u001b[48;5;239morg-kan\u001b[39;49m\u001b[38;5;188m\u001b[48;5;239mban/shift                                                                                      \u001b[39;49m\r\n\t\t\u0008\u001b[38;5;65m\u001b[48;5;237m3\u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.277359,
+      "\r"
+    ],
+    [
+      0.005012,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUse j and k to shift\u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.003080,
+      "\u0008\u0008\u0008\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000006,
+      "\u001b[21d\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n"
+    ],
+    [
+      0.000022,
+      "\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n"
+    ],
+    [
+      0.000049,
+      "\u001b[38;5;108m\u001b[48;5;235m * 463 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    11 :  3 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m All    \u001b[39;49m\r\n\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.601226,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.204098,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Plan\u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001091,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000134,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004956,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000100,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001930,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[9;10H\u001b[38;5;151m\u001b[48;5;237m| Plan    \u001b[39;49m\u001b[10;10H\u001b[38;5;151m\u001b[48;5;237m+----\u001b[39;49m\u001b[11;5H\u001b[38;5;151m\u001b[48;5;237m     | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000031,
+      "\u001b[12;10H\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m    \u001b[39;49m\u001b[13;10H\u001b[38;5;151m\u001b[48;5;237m|    \u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m|    \u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m|    \u001b[39;49m"
+    ],
+    [
+      0.000020,
+      "\u001b[27;92H\u001b[38;5;108m\u001b[48;5;237m9\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.347485,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.207569,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Develop\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000965,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000126,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004922,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000126,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001987,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m"
+    ],
+    [
+      0.000056,
+      "\u001b[9;17H\u001b[38;5;151m\u001b[48;5;237m| Develop  | Test | Done |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m+----------+------+------|\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\u001b[11;12H\u001b[38;5;151m\u001b[48;5;237m     | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000107,
+      "\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m|          |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mThree\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m    |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m|          |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000057,
+      "\u001b[27;5H\u001b[38;5;108m\u001b[48;5;235m45 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    11 : 16\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.215954,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.204525,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Test\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000885,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000129,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004560,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000105,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001805,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000028,
+      "\u001b[9;27H\u001b[38;5;151m\u001b[48;5;237m| Test     | Done |\u001b[39;49m\u001b[10;27H\u001b[38;5;151m\u001b[48;5;237m+----------+------|\u001b[39;49m\u001b[11;19H\u001b[38;5;151m\u001b[48;5;237m        | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m"
+    ],
+    [
+      0.000059,
+      "\u001b[12;27H\u001b[38;5;151m\u001b[48;5;237m|          |      |\u001b[39;49m\u001b[13;27H\u001b[38;5;151m\u001b[48;5;237m|          |      |\u001b[39;49m\u001b[14;27H\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m     |      |\u001b[39;49m\u001b[15;27H\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m"
+    ],
+    [
+      0.000132,
+      "\u001b[27;5H\u001b[38;5;108m\u001b[48;5;235m63 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    11 : 2\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.307702,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.206251,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Done\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001570,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000120,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005007,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000112,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002064,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000009,
+      "\u001b[9;34H\u001b[38;5;151m\u001b[48;5;237m| Done    \u001b[39;49m\u001b[10;34H\u001b[38;5;151m\u001b[48;5;237m+----\u001b[39;49m\u001b[11;29H\u001b[38;5;151m\u001b[48;5;237m     | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000028,
+      "\u001b[12;34H\u001b[38;5;151m\u001b[48;5;237m|    \u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m|    \u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m|    \u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m    \u001b[39;49m"
+    ],
+    [
+      0.000051,
+      "\u001b[27;91H\u001b[38;5;108m\u001b[48;5;237m33\u001b[39;49m\u001b[11;36H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.323957,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Test\u001b[39;49m\u001b[11;36H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000843,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;36H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000115,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;36H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004505,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;36H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000106,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;36H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001892,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000008,
+      "\u001b[9;34H\u001b[38;5;151m\u001b[48;5;237m    | Done\u001b[39;49m\u001b[10;34H\u001b[38;5;151m\u001b[48;5;237m----+\u001b[39;49m\u001b[11;29H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |     \u001b[39;49m"
+    ],
+    [
+      0.000017,
+      "\u001b[12;34H\u001b[38;5;151m\u001b[48;5;237m    |\u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m    |\u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m    |\u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m    | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000040,
+      "\u001b[27;91H\u001b[38;5;108m\u001b[48;5;237m26\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.391768,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Develop\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000915,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000114,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004982,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000063,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;29H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002010,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m"
+    ],
+    [
+      0.000058,
+      "\u001b[9;27H\u001b[38;5;151m\u001b[48;5;237m | Test | Done |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\u001b[10;27H\u001b[38;5;151m\u001b[48;5;237m-+------+------|\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\u001b[11;19H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000080,
+      "\u001b[12;27H\u001b[38;5;151m\u001b[48;5;237m |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\u001b[13;27H\u001b[38;5;151m\u001b[48;5;237m |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\u001b[14;27H\u001b[38;5;151m\u001b[48;5;237m | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m\u001b[15;27H\u001b[38;5;151m\u001b[48;5;237m |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000074,
+      "\u001b[27;5H\u001b[38;5;108m\u001b[48;5;235m45 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    11 : 1\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.368268,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Plan\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000918,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000087,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005337,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000052,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;19H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002019,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Task One\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000011,
+      "\u001b[9;17H\u001b[38;5;151m\u001b[48;5;237m    | Develop | Test | Done |\u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m----+---------+------+------|\u001b[39;49m\u001b[11;12H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |         |      |      |\u001b[39;49m"
+    ],
+    [
+      0.000068,
+      "\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m    |         |      |      |\u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m    | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mThree\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m   |      |      |\u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m    |         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m\r\n\t\t\u001b[38;5;151m\u001b[48;5;237m    |         |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m"
+    ],
+    [
+      0.000063,
+      "\u001b[27;5H\u001b[38;5;108m\u001b[48;5;235m63 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    11 :  9\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.791197,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Todo\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000927,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000083,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005253,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000126,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[11;12H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002000,
+      "\u001b[2;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[9;10H\u001b[38;5;151m\u001b[48;5;237m    | Plan\u001b[39;49m\u001b[10;10H\u001b[38;5;151m\u001b[48;5;237m----+\u001b[39;49m\u001b[11;5H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |     \u001b[39;49m"
+    ],
+    [
+      0.000077,
+      "\u001b[12;10H\u001b[38;5;151m\u001b[48;5;237m    | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[13;10H\u001b[38;5;151m\u001b[48;5;237m    |\u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m    |\u001b[39;49m\n\u0008\u0008\u0008\u0008\u0008\u001b[38;5;151m\u001b[48;5;237m    |\u001b[39;49m"
+    ],
+    [
+      0.000042,
+      "\u001b[27;92H\u001b[38;5;108m\u001b[48;5;237m2\u001b[39;49m\u001b[11;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      1.147862,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m"
+    ],
+    [
+      0.000013,
+      "\u001b[11;3H\u001b[38;5;151m\u001b[48;5;237m| \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTask One\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000014,
+      "\u001b[C\u001b[C\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000037,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m2\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      1.305919,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;223m\u001b[48;5;237mM-x \u001b[39;49m"
+    ],
+    [
+      0.000122,
+      "\u001b[12;3H\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\n\n\n\u001b[38;5;108m\u001b[48;5;235m * 463 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 :  2 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m Top    \u001b[39;49m\r\n"
+    ],
+    [
+      0.000048,
+      "\u001b[38;5;108m\u001b[48;5;237m C-j: Describe this command (keeping session)                                                         \u001b[39;49m\r\n\u001b[1m\u001b[38;5;223m\u001b[48;5;235mEmacs Commands History                                                                                \u001b[0m\u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;239morg-kanban/shift                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[1m\u001b[38;5;223m\u001b[48;5;235mEmacs Commands                                                                                        \u001b[0m\u001b[39;49m\r\n"
+    ],
+    [
+      0.000106,
+      "\u001b[38;5;188m\u001b[48;5;237mBuffer-menu-delete-backwards                                                                          \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237mBuffer-menu-execute                                                                                   \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237mBuffer-menu-this-window                                                                               \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237mInfo-validate                                                                                         \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237mLaTeX-mode                                                                                            \u001b[39;49m\r\n"
+    ],
+    [
+      0.000031,
+      "\u001b[38;5;65m\u001b[48;5;237m \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;237m*helm M-x*  \u001b[0m\u001b[39;49m\u001b[38;5;65m\u001b[48;5;237m L1   \u001b[39;49m\u001b[38;5;151m\u001b[48;5;235m[1 Candidate(s)]  \u001b[39;49m\u001b[38;5;65m\u001b[48;5;237m C/M-RET:Empty C-h m:Help TAB:Act RET/f1/f2/f-n:NthAct C-!:Tog.su\u001b[39;49m\r\n\u001b[28;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.941229,
+      "\r"
+    ],
+    [
+      0.001459,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUse j and k to shift\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001435,
+      "\u0008\u0008\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\n\n\n\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m#+END:\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n"
+    ],
+    [
+      0.000066,
+      "\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n"
+    ],
+    [
+      0.000033,
+      "\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n"
+    ],
+    [
+      0.000084,
+      "\u001b[38;5;108m\u001b[48;5;235m * 463 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 :  2 \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m All    \u001b[39;49m\r\n\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      1.465592,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Todo\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001002,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000170,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005348,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000086,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002096,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m\u001b[12;5H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m      |    \u001b[39;49m"
+    ],
+    [
+      0.000005,
+      "\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.420564,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.202778,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Plan\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000982,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000139,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005417,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000117,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002242,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[12;5H\u001b[38;5;151m\u001b[48;5;237m         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000035,
+      "\u001b[27;91H\u001b[38;5;108m\u001b[48;5;237m13\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.051881,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.205391,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Develop\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001430,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000131,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005511,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000095,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002285,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[12;16H\u001b[38;5;151m\u001b[48;5;237m     | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000092,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m6 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 20\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.353155,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.207692,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Test\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001337,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000152,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005304,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000076,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001989,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000005,
+      "\u001b[12;23H\u001b[38;5;151m\u001b[48;5;237m        | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000042,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m3 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 3\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.287507,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.205711,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Done\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001019,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000153,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005058,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000107,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001948,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000005,
+      "\u001b[12;33H\u001b[38;5;151m\u001b[48;5;237m     | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[27;92H\u001b[38;5;108m\u001b[48;5;237m7\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.355633,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Test\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000947,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000090,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004792,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000090,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001919,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[12;33H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |    \u001b[39;49m\u001b[27;92H\u001b[38;5;108m\u001b[48;5;237m0\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.211320,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Develop\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000914,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000092,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004892,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000084,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001866,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m"
+    ],
+    [
+      0.000004,
+      "\u001b[12;23H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m     |    \u001b[39;49m"
+    ],
+    [
+      0.000124,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m6 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 2\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.324957,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Plan\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000964,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000101,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005243,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000125,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002005,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000005,
+      "\u001b[12;16H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |    \u001b[39;49m"
+    ],
+    [
+      0.000108,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m3 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 13\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.415395,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Todo\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001010,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000158,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005186,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000146,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002000,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[12;5H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m      |    \u001b[39;49m\u001b[27;91H\u001b[38;5;108m\u001b[48;5;237m 2\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.413790,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.206979,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Plan\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001509,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000132,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005392,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000118,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002088,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[12;5H\u001b[38;5;151m\u001b[48;5;237m         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[27;91H\u001b[38;5;108m\u001b[48;5;237m13\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.063762,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.204012,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Develop\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001051,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000147,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005114,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000090,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001945,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[12;16H\u001b[38;5;151m\u001b[48;5;237m     | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000042,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m6 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 20\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.244140,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.203370,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Test\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000989,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000145,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005643,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000148,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002173,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[12;23H\u001b[38;5;151m\u001b[48;5;237m        | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000089,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m3 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 3\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.299276,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.207803,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Done\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001490,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000120,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005155,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000119,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001900,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;151m\u001b[48;5;237mDone\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000004,
+      "\u001b[12;33H\u001b[38;5;151m\u001b[48;5;237m     | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000093,
+      "\u001b[27;92H\u001b[38;5;108m\u001b[48;5;237m7\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.769013,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Test\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000977,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000127,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005259,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000112,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;40H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002114,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTest\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[12;33H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |    \u001b[39;49m\u001b[27;92H\u001b[38;5;108m\u001b[48;5;237m0\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.215887,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Develop\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000957,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000085,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.004935,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000108,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;33H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001879,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mDevelop\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m"
+    ],
+    [
+      0.000005,
+      "\u001b[12;23H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m     |    \u001b[39;49m"
+    ],
+    [
+      0.000046,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m6 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 2\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.231944,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Plan\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000924,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000100,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005125,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000121,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;23H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002016,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m\u001b[38;5;180m\u001b[48;5;237m Two\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[12;16H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |    \u001b[39;49m"
+    ],
+    [
+      0.000110,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m3 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    12 : 13\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.486928,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Todo\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000984,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000120,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005119,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000083,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001935,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mTodo\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000006,
+      "\u001b[12;5H\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m      |    \u001b[39;49m\u001b[27;91H\u001b[38;5;108m\u001b[48;5;237m 2\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      1.174398,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.204451,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mTODO state changed to Plan\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001045,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000195,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m(Todo Plan Develop Test Done)               \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.005768,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mUpdating dynamic block `kanban' at line 8...done\u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000105,
+      "\u001b[28;2H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mse j and k to shift                            \u001b[39;49m\u001b[12;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.001970,
+      "\u001b[3;3H\u001b[?25l\u001b[1m\u001b[38;5;174m\u001b[48;5;237mPlan\u001b[0m\u001b[39;49m"
+    ],
+    [
+      0.000010,
+      "\u001b[12;5H\u001b[38;5;151m\u001b[48;5;237m         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[27;91H\u001b[38;5;108m\u001b[48;5;237m13\u001b[39;49m\u001b[12;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.096100,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m                    \u001b[39;49m"
+    ],
+    [
+      0.000031,
+      "\u001b[12;3H\u001b[38;5;151m\u001b[48;5;237m|          | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mTwo\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m  |         |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[C\u001b[C\u001b[38;5;151m\u001b[48;5;237m|          |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mThree\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m   |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000036,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m3\u001b[39;49m\u001b[13;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.224698,
+      "\u001b[13;3H\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m|          |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mThree\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m   |      |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[C\u001b[C\u001b[38;5;151m\u001b[48;5;237m|          |      |         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000007,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m4\u001b[39;49m\u001b[14;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.173931,
+      "\u001b[14;3H\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m|          |      |         | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFour\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |      |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[C\u001b[C\u001b[38;5;151m\u001b[48;5;237m|          |      |         |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n"
+    ],
+    [
+      0.000007,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m5\u001b[39;49m\u001b[15;16H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.154419,
+      "\u001b[15;3H\u001b[?25l\u001b[38;5;151m\u001b[48;5;237m|          |      |         |      | \u001b[39;49m\u001b[4m\u001b[38;5;180m\u001b[48;5;237mFive\u001b[0m\u001b[39;49m\u001b[38;5;151m\u001b[48;5;237m |\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                         \u001b[39;49m\r\n\u001b[C\u001b[C\u001b[38;5;108m\u001b[48;5;237m#+END:\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n"
+    ],
+    [
+      0.000007,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m6 :  6\u001b[39;49m\u001b[16;9H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.149854,
+      "\u0008\u0008\u0008\u0008\u0008\u0008\u001b[?25l\u001b[38;5;108m\u001b[48;5;237m#+END:\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m                                                                                              \u001b[39;49m\r\n"
+    ],
+    [
+      0.000008,
+      "\u001b[27;87H\u001b[38;5;108m\u001b[48;5;237m7 :  0\u001b[39;49m\u001b[17;1H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.373093,
+      "\u001b[?25l\u001b[38;5;237m\u001b[48;5;237m*\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m \u001b[39;49m\u001b[38;5;188m\u001b[48;5;237mD\u001b[39;49m"
+    ],
+    [
+      0.000089,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m4 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    17 :  1\u001b[39;49m\u001b[17;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.191745,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mO\u001b[39;49m"
+    ],
+    [
+      0.000100,
+      "\u001b[27;6H\u001b[38;5;108m\u001b[48;5;235m5 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    17 :  2\u001b[39;49m\u001b[17;5H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.016335,
+      "\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mN\u001b[39;49m"
+    ],
+    [
+      0.000113,
+      "\u001b[27d\u001b[38;5;108m\u001b[48;5;235m6 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    17 :  3\u001b[39;49m\u001b[17;6H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.274217,
+      "\u0008\u0008\u0008\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m✔\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m  \u001b[39;49m"
+    ],
+    [
+      0.000056,
+      "\u001b[27d\u001b[38;5;108m\u001b[48;5;235m7 UU-: \u001b[39;49m\u001b[1m\u001b[38;5;223m\u001b[48;5;235mtest.org\u001b[0m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;235m \u001b[39;49m\u001b[38;5;235m\u001b[48;5;237m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m Org Ind GitGutter h Helm \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;59m                              \u001b[39;49m\u001b[38;5;237m\u001b[48;5;59m\u001b[39;49m\u001b[38;5;108m\u001b[48;5;237m    17 :  1\u001b[39;49m\u001b[17;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      3.197208,
+      "\u001b[1;27r\u001b[26;1H\u001b[1M\u001b[1;28r\u001b[28;1H\u001b[?25l\u001b[38;5;223m\u001b[48;5;237m) \u001b[39;49m"
+    ],
+    [
+      0.000007,
+      "\u001b[17d\u001b[38;5;188m\u001b[48;5;237m✔\u001b[39;49m"
+    ],
+    [
+      0.000044,
+      "\u001b[27;1H\u001b[38;5;223m\u001b[48;5;237mSave file /Users/gizmo/Dropbox/Documents/_projects/org-kanban/test.org? (y, n, !, ., q, C-r, d or C-h\u001b[39;49m\u001b[38;5;188m\u001b[48;5;237m\\\u001b[39;49m\r\n\u001b[A\u001b[28;3H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      3.518163,
+      "\r\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m) n\u001b[39;49m"
+    ],
+    [
+      0.000011,
+      "\r\u001b[A\u001b[38;5;188m\u001b[48;5;237mSave file /Users/gizmo/Dropbox/Documents/_projects/org-kanban/test.org? (y, n, !, ., q, C-r, d or C-h\u001b[39;49m\u001b[28;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.002012,
+      "\u001b[1;27r\u001b[26;1H\u001b[1L\u001b[1;28r\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237m   \u001b[39;49m"
+    ],
+    [
+      0.000041,
+      "\u001b[26;1H\u001b[38;5;188m\u001b[48;5;237m                                                                                                      \u001b[39;49m\r\n\u001b[A"
+    ],
+    [
+      0.000004,
+      "\u001b[17;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.000317,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;223m\u001b[48;5;237mModified buffers exist; exit anyway? (y or n) \u001b[39;49m\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.829874,
+      "\r\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mModified buffers exist; exit anyway? (y or n) y\u001b[39;49m\u001b[17;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.072520,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mSaving file /Users/gizmo/.emacs.d/recentf...   \u001b[39;49m\u001b[17;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.056959,
+      "\u001b[28;1H\u001b[?25l\u001b[38;5;188m\u001b[48;5;237mWrote /Users/gizmo/.emacs.d/recentf         \u001b[39;49m\u001b[17;4H\u001b[?12l\u001b[?25h\u001b[?12;25h"
+    ],
+    [
+      0.011256,
+      "\u001b[28;1H\u001b[K\u001b[?1l\u001b\u003e\u001b[?12l\u001b[?25h\u001b[?1049l\u001b[39;49m\r"
+    ]
+  ]
+}
