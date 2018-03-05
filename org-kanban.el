@@ -1,10 +1,11 @@
-;;; org-kanban.el --- kanban dynamic block for org-mode. -*- lexical-binding: t
-
+;;; org-kanban.el --- kanban dynamic block for org-mode. -*- lexical-binding: t -*-
 ;; Copyright (C) 2016 Christian Köstlin
 
+;; This file is NOT part of GNU Emacs.
+
 ;; Author: Christian Köstlin <christian.koestlin@gmail.com>
-;; Keywords: org-mode, org, kanban
-;; Package-Requires: ((dash "2.2.0"))
+;; Keywords: org-mode, org, kanban, tools
+;; Package-Requires: ((dash "2.12.0") (emacs "24.4"))
 ;; Package-Version: 0.1
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
@@ -114,6 +115,7 @@
               (forward-line (1- line))
               (goto-char (search-forward "[[")))))))
 
+;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.  PARAMS are ignored right now."
   (insert
