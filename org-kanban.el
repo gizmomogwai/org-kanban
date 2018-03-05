@@ -6,7 +6,7 @@
 ;; Author: Christian Köstlin <christian.koestlin@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.12.0") (emacs "24.4"))
-;; Package-Version: 0.1
+;; Package-Version: 0.2.0
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
