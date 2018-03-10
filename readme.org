@@ -19,3 +19,19 @@ You can use =org-kanban/shift= on a row, to move the TODO one keyword
 back or forth.
 
 Please see [[https://asciinema.org/a/4gijw6gs9jlcf5dxnlj0f12bh][this]] short demonstration on how to use it.
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://melpa.org/packages/") t)
+
+** Test the package
+The quickest way to test the package in isolation is to run
+
+#+BEGIN_SRC shell
+docker run -it --rm alpine:latest /bin/sh
+apk update
+apk add emacs
+emacs
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://melpa.org/packages/") t)
+package-initialize
+package-install
+#+END_SRC
