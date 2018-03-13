@@ -6,7 +6,7 @@
 ;; Author: Christian Köstlin <christian.koestlin@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.12.0") (emacs "24.4"))
-;; Package-Version: 0.2.0
+;; Package-Version: 0.3.0
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -60,7 +60,6 @@
   "Search for a todo matching to the current kanban table row."
   (let*
       (
-       (p (point))
        (line-start (save-excursion
                      (move-beginning-of-line 1)
                      (point)))
@@ -109,14 +108,17 @@
             (progn
               (save-excursion
                 (goto-char todo)
-                (org-todo direction))
+                (let* ((current (substring-no-properties (org-get-todo-state)))
+                        (border (car (if (eq direction 'right) (reverse org-todo-keywords-1) org-todo-keywords-1)))
+                        (change (not (string-equal current border))))
+                       (if change (org-todo direction))))
               (org-dblock-update)
               (goto-char 0)
               (forward-line (1- line))
               (goto-char (search-forward "[[")))))))
 
 ;;;###autoload
-(defun org-dblock-write:kanban (params)
+(defun org-dblock-write:kanban (_params)
   "Create the kanban dynamic block.  PARAMS are ignored right now."
   (insert
    (let*

@@ -49,3 +49,30 @@ Feature: Creates kanban tables
     |      | [[a]]    |
     |      | [[b]]    |
     """
+
+    And I press "k"
+    Then I should see:
+    """
+    | TODO | DONE |
+    |------+------|
+    |      | [[a]]    |
+    |      | [[b]]    |
+    """
+
+    And I press "j"
+    Then I should see:
+    """
+    | TODO | DONE |
+    |------+------|
+    | [[a]]    |      |
+    |      | [[b]]    |
+    """
+
+    And I press "j"
+    Then I should see:
+    """
+    | TODO | DONE |
+    |------+------|
+    | [[a]]    |      |
+    |      | [[b]]    |
+    """
