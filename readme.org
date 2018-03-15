@@ -30,8 +30,9 @@ docker run -it --rm alpine:latest /bin/sh
 apk update
 apk add emacs
 emacs
+(package-initialize)
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://melpa.org/packages/") t)
-package-initialize
-package-install
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-list)
+search for org-kanban and press i
 #+END_SRC
