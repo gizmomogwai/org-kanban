@@ -103,14 +103,40 @@
      (define-key map org-kanban/next-key (lambda () (interactive) (org-kanban/shift 'right)))
      map)))
 
-(defun org-kanban/initialize ()
+(defun org-kanban/initialize (&optional arg)
   "Create an org-kanban dynamic block"
+  (interactive "p")
+  (message "%s" arg)
+  (cond ((eq arg nil) (org-kanban/initialize-here))
+        ((eq arg 1) (org-kanban/initialize-here))
+        ((eq arg 4) (org-kanban/initialize-at-beginning))
+        ((eq arg 16) (org-kanban/initialize-at-end))
+        (t nil)))
+
+(defun org-kanban/initialize-at-beginning ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (next-line)
+    (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
+    (previous-line)
+    (org-ctrl-c-ctrl-c)))
+
+(defun org-kanban/initialize-at-end ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-max))
+    (newline)
+    (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
+    (previous-line)
+    (org-ctrl-c-ctrl-c)))
+
+(defun org-kanban/initialize-here ()
   (interactive)
   (save-excursion
     (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
-    )
-  (org-ctrl-c-ctrl-c)
-  )
+    (previous-line)
+    (org-ctrl-c-ctrl-c)))
 
 (defun org-kanban/move (direction)
   "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
