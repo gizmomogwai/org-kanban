@@ -1,4 +1,4 @@
-Feature: Creates kanban tables
+Feature: Work kanban tables
   Background:
     Given I turn on org-mode
     And I insert:

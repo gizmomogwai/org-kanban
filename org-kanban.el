@@ -99,6 +99,15 @@
      (define-key map org-kanban/next-key (lambda () (interactive) (org-kanban/shift 'right)))
      map)))
 
+(defun org-kanban/initialize ()
+  "Create an org-kanban dynamic block"
+  (interactive)
+  (save-excursion
+    (insert "#+BEGIN: kanban\n#+END:\n")
+    )
+  (org-ctrl-c-ctrl-c)
+  )
+
 (defun org-kanban/move (direction)
   "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
   (if (memq direction (list 'left 'right))
