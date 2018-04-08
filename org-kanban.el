@@ -36,33 +36,33 @@
   "Key for promoting an entry of a kanban table to the next state."
   :group 'org-kanban)
 
-(defun org-kanban/get-title (todo)
+(defun org-kanban//get-title (todo)
   "Get the title from a heading TODO."
   (nth 4 todo))
 
-(defun org-kanban/get-todo (todo)
+(defun org-kanban//get-todo (todo)
   "Get the todo keyword from a heading TODO."
   (nth 2 todo))
 
-(defun org-kanban/link (heading kanban search-for)
+(defun org-kanban//link (heading kanban search-for)
   "Create a link for a HEADING if the KANBAN value is equal to SEARCH-FOR."
   (if (stringp kanban) (if (string-equal search-for kanban) (format "[[%s]]" heading) "") ""))
 
-(defun org-kanban/todo-keywords (mirrored)
+(defun org-kanban//todo-keywords (mirrored)
   "Get list of org todos. MIRRORED describes if the row is reversed."
   (if mirrored (reverse org-todo-keywords-1) org-todo-keywords-1))
 
-(defun org-kanban/row-for (todo todo-keywords)
+(defun org-kanban//row-for (todo todo-keywords)
   "Convert a kanban TODO to a row of a org-table. TODO-KEYWORDS are all the current org todos."
   (let* (
-         (title (org-kanban/get-title todo))
-         (kanban (org-kanban/get-todo todo))
-         (row-entries (-map (lambda(i) (org-kanban/link title i kanban)) todo-keywords))
+         (title (org-kanban//get-title todo))
+         (kanban (org-kanban//get-todo todo))
+         (row-entries (-map (lambda(i) (org-kanban//link title i kanban)) todo-keywords))
          (row (string-join row-entries "|"))
          )
     (format "|%s|" row)))
 
-(defun org-kanban/find ()
+(defun org-kanban//find ()
   "Search for a todo matching to the current kanban table row."
   (let*
       (
@@ -87,17 +87,17 @@
 (defun org-kanban/next ()
   "Move the todo entry in the current line of the kanban table to the next state."
   (interactive)
-  (org-kanban/move 'right))
+  (org-kanban//move 'right))
 
 (defun org-kanban/prev ()
   "Move the todo entry in the current line of the kanban table to the previous state."
   (interactive)
-  (org-kanban/move 'left))
+  (org-kanban//move 'left))
 
 (defun org-kanban/shift (&optional left-or-right)
   "Move todo to LEFT-OR-RIGHT (repeatedly)."
   (interactive)
-  (org-kanban/move (if left-or-right left-or-right 'right))
+  (org-kanban//move (if left-or-right left-or-right 'right))
   (message (format "Use %s and %s to shift" org-kanban/prev-key org-kanban/next-key))
   (set-transient-map
    (let* ((map (make-sparse-keymap)))
@@ -134,14 +134,14 @@
     (org-kanban//initialize-mirrored-kanban-at-point)))
 
 (defun org-kanban//initialize-mirrored-kanban-at-point ()
-  (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
-  (previous-line)
+  (save-excursion
+    (insert "#+BEGIN: kanban :mirrored t\n#+END:\n"))
   (org-ctrl-c-ctrl-c))
 
-(defun org-kanban/move (direction)
+(defun org-kanban//move (direction)
   "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
   (if (memq direction (list 'left 'right))
-      (let* ((todo (org-kanban/find))
+      (let* ((todo (org-kanban//find))
              (line (line-number-at-pos)))
         (if todo
             (progn
@@ -163,10 +163,10 @@
    (let*
        (
         (mirrored (plist-get params :mirrored))
-        (todo-keywords (org-kanban/todo-keywords mirrored))
+        (todo-keywords (org-kanban//todo-keywords mirrored))
         (todos (org-map-entries (lambda() (org-heading-components))))
-        (row-for (lambda(i) (org-kanban/row-for i todo-keywords)))
-        (rows (-map row-for (-filter (lambda(todo) (-intersection (list (org-kanban/get-todo todo)) org-todo-keywords-1)) todos)))
+        (row-for (lambda(i) (org-kanban//row-for i todo-keywords)))
+        (rows (-map row-for (-filter (lambda(todo) (-intersection (list (org-kanban//get-todo todo)) org-todo-keywords-1)) todos)))
         (table (--reduce (format "%s\n%s" acc it) rows))
         (table-title (string-join todo-keywords "|"))
         )
