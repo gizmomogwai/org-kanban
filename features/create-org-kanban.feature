@@ -13,10 +13,10 @@ Feature: Create kanban table
     And I run org-kanban/initialize
     Then I should see:
     """
-    #+BEGIN: kanban
-    | TODO | DONE |
+    #+BEGIN: kanban :mirrored t
+    | DONE | TODO |
     |------+------|
-    | [[1]]    |      |
-    |      | [[2]]    |
+    |      | [[1]]    |
+    | [[2]]    |      |
     #+END:
     """

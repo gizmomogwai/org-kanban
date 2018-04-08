@@ -9,18 +9,19 @@ on the table rows.
 
 ** Example
 #+BEGIN_SRC org-mode
-#+BEGIN: kanban
+#+BEGIN: kanban :mirrored t
 #+END:
 #+END_SRC
 and =C-c C-c= gives you a kanban table, using your TODO keywords as
 swimlanes and puts the headings of your TODOS on the respective ones.
 
+If you wonder why your kanban board looks the wrong way around, please
+have a look [[https://theagileist.wordpress.com/tag/mirrored-kanban-board/][here]]. If you do not like this behavior, just
+remove :mirrored t or set it to nil.
 You can use =org-kanban/shift= on a row, to move the TODO one keyword
 back or forth.
 
 Please see [[https://asciinema.org/a/4gijw6gs9jlcf5dxnlj0f12bh][this]] short demonstration on how to use it.
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://melpa.org/packages/") t)
 
 ** Test the package
 The quickest way to test the package in isolation is to run

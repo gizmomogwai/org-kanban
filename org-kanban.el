@@ -46,12 +46,16 @@
   "Create a link for a HEADING if the KANBAN value is equal to SEARCH-FOR."
   (if (stringp kanban) (if (string-equal search-for kanban) (format "[[%s]]" heading) "") ""))
 
-(defun org-kanban/row-for (todo)
-  "Convert a kanban TODO to a row of a org-table."
+(defun org-kanban/todo-keywords (mirrored)
+  "Get list of org todos. MIRRORED describes if the row is reversed."
+  (if mirrored (reverse org-todo-keywords-1) org-todo-keywords-1))
+
+(defun org-kanban/row-for (todo todo-keywords)
+  "Convert a kanban TODO to a row of a org-table. TODO-KEYWORDS are all the current org todos."
   (let* (
          (title (org-kanban/get-title todo))
-         (kanban (nth 2 todo))
-         (row-entries (-map (lambda(i) (org-kanban/link title i kanban)) org-todo-keywords-1))
+         (kanban (org-kanban/get-todo todo))
+         (row-entries (-map (lambda(i) (org-kanban/link title i kanban)) todo-keywords))
          (row (string-join row-entries "|"))
          )
     (format "|%s|" row)))
@@ -103,7 +107,7 @@
   "Create an org-kanban dynamic block"
   (interactive)
   (save-excursion
-    (insert "#+BEGIN: kanban\n#+END:\n")
+    (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
     )
   (org-ctrl-c-ctrl-c)
   )
@@ -127,15 +131,18 @@
               (goto-char (search-forward "[[")))))))
 
 ;;;###autoload
-(defun org-dblock-write:kanban (_params)
+(defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.  PARAMS are ignored right now."
   (insert
    (let*
        (
+        (mirrored (plist-get params :mirrored))
+        (todo-keywords (org-kanban/todo-keywords mirrored))
         (todos (org-map-entries (lambda() (org-heading-components))))
-        (rows (-map 'org-kanban/row-for (-filter (lambda(todo) (-intersection (list (org-kanban/get-todo todo)) org-todo-keywords-1)) todos)))
+        (row-for (lambda(i) (org-kanban/row-for i todo-keywords)))
+        (rows (-map row-for (-filter (lambda(todo) (-intersection (list (org-kanban/get-todo todo)) org-todo-keywords-1)) todos)))
         (table (--reduce (format "%s\n%s" acc it) rows))
-        (table-title (string-join org-todo-keywords-1 "|"))
+        (table-title (string-join todo-keywords "|"))
         )
      (format "|%s|\n|--|\n%s" table-title table)))
   (org-table-align))
