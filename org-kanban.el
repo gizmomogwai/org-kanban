@@ -4,6 +4,8 @@
 ;; This file is NOT part of GNU Emacs.
 
 ;; Author: Christian Köstlin <christian.koestlin@gmail.com>
+;; Contributors:
+;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.12.0") (emacs "24.4"))
 ;; Package-Version: 0.3.0
