@@ -106,12 +106,11 @@
 (defun org-kanban/initialize (&optional arg)
   "Create an org-kanban dynamic block"
   (interactive "p")
-  (message "%s" arg)
   (cond ((eq arg nil) (org-kanban/initialize-here))
         ((eq arg 1) (org-kanban/initialize-here))
         ((eq arg 4) (org-kanban/initialize-at-beginning))
         ((eq arg 16) (org-kanban/initialize-at-end))
-        (t nil)))
+        (t (error (message "Unsupported universal argument %s" arg)))))
 
 (defun org-kanban/initialize-at-beginning ()
   (interactive)
