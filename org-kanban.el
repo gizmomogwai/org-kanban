@@ -119,25 +119,24 @@
   (save-excursion
     (goto-char (point-min))
     (next-line)
-    (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
-    (previous-line)
-    (org-ctrl-c-ctrl-c)))
+    (org-kanban//initialize-mirrored-kanban-at-point)))
 
 (defun org-kanban/initialize-at-end ()
   (interactive)
   (save-excursion
     (goto-char (point-max))
     (newline)
-    (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
-    (previous-line)
-    (org-ctrl-c-ctrl-c)))
+    (org-kanban//initialize-mirrored-kanban-at-point)))
 
 (defun org-kanban/initialize-here ()
   (interactive)
   (save-excursion
-    (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
-    (previous-line)
-    (org-ctrl-c-ctrl-c)))
+    (org-kanban//initialize-mirrored-kanban-at-point)))
+
+(defun org-kanban//initialize-mirrored-kanban-at-point ()
+  (insert "#+BEGIN: kanban :mirrored t\n#+END:\n")
+  (previous-line)
+  (org-ctrl-c-ctrl-c))
 
 (defun org-kanban/move (direction)
   "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
