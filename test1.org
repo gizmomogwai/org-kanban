@@ -1,0 +1,17 @@
+#+TODO: Todo Plan Develop Test Done
+* Task One
+* Todo Two
+* Plan Three
+* Test Four
+* Done Fivee
+* Kanban
+#+BEGIN: kanban :mirrored t :files (test1.org test2.org)
+| Done  | Test | Develop | Plan  | Todo |
+|-------+------+---------+-------+------|
+|       |      |         |       | [[file:test1.org::Two][Two]]  |
+|       |      |         | [[file:test1.org::Three][Three]] |      |
+|       | [[file:test1.org::Four][Four]] |         |       |      |
+| [[file:test1.org::Fivee][Fivee]] |      |         |       |      |
+|       |      | [[file:test2.org::Two][Two]]     |       |      |
+| [[file:test2.org::Three][Three]] |      |         |       |      |
+#+END:
