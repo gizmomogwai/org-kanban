@@ -36,6 +36,9 @@
 (defcustom org-kanban/next-key "k"
   "Key for promoting an entry of a kanban table to the next state."
   :group 'org-kanban)
+(defcustom org-kanban/link-max-length 20
+  "Maximum length of the kanban links.  When set to nil do not truncate the link."
+  :group 'org-kanban)
 
 (defun org-kanban//get-title (todo)
   "Get the title from a heading TODO."
@@ -48,7 +51,14 @@
 (defun org-kanban//link (file heading kanban search-for)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR."
   (if (and (stringp kanban) (string-equal search-for kanban))
-    (format "[[file:%s::%s][%s]]" file heading heading) ""))
+      (let ((description heading))
+        (when (and
+               org-kanban/link-max-length
+               (>= (length description) org-kanban/link-max-length))
+          (setq description (concat
+                             (substring description 0 org-kanban/link-max-length)
+                             "...")))
+        (format "[[file:%s::%s][%s]]" file heading description)) ""))
 
 (defun org-kanban//todo-keywords (files mirrored)
   "Get list of org todos from FILES.  MIRRORED describes if keywords should be reversed."
