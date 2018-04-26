@@ -7,6 +7,9 @@ up with this solution.
 It uses a custom org-mode dynamic block and provides some operations
 on the table rows.
 
+** Beware
+org-kanban only works in org-buffers that have an underlying file.
+
 ** Example
 #+BEGIN_SRC org-mode
 #+BEGIN: kanban :mirrored t

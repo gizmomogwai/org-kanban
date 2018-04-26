@@ -1,6 +1,6 @@
 Feature: Work kanban tables
   Background:
-    Given I turn on org-mode
+    Given I open file "tests/test1.org"
     And I insert:
     """
     * TODO a
@@ -15,10 +15,15 @@ Feature: Work kanban tables
   Scenario: Create Kanban Tables
     Then I should see:
     """
+    * TODO a
+    * DONE b
+    * Kanban
+    #+BEGIN: kanban
     | TODO | DONE |
     |------+------|
-    | [[a]]    |      |
-    |      | [[b]]    |
+    | [[file:test1.org::a][a]]    |      |
+    |      | [[file:test1.org::b][b]]    |
+    #+END:
     """
 
   Scenario: Move Todo Item
@@ -28,8 +33,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    |      | [[a]]    |
-    |      | [[b]]    |
+    |      | [[file:test1.org::a][a]]    |
+    |      | [[file:test1.org::b][b]]    |
     """
 
     And I press "j"
@@ -37,8 +42,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    | [[a]]    |      |
-    |      | [[b]]    |
+    | [[file:test1.org::a][a]]    |      |
+    |      | [[file:test1.org::b][b]]    |
     """
 
     And I press "k"
@@ -46,8 +51,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    |      | [[a]]    |
-    |      | [[b]]    |
+    |      | [[file:test1.org::a][a]]    |
+    |      | [[file:test1.org::b][b]]    |
     """
 
     And I press "k"
@@ -55,8 +60,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    |      | [[a]]    |
-    |      | [[b]]    |
+    |      | [[file:test1.org::a][a]]    |
+    |      | [[file:test1.org::b][b]]    |
     """
 
     And I press "j"
@@ -64,8 +69,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    | [[a]]    |      |
-    |      | [[b]]    |
+    | [[file:test1.org::a][a]]    |      |
+    |      | [[file:test1.org::b][b]]    |
     """
 
     And I press "j"
@@ -73,6 +78,6 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    | [[a]]    |      |
-    |      | [[b]]    |
+    | [[file:test1.org::a][a]]    |      |
+    |      | [[file:test1.org::b][b]]    |
     """

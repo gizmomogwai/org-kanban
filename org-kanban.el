@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.13.0") (emacs "24.4"))
-;; Package-Version: 0.4.0
+;; Package-Version: 0.4.1
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -39,6 +39,9 @@
 (defcustom org-kanban/link-max-length nil
   "Maximum length of the kanban links.  When set to nil do not truncate the link."
   :group 'org-kanban)
+(defcustom org-kanban/link-abbreviation "..."
+  "String for abbreviating link descriptions."
+  :group 'org-kanban)
 
 (defun org-kanban//get-title (todo)
   "Get the title from a heading TODO."
@@ -48,16 +51,21 @@
   "Get the todo keyword from a heading TODO."
   (nth 2 todo))
 
+(defun org-kanban//heading-to-description (heading max-length link-abbreviation)
+  "Create a description from a HEADING.  The description is truncated to MAX-LENGTH using LINK-ABBREVIATION as replacement."
+  (if
+    (and
+      max-length
+      (> (length heading) max-length))
+    (concat
+      (substring heading 0 (- max-length (length link-abbreviation)))
+      link-abbreviation)
+    heading))
+
 (defun org-kanban//link (file heading kanban search-for)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR."
   (if (and (stringp kanban) (string-equal search-for kanban))
-      (let ((description heading))
-        (when (and
-               org-kanban/link-max-length
-               (>= (length description) org-kanban/link-max-length))
-          (setq description (concat
-                             (substring description 0 org-kanban/link-max-length)
-                             "...")))
+      (let ((description (org-kanban//heading-to-description heading org-kanban/link-max-length org-kanban/link-abbreviation)))
         (format "[[file:%s::%s][%s]]" file heading description)) ""))
 
 (defun org-kanban//todo-keywords (files mirrored)
