@@ -36,7 +36,7 @@
 (defcustom org-kanban/next-key "k"
   "Key for promoting an entry of a kanban table to the next state."
   :group 'org-kanban)
-(defcustom org-kanban/link-max-length 20
+(defcustom org-kanban/link-max-length nil
   "Maximum length of the kanban links.  When set to nil do not truncate the link."
   :group 'org-kanban)
 
