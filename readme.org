@@ -1,4 +1,6 @@
 * Kanban dynamic block for org-mode
+[[https://travis-ci.org/gizmomogwai/org-kanban][https://img.shields.io/travis/gizmomogwai/org-kanban/master.svg?style=flat-square]]
+
 Inspired by some of the kanban resources for emacs out there ([[http://www.agilesoc.com/2011/08/08/emacs-org-mode-kanban-pomodoro-oh-my/][Emacs,
 org-mode, Kanban, Pomodoro… Oh my…]], or [[http://www.draketo.de/files/kanban.el][kanban.el]]), I came
 up with this solution.
