@@ -7,5 +7,6 @@ end
 
 desc 'test'
 task :test do
-  sh "cask exec ecukes --verbose --debug --reporter magnars"
+#  sh "cask exec ecukes --verbose --debug --reporter magnars"
+  sh "cask exec ecukes --reporter magnars --quiet"
 end
