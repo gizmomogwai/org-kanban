@@ -26,6 +26,14 @@
 (require 'dash)
 (require 'subr-x)
 
+(defun org-kanban//sanity-check-parameters (context abbreviation)
+  "Check for CONTEXT if ABBREVIATION is consistent."
+  (let ((link-abbreviation (car abbreviation))
+        (link-max-length (cdr abbreviation)))
+    (if link-max-length
+        (if (>= (length link-abbreviation) link-max-length)
+         (error "Problem with %s link-abbreviation (%s) is >= link-max-length (%s)" context link-abbreviation link-max-length)))))
+
 (defgroup org-kanban nil
   "Settings for org-kanban."
   :group 'org
@@ -36,11 +44,17 @@
 (defcustom org-kanban/next-key "k"
   "Key for promoting an entry of a kanban table to the next state."
   :group 'org-kanban)
-(defcustom org-kanban/link-max-length nil
-  "Maximum length of the kanban links.  When set to nil do not truncate the link."
-  :group 'org-kanban)
-(defcustom org-kanban/link-abbreviation "..."
-  "String for abbreviating link descriptions."
+(defcustom org-kanban/abbreviation (cons "..." 1000)
+  "Abbreviation for long descriptions."
+  :type
+    '(cons
+      (string :tag  "abbreviation")
+      (integer :tag "max-length  "))
+  :set
+    (lambda (symbol value)
+      (progn
+        (org-kanban//sanity-check-parameters "customize-set" value)
+        (set-default symbol value)))
   :group 'org-kanban)
 
 (defun org-kanban//get-title (todo)
@@ -53,19 +67,18 @@
 
 (defun org-kanban//heading-to-description (heading max-length link-abbreviation)
   "Create a description from a HEADING.  The description is truncated to MAX-LENGTH using LINK-ABBREVIATION as replacement."
-  (if
-    (and
-      max-length
-      (> (length heading) max-length))
-    (concat
-      (substring heading 0 (- max-length (length link-abbreviation)))
-      link-abbreviation)
-    heading))
+  (if (> (length heading) max-length)
+      (concat
+        (substring heading 0 (- max-length (length link-abbreviation)))
+        link-abbreviation)
+      heading))
 
 (defun org-kanban//link (file heading kanban search-for)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR."
   (if (and (stringp kanban) (string-equal search-for kanban))
-      (let ((description (org-kanban//heading-to-description heading org-kanban/link-max-length org-kanban/link-abbreviation)))
+      (let* ((link-abbreviation (car org-kanban/abbreviation))
+             (link-max-length (cdr org-kanban/abbreviation))
+             (description (org-kanban//heading-to-description heading link-max-length link-abbreviation)))
         (format "[[file:%s::%s][%s]]" file heading description)) ""))
 
 (defun org-kanban//todo-keywords (files mirrored)
@@ -202,6 +215,7 @@ Return file and marker."
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.  PARAMS are ignored right now."
+  (org-kanban//sanity-check-parameters "sanity-check" org-kanban/abbreviation)
   (insert
    (let*
        (
