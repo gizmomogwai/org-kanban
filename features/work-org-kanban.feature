@@ -5,6 +5,10 @@ Feature: Work kanban tables
     """
     * TODO a
     * DONE b
+    * DONE c
+      :PROPERTIES:
+      :CUSTOM_ID: 1
+      :END:
     * Kanban
     #+BEGIN: kanban
     #+END:
@@ -15,26 +19,26 @@ Feature: Work kanban tables
   Scenario: Create Kanban Tables
     Then I should see:
     """
-    * TODO a
-    * DONE b
     * Kanban
     #+BEGIN: kanban
     | TODO | DONE |
     |------+------|
-    | [[file:test1.org::a][a]]    |      |
-    |      | [[file:test1.org::b][b]]    |
+    | [[a][a]]    |      |
+    |      | [[b][b]]    |
+    |      | [[#1][c]]    |
     #+END:
     """
 
   Scenario: Move Todo Item
-    When I go to line "7"
+    When I go to line "11"
     And I run org-kanban/shift
     Then I should see:
     """
     | TODO | DONE |
     |------+------|
-    |      | [[file:test1.org::a][a]]    |
-    |      | [[file:test1.org::b][b]]    |
+    |      | [[a][a]]    |
+    |      | [[b][b]]    |
+    |      | [[#1][c]]    |
     """
 
     And I press "j"
@@ -42,8 +46,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    | [[file:test1.org::a][a]]    |      |
-    |      | [[file:test1.org::b][b]]    |
+    | [[a][a]]    |      |
+    |      | [[b][b]]    |
     """
 
     And I press "k"
@@ -51,8 +55,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    |      | [[file:test1.org::a][a]]    |
-    |      | [[file:test1.org::b][b]]    |
+    |      | [[a][a]]    |
+    |      | [[b][b]]    |
     """
 
     And I press "k"
@@ -60,8 +64,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    |      | [[file:test1.org::a][a]]    |
-    |      | [[file:test1.org::b][b]]    |
+    |      | [[a][a]]    |
+    |      | [[b][b]]    |
     """
 
     And I press "j"
@@ -69,8 +73,8 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    | [[file:test1.org::a][a]]    |      |
-    |      | [[file:test1.org::b][b]]    |
+    | [[a][a]]    |      |
+    |      | [[b][b]]    |
     """
 
     And I press "j"
@@ -78,6 +82,6 @@ Feature: Work kanban tables
     """
     | TODO | DONE |
     |------+------|
-    | [[file:test1.org::a][a]]    |      |
-    |      | [[file:test1.org::b][b]]    |
+    | [[a][a]]    |      |
+    |      | [[b][b]]    |
     """

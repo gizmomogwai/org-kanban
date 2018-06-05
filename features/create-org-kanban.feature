@@ -19,8 +19,8 @@ Feature: Create kanban table
     #+BEGIN: kanban :mirrored t
     | DONE | TODO |
     |------+------|
-    |      | [[file:test1.org::1][1]]    |
-    | [[file:test1.org::2][2]]    |      |
+    |      | [[1][1]]    |
+    | [[2][2]]    |      |
     #+END:
     Here
     * DONE 2
@@ -35,8 +35,8 @@ Feature: Create kanban table
     #+BEGIN: kanban :mirrored t
     | DONE | TODO |
     |------+------|
-    |      | [[file:test1.org::1][1]]    |
-    | [[file:test1.org::2][2]]    |      |
+    |      | [[1][1]]    |
+    | [[2][2]]    |      |
     #+END:
     * TODO 1
     Here
@@ -56,7 +56,7 @@ Feature: Create kanban table
     #+BEGIN: kanban :mirrored t
     | DONE | TODO |
     |------+------|
-    |      | [[file:test1.org::1][1]]    |
-    | [[file:test1.org::2][2]]    |      |
+    |      | [[1][1]]    |
+    | [[2][2]]    |      |
     #+END:
     """

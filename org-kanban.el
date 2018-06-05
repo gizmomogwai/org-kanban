@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.13.0") (emacs "24.4"))
-;; Package-Version: 0.4.4
+;; Package-Version: 0.4.5
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -57,12 +57,36 @@
         (set-default symbol value)))
   :group 'org-kanban)
 
-(defun org-kanban//get-title (todo)
-  "Get the title from a heading TODO."
-  (nth 4 todo))
+(defun org-kanban//todo-info-extract ()
+  "..."
+  (list
+   (current-buffer)
+   (org-heading-components)
+   org-todo-keywords-1
+   (org-entry-get nil "CUSTOM_ID")))
 
-(defun org-kanban//get-todo (todo)
-  "Get the todo keyword from a heading TODO."
+(defun org-kanban//todo-info-get-file (todo-info)
+  "Get the buffer from a TODO-INFO."
+  (nth 0 todo-info))
+
+(defun org-kanban//todo-info-get-heading (todo-info)
+  "Get the heading info from a TODO-INFO."
+  (nth 1 todo-info))
+
+(defun org-kanban//todo-info-get-keywords (todo-info)
+  "Get the allowed keywords for a TODO-INFO."
+  (nth 2 todo-info))
+
+(defun org-kanban//todo-info-get-custom-id (todo-info)
+  "Get the CUSTOM_ID from a heading TODO-INFO."
+  (nth 3 todo-info))
+
+(defun org-kanban//heading-get-title (heading)
+  "Get the title from a org-mode HEADING."
+  (nth 4 heading))
+
+(defun org-kanban//heading-get-todo-keyword (todo)
+  "Get the todo keyword from a org-mode HEADING."
   (nth 2 todo))
 
 (defun org-kanban//heading-to-description (heading max-length link-abbreviation)
@@ -73,13 +97,20 @@
         link-abbreviation)
       heading))
 
-(defun org-kanban//link (file heading kanban search-for)
-  "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR."
+(defun org-kanban//link (file heading kanban search-for multi-file custom-id)
+  "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR. MULTI-FILE indicates if simple links may be used. CUSTOM_ID if available. This means, that the org-kanban table links are in one of 4 forms: with or without file: and with heading as link or #custom_id."
   (if (and (stringp kanban) (string-equal search-for kanban))
-      (let* ((link-abbreviation (car org-kanban/abbreviation))
+      (let* (
+             (link-abbreviation (car org-kanban/abbreviation))
              (link-max-length (cdr org-kanban/abbreviation))
-             (description (org-kanban//heading-to-description heading link-max-length link-abbreviation)))
-        (format "[[file:%s::%s][%s]]" file heading description)) ""))
+             (description (org-kanban//heading-to-description heading link-max-length link-abbreviation))
+             (heading-or-id (if custom-id (format "#%s" custom-id) heading))
+             (use-file (and multi-file (not (eq file (current-buffer)))))
+            )
+        (if use-file
+          (format "[[file:%s::%s][%s]]" file heading-or-id description)
+          (format "[[%s][%s]]" heading-or-id description)
+        )) ""))
 
 (defun org-kanban//todo-keywords (files mirrored)
   "Get list of org todos from FILES.  MIRRORED describes if keywords should be reversed."
@@ -93,20 +124,64 @@
         (res (--reduce-from (-union acc it) (car list-of-keywords) list-of-keywords)))
       res)))
 
-(defun org-kanban//row-for (file-and-todo todo-keywords)
-  "Convert a kanban FILE-AND-TODO to a row of a org-table.
-TODO-KEYWORDS are all the current org todos."
+(defun org-kanban//row-for (todo-info todo-keywords multi-file)
+  "Convert a kanban TODO-INFO to a row of a org-table.
+TODO-KEYWORDS are all the current org todos. MULTI-FILE indicates, if simple file links may be used."
   (let* (
-      (file (nth 0 file-and-todo))
-      (todo (nth 1 file-and-todo))
-      (title (org-kanban//get-title todo))
-      (kanban (org-kanban//get-todo todo))
-      (row-entries (-map (lambda(i) (org-kanban//link file title i kanban)) todo-keywords))
+      (file (org-kanban//todo-info-get-file todo-info))
+      (heading (org-kanban//todo-info-get-heading todo-info))
+      (title (org-kanban//heading-get-title heading))
+      (kanban (org-kanban//heading-get-todo-keyword heading))
+      (custom-id (org-kanban//todo-info-get-custom-id todo-info))
+      (row-entries (-map (lambda(i) (org-kanban//link file title i kanban multi-file custom-id)) todo-keywords))
       (row (string-join row-entries "|")))
     (format "|%s|" row)))
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
+
+(defun org-kanban//find-by-file-and-custom-id (line)
+  "Search for a todo in a LINE with file and custom_id."
+  (let* (
+         (pattern "\\[\\[file:\\(.*\\)::#\\(.*\\)\\]\\[.*\\]")
+         (match (string-match pattern line))
+         (file (and match (match-string 1 line)))
+         (custom-id (and match (match-string 2 line)))
+         (entry (and custom-id (save-excursion
+                                 (find-file file)
+                                 (org-find-property "CUSTOM_ID" custom-id)))))
+    (if entry (list file entry) nil)))
+
+(defun org-kanban//find-by-file-and-heading (line)
+  "Search for a todo in a LINE with file and heading."
+  (let* (
+      (pattern "\\[\\[file:\\(.*\\)::\\(.*\\)\\]\\[.*\\]")
+      (match (string-match pattern line))
+      (file (and match (match-string 1 line)))
+      (heading (and match (match-string 2 line)))
+      (entry (and heading (save-excursion
+        (find-file file)
+        (org-find-exact-headline-in-buffer heading)))))
+    (if entry (list file entry) nil)))
+
+(defun org-kanban//find-by-custom-id (line)
+  ""
+  (let* (
+      (pattern "\\[\\[#\\(.*\\)\\]\\[.*\\]")
+      (match (string-match pattern line))
+      (custom-id (and match (match-string 1 line)))
+      (entry (and custom-id (org-find-property "CUSTOM_ID" custom-id))))
+    (if entry (list (buffer-file-name) entry) nil)))
+
+(defun org-kanban//find-by-heading (line)
+  ""
+  (let* (
+      (pattern "\\[\\[\\(.*\\)\\]\\[.*\\]")
+      (match (string-match pattern line))
+      (heading (and match (match-string 1 line)))
+      (entry (and heading (org-find-exact-headline-in-buffer heading))))
+    (if entry (list (buffer-file-name) entry) nil)))
+
 (defun org-kanban//find ()
   "Search for a todo matching to the current kanban table row.
 Return file and marker."
@@ -117,15 +192,11 @@ Return file and marker."
       (line-end (save-excursion
         (move-end-of-line 1)
         (point)))
-      (line (buffer-substring-no-properties line-start line-end))
-      (pattern "\\[\\[file:\\(.*\\)::\\(.*\\)\\]\\[.*\\]")
-      (match (string-match pattern line))
-      (file (and match (match-string 1 line)))
-      (heading (and match (match-string 2 line)))
-      (entry (and heading (save-excursion
-        (find-file file)
-        (org-find-exact-headline-in-buffer heading)))))
-    (list file entry)))
+      (line (buffer-substring-no-properties line-start line-end)))
+      (or (org-kanban//find-by-file-and-custom-id line)
+          (org-kanban//find-by-file-and-heading line)
+          (org-kanban//find-by-custom-id line)
+          (org-kanban//find-by-heading line))))
 
 (defun org-kanban/next ()
   "Move the todo entry in the current line of the kanban table to the next state."
@@ -214,22 +285,23 @@ Return file and marker."
 
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
-  "Create the kanban dynamic block.  PARAMS are ignored right now."
+  "Create the kanban dynamic block.  PARAMS may contain `files: list of files, `mirrored: t and abbre"
   (org-kanban//sanity-check-parameters "sanity-check" org-kanban/abbreviation)
   (insert
    (let*
        (
         (mirrored (plist-get params :mirrored))
         (files (or (mapcar 'symbol-name (plist-get params :files)) (list buffer-file-name)))
+        (multi-file (> (length files) 1))
         (todo-keywords (org-kanban//todo-keywords files mirrored))
-        (todos (org-map-entries (lambda() (list (current-buffer)
-                                           (org-heading-components) org-todo-keywords-1)) t files))
-        (row-for (lambda(i) (org-kanban//row-for i todo-keywords)))
+        (todo-infos (org-map-entries 'org-kanban//todo-info-extract t files))
+        (row-for (lambda(todo-info) (org-kanban//row-for todo-info todo-keywords multi-file)))
         (rows (-map row-for (-filter
-                             (lambda(todo)
+                             (lambda(todo-info)
                                (-intersection
-                                (list (org-kanban//get-todo (nth 1 todo)))
-                                (nth 2 todo))) todos)))
+                                (list (org-kanban//heading-get-todo-keyword (org-kanban//todo-info-get-heading todo-info)))
+                                (org-kanban//todo-info-get-keywords todo-info)))
+                             todo-infos)))
         (table (--reduce (format "%s\n%s" acc it) rows))
         (table-title (string-join todo-keywords "|"))
         )
@@ -239,7 +311,7 @@ Return file and marker."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.4"))
+  (message "org-kanban 0.4.5"))
 
 (provide 'org-kanban)
 ;;; org-kanban.el ends here
