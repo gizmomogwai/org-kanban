@@ -7,7 +7,7 @@
 ;; Contributors:
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
-;; Package-Requires: ((dash "2.13.0") (emacs "24.4"))
+;; Package-Requires: ((dash "2.13.0") (emacs "24.4") (org "9.1"))
 ;; Package-Version: 0.4.5
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
@@ -63,7 +63,9 @@
    (current-buffer)
    (org-heading-components)
    org-todo-keywords-1
-   (org-entry-get nil "CUSTOM_ID")))
+   (org-entry-get nil "CUSTOM_ID")
+   (org-entry-get nil "ID")
+   ))
 
 (defun org-kanban//todo-info-get-file (todo-info)
   "Get the buffer from a TODO-INFO."
@@ -81,6 +83,10 @@
   "Get the CUSTOM_ID from a heading TODO-INFO."
   (nth 3 todo-info))
 
+(defun org-kanban//todo-info-get-id (todo-info)
+  "Get the ID from a heading TODO-INFO."
+  (nth 4 todo-info))
+
 (defun org-kanban//heading-get-title (heading)
   "Get the title from a org-mode HEADING."
   (nth 4 heading))
@@ -97,20 +103,49 @@
         link-abbreviation)
       heading))
 
-(defun org-kanban//link (file heading kanban search-for multi-file custom-id)
-  "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR. MULTI-FILE indicates if simple links may be used. CUSTOM_ID if available. This means, that the org-kanban table links are in one of 4 forms: with or without file: and with heading as link or #custom_id."
-  (if (and (stringp kanban) (string-equal search-for kanban))
+(defun org-kanban//link-for-custom-id (custom-id use-file file description)
+  "Create a link for CUSTOM-ID."
+  (if custom-id
+      (if use-file
+          (format "[[file:%s::#%s][%s]]" file custom-id description)
+        (format "[[#%s][%s]]" custom-id description))
+    nil))
+
+(defun org-kanban//link-for-id (id description)
+  "Create a link for ID."
+  (if id
+      (format "[[id:%s][%s]]" id description)
+    nil))
+
+(defun org-kanban//link-for-heading (heading use-file file description)
+  "Create a link for a heading."
+  (if heading
+      (if use-file
+          (format "[[file:%s::*%s][%s]]" file heading description)
+        (format "[[%s][%s]]" heading description))
+    (error "Illegal state")))
+
+(defun org-kanban//link (file heading kanban search-for multi-file custom-id id)
+  "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR. MULTI-FILE indicates if the link must work across several files. CUSTOM_ID links are used if given. ID links are used if given. This means, that the org-kanban table links are in one of several forms:
+ - file:#custom-id
+ - #custom-id
+ - id:id
+ - file:heading
+ - heading
+"
+  (if
+      (and (stringp kanban) (string-equal search-for kanban))
       (let* (
              (link-abbreviation (car org-kanban/abbreviation))
              (link-max-length (cdr org-kanban/abbreviation))
              (description (org-kanban//heading-to-description heading link-max-length link-abbreviation))
-             (heading-or-id (if custom-id (format "#%s" custom-id) heading))
              (use-file (and multi-file (not (eq file (current-buffer)))))
-            )
-        (if use-file
-          (format "[[file:%s::%s][%s]]" file heading-or-id description)
-          (format "[[%s][%s]]" heading-or-id description)
-        )) ""))
+             )
+        (or (org-kanban//link-for-custom-id custom-id use-file file description)
+            (org-kanban//link-for-id id description)
+            (org-kanban//link-for-heading heading use-file file description)
+            ))
+      ""))
 
 (defun org-kanban//todo-keywords (files mirrored)
   "Get list of org todos from FILES.  MIRRORED describes if keywords should be reversed."
@@ -133,7 +168,8 @@ TODO-KEYWORDS are all the current org todos. MULTI-FILE indicates, if simple fil
       (title (org-kanban//heading-get-title heading))
       (kanban (org-kanban//heading-get-todo-keyword heading))
       (custom-id (org-kanban//todo-info-get-custom-id todo-info))
-      (row-entries (-map (lambda(i) (org-kanban//link file title i kanban multi-file custom-id)) todo-keywords))
+      (id (org-kanban//todo-info-get-id todo-info))
+      (row-entries (-map (lambda(i) (org-kanban//link file title i kanban multi-file custom-id id)) todo-keywords))
       (row (string-join row-entries "|")))
     (format "|%s|" row)))
 
@@ -166,6 +202,7 @@ TODO-KEYWORDS are all the current org todos. MULTI-FILE indicates, if simple fil
 
 (defun org-kanban//find-by-custom-id (line)
   ""
+  (message "find by custom id %s" line)
   (let* (
       (pattern "\\[\\[#\\(.*\\)\\]\\[.*\\]")
       (match (string-match pattern line))
@@ -182,6 +219,15 @@ TODO-KEYWORDS are all the current org todos. MULTI-FILE indicates, if simple fil
       (entry (and heading (org-find-exact-headline-in-buffer heading))))
     (if entry (list (buffer-file-name) entry) nil)))
 
+(defun org-kanban//find-by-id (line)
+  ""
+  (let* (
+      (pattern "\\[\\[id:\\(.*\\)\\]\\[.*\\]")
+      (match (string-match pattern line))
+      (id (and match (match-string 1 line)))
+      (entry (and id (org-find-entry-with-id id))))
+    (if entry (list (buffer-file-name) entry) nil)))
+
 (defun org-kanban//find ()
   "Search for a todo matching to the current kanban table row.
 Return file and marker."
@@ -196,6 +242,7 @@ Return file and marker."
       (or (org-kanban//find-by-file-and-custom-id line)
           (org-kanban//find-by-file-and-heading line)
           (org-kanban//find-by-custom-id line)
+          (org-kanban//find-by-id line)
           (org-kanban//find-by-heading line))))
 
 (defun org-kanban/next ()

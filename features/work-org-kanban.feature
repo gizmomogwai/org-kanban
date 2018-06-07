@@ -7,7 +7,12 @@ Feature: Work kanban tables
     * DONE b
     * DONE c
       :PROPERTIES:
-      :CUSTOM_ID: 1
+      :CUSTOM_ID: customid1
+      :ID: id1
+      :END:
+    * DONE d
+      :PROPERTIES:
+      :ID: id2
       :END:
     * Kanban
     #+BEGIN: kanban
@@ -25,12 +30,13 @@ Feature: Work kanban tables
     |------+------|
     | [[a][a]]    |      |
     |      | [[b][b]]    |
-    |      | [[#1][c]]    |
+    |      | [[#customid1][c]]    |
+    |      | [[id:id2][d]]    |
     #+END:
     """
 
-  Scenario: Move Todo Item
-    When I go to line "11"
+  Scenario: Move Todo Items
+    When I go to line "16"
     And I run org-kanban/shift
     Then I should see:
     """
@@ -38,7 +44,6 @@ Feature: Work kanban tables
     |------+------|
     |      | [[a][a]]    |
     |      | [[b][b]]    |
-    |      | [[#1][c]]    |
     """
 
     And I press "j"
@@ -84,4 +89,29 @@ Feature: Work kanban tables
     |------+------|
     | [[a][a]]    |      |
     |      | [[b][b]]    |
+    """
+
+  Scenario: Move Todo Items by customid
+    When I go to line "18"
+    And I run org-kanban/prev
+    Then I should see:
+    """
+    | TODO | DONE |
+    |------+------|
+    | [[a][a]]    |      |
+    |      | [[b][b]]    |
+    | [[#customid1][c]]    |      |
+    """
+
+  Scenario: Move Todo Items by id
+    When I go to line "19"
+    And I run org-kanban/prev
+    Then I should see:
+    """
+    | TODO | DONE |
+    |------+------|
+    | [[a][a]]    |      |
+    |      | [[b][b]]    |
+    |      | [[#customid1][c]]    |
+    | [[id:id2][d]]    |      |
     """

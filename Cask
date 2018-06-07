@@ -1,7 +1,7 @@
 (source gnu)
 (source melpa)
 
-(package "org-kanban" "0.4.1" "Kanban for org-mode.")
+(package "org-kanban" "0.4.5" "Kanban for org-mode.")
 (package-file "org-kanban.el")
 
 (depends-on "org")
