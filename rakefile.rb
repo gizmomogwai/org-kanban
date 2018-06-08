@@ -25,6 +25,7 @@ task :test do
     puts "org_kanban_cask_version: #{cask_version}"
     raise 'versions inconsistent'
   end
+  sh 'cask list'
+  sh 'cask eval "(org-version t t t)"'
   sh "cask exec ecukes --verbose --debug --reporter magnars"
-#  sh "cask exec ecukes --reporter magnars --quiet"
 end
