@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.5
+;; Package-Version: 0.4.6
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -338,10 +338,16 @@ Return file and marker."
    (let*
        (
         (mirrored (plist-get params :mirrored))
-        (files (or (mapcar 'symbol-name (plist-get params :files)) (list buffer-file-name)))
+	(scope (plist-get params :scope))
+	(files (cond ((equal scope 'tree) (list buffer-file-name))
+		     ((equal scope nil) (list buffer-file-name))
+		     (t (-map (lambda(file) (symbol-name file)) scope))))
+	(clean-scope (cond ((equal scope 'tree) 'tree)
+			   ((equal scope nil) files)
+			   (t files)))
         (multi-file (> (length files) 1))
         (todo-keywords (org-kanban//todo-keywords files mirrored))
-        (todo-infos (org-map-entries 'org-kanban//todo-info-extract t files))
+        (todo-infos (org-map-entries 'org-kanban//todo-info-extract (plist-get params :match) clean-scope))
         (row-for (lambda(todo-info) (org-kanban//row-for todo-info todo-keywords multi-file)))
         (rows (-map row-for (-filter
                              (lambda(todo-info)
@@ -358,7 +364,7 @@ Return file and marker."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.5"))
+  (message "org-kanban 0.4.6"))
 
 (provide 'org-kanban)
 ;;; org-kanban.el ends here
