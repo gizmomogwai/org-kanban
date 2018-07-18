@@ -125,19 +125,19 @@
         (format "[[%s][%s]]" heading description))
     (error "Illegal state")))
 
-(defun org-kanban//link (file heading kanban search-for multi-file custom-id id)
-  "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR. MULTI-FILE indicates if the link must work across several files. CUSTOM_ID links are used if given. ID links are used if given. This means, that the org-kanban table links are in one of several forms:
+(defun org-kanban//link (file heading kanban search-for multi-file custom-id id abbreviation)
+  "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
+MULTI-FILE indicates if the link must work across several files.  CUSTOM-ID links are used if given.  ID links are used if given.  ABBREVIATION is the abbreviation specification.  This means, that the org-kanban table links are in one of several forms:
  - file:#custom-id
  - #custom-id
  - id:id
  - file:heading
- - heading
-"
+ - heading"
   (if
       (and (stringp kanban) (string-equal search-for kanban))
       (let* (
-             (link-abbreviation (car org-kanban/abbreviation))
-             (link-max-length (cdr org-kanban/abbreviation))
+             (link-abbreviation (car abbreviation))
+             (link-max-length (cdr abbreviation))
              (description (org-kanban//heading-to-description heading link-max-length link-abbreviation))
              (use-file (and multi-file (not (eq file (current-buffer)))))
              )
@@ -159,9 +159,11 @@
         (res (--reduce-from (-union acc it) (car list-of-keywords) list-of-keywords)))
       res)))
 
-(defun org-kanban//row-for (todo-info todo-keywords multi-file)
+(defun org-kanban//row-for (todo-info todo-keywords multi-file abbreviation)
   "Convert a kanban TODO-INFO to a row of a org-table.
-TODO-KEYWORDS are all the current org todos. MULTI-FILE indicates, if simple file links may be used."
+TODO-KEYWORDS are all the current org todos.
+MULTI-FILE indicates, if simple file links may be used.
+ABBREVIATION specification."
   (let* (
       (file (org-kanban//todo-info-get-file todo-info))
       (heading (org-kanban//todo-info-get-heading todo-info))
@@ -169,7 +171,7 @@ TODO-KEYWORDS are all the current org todos. MULTI-FILE indicates, if simple fil
       (kanban (org-kanban//heading-get-todo-keyword heading))
       (custom-id (org-kanban//todo-info-get-custom-id todo-info))
       (id (org-kanban//todo-info-get-id todo-info))
-      (row-entries (-map (lambda(i) (org-kanban//link file title i kanban multi-file custom-id id)) todo-keywords))
+      (row-entries (-map (lambda(i) (org-kanban//link file title i kanban multi-file custom-id id abbreviation)) todo-keywords))
       (row (string-join row-entries "|")))
     (format "|%s|" row)))
 
@@ -332,13 +334,16 @@ Return file and marker."
 
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
-  "Create the kanban dynamic block.  PARAMS may contain `files: list of files, `mirrored: t and abbre"
-  (org-kanban//sanity-check-parameters "sanity-check" org-kanban/abbreviation)
+  "Create the kanban dynamic block.
+PARAMS may contain `:mirrored`, `:match` and `:scope`"
   (insert
    (let*
        (
         (mirrored (plist-get params :mirrored))
 	(scope (plist-get params :scope))
+	(match (plist-get params :match))
+	(abbreviation (if (plist-member params :abbreviation) (cons (car (plist-get params :abbreviation)) (car (cdr (plist-get params :abbreviation)))) org-kanban/abbreviation))
+	(_ (org-kanban//sanity-check-parameters "sanity-check" abbreviation))
 	(files (cond ((equal scope 'tree) (list buffer-file-name))
 		     ((equal scope nil) (list buffer-file-name))
 		     (t (-map (lambda(file) (symbol-name file)) scope))))
@@ -347,8 +352,8 @@ Return file and marker."
 			   (t files)))
         (multi-file (> (length files) 1))
         (todo-keywords (org-kanban//todo-keywords files mirrored))
-        (todo-infos (org-map-entries 'org-kanban//todo-info-extract (plist-get params :match) clean-scope))
-        (row-for (lambda(todo-info) (org-kanban//row-for todo-info todo-keywords multi-file)))
+        (todo-infos (org-map-entries 'org-kanban//todo-info-extract match clean-scope))
+        (row-for (lambda(todo-info) (org-kanban//row-for todo-info todo-keywords multi-file abbreviation)))
         (rows (-map row-for (-filter
                              (lambda(todo-info)
                                (-intersection
