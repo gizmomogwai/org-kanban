@@ -24,6 +24,8 @@ task :test do
     puts "org_kanban_elisp_version: #{org_kanban_elisp_version}"
     puts "org_kanban_cask_version: #{cask_version}"
     raise 'versions inconsistent'
+  else
+    puts "Testing version #{cask_version}"
   end
   sh 'cask list'
   sh 'cask eval "(org-version t t t)"'
