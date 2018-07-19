@@ -46,26 +46,24 @@
   :group 'org-kanban)
 (defcustom org-kanban/abbreviation (cons "..." 1000)
   "Abbreviation for long descriptions."
-  :type
-    '(cons
-      (string :tag  "abbreviation")
-      (integer :tag "max-length  "))
-  :set
-    (lambda (symbol value)
-      (progn
-        (org-kanban//sanity-check-parameters "customize-set" value)
-        (set-default symbol value)))
+  :type '(cons
+           (string :tag  "abbreviation")
+           (integer :tag "max-length  "))
+  :set (lambda (symbol value)
+         (progn
+           (org-kanban//sanity-check-parameters "customize-set" value)
+           (set-default symbol value)))
   :group 'org-kanban)
 
 (defun org-kanban//todo-info-extract ()
   "..."
   (list
-   (current-buffer)
-   (org-heading-components)
-   org-todo-keywords-1
-   (org-entry-get nil "CUSTOM_ID")
-   (org-entry-get nil "ID")
-   ))
+    (current-buffer)
+    (org-heading-components)
+    org-todo-keywords-1
+    (org-entry-get nil "CUSTOM_ID")
+    (org-entry-get nil "ID")
+    ))
 
 (defun org-kanban//todo-info-get-file (todo-info)
   "Get the buffer from a TODO-INFO."
