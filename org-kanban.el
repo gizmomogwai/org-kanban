@@ -267,6 +267,7 @@ Return file and marker."
       (define-key map org-kanban/next-key (lambda () (interactive) (org-kanban/shift 'right)))
       map)))
 
+;;;###autoload
 (defun org-kanban/initialize (&optional arg)
   "Create an org-kanban dynamic block at position ARG."
   (interactive "p")
@@ -277,6 +278,7 @@ Return file and marker."
     ((eq arg 16) (org-kanban/initialize-at-end))
     (t (error (message "Unsupported universal argument %s" arg)))))
 
+;;;###autoload
 (defun org-kanban/initialize-at-beginning ()
   "Create an org-kanban dynamic block at the beginning of the buffer."
   (interactive)
@@ -285,6 +287,7 @@ Return file and marker."
     (forward-line)
     (org-kanban//initialize-mirrored-kanban-at-point)))
 
+;;;###autoload
 (defun org-kanban/initialize-at-end ()
   "Create an org-kanban dynamic block at the end of the buffer."
   (interactive)
@@ -293,6 +296,7 @@ Return file and marker."
     (newline)
     (org-kanban//initialize-mirrored-kanban-at-point)))
 
+;;;###autoload
 (defun org-kanban/initialize-here ()
   "Create an org-kanban dynamic block at the point."
   (interactive)
