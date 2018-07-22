@@ -202,7 +202,7 @@ LAYOUT specification."
     (if entry (list file entry) nil)))
 
 (defun org-kanban//find-by-custom-id (line)
-  ""
+  "Try to find a todo by custom id in LINE."
   (message "find by custom id %s" line)
   (let* (
           (pattern "\\[\\[#\\(.*\\)\\]\\[.*\\]")
@@ -212,7 +212,7 @@ LAYOUT specification."
     (if entry (list (buffer-file-name) entry) nil)))
 
 (defun org-kanban//find-by-heading (line)
-  ""
+  "Try to find a todo by heading in LINE."
   (let* (
           (pattern "\\[\\[\\(.*\\)\\]\\[.*\\]")
           (match (string-match pattern line))
@@ -221,7 +221,7 @@ LAYOUT specification."
     (if entry (list (buffer-file-name) entry) nil)))
 
 (defun org-kanban//find-by-id (line)
-  ""
+  "Try to find a todo by id in LINE."
   (let* (
           (pattern "\\[\\[id:\\(.*\\)\\]\\[.*\\]")
           (match (string-match pattern line))
@@ -347,6 +347,26 @@ Return file and marker."
                     (_ (error (format "Unknown type %s" l))))))
     layout))
 
+(defun org-kanban//params-files (params)
+  "Calculate files based on PARAMS."
+  (let* (
+          (scope (plist-get params :scope))
+          (files (pcase scope
+                   (`nil (list buffer-file-name))
+                   (`tree (list buffer-file-name))
+                   (_  (-map (lambda(file) (symbol-name file)) scope)))))
+    files))
+
+(defun org-kanban//params-scope (params files)
+  "Calculate scope based on PARAMS and FILES."
+  (let* (
+          (scope (plist-get params :scope))
+          (result (pcase scope
+                    (`nil files)
+                    (`tree scope)
+                    (_ files))))
+    result))
+
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.
@@ -354,20 +374,14 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   (insert
     (let*
       (
-        (h org-kanban/layout)
         (mirrored (plist-get params :mirrored))
-        (scope (plist-get params :scope))
         (match (plist-get params :match))
         (layout (org-kanban//params-layout params))
-        (files (cond ((equal scope 'tree) (list buffer-file-name))
-                 ((equal scope nil) (list buffer-file-name))
-                 (t (-map (lambda(file) (symbol-name file)) scope))))
-        (clean-scope (cond ((equal scope 'tree) 'tree)
-                       ((equal scope nil) files)
-                       (t files)))
+        (files (org-kanban//params-files params))
+        (scope (org-kanban//params-scope params files))
         (multi-file (> (length files) 1))
         (todo-keywords (org-kanban//todo-keywords files mirrored))
-        (todo-infos (org-map-entries 'org-kanban//todo-info-extract match clean-scope))
+        (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
         (row-for (lambda(todo-info) (org-kanban//row-for todo-info todo-keywords multi-file layout)))
         (rows (-map row-for (-filter
                               (lambda(todo-info)
