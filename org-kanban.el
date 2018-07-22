@@ -86,23 +86,26 @@
   (nth 4 todo-info))
 
 (defun org-kanban//heading-get-title (heading)
-  "Get the title from a org-mode HEADING."
+  "Get the title from an `org-mode` HEADING."
   (nth 4 heading))
 
 (defun org-kanban//heading-get-todo-keyword (todo)
-  "Get the todo keyword from a org-mode HEADING."
+  "Get the TODO keyword from an `org-mode` HEADING."
   (nth 2 todo))
 
-(defun org-kanban//heading-to-description (heading max-length link-abbreviation)
-  "Create a description from a HEADING.  The description is truncated to MAX-LENGTH using LINK-ABBREVIATION as replacement."
-  (if (> (length heading) max-length)
-    (concat
-      (substring heading 0 (- max-length (length link-abbreviation)))
-      link-abbreviation)
-    heading))
+(defun org-kanban//heading-to-description (heading layout)
+  "Create a description from a HEADING.  The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10))."
+  (org-kanban//sanity-check-parameters "sanity-check" layout)
+  (let* ((link-abbreviation (car layout))
+          (max-length (cdr layout)))
+    (if (> (length heading) max-length)
+      (concat
+        (substring heading 0 (- max-length (length link-abbreviation)))
+        link-abbreviation)
+      heading)))
 
 (defun org-kanban//link-for-custom-id (custom-id use-file file description)
-  "Create a link for CUSTOM-ID."
+  "Create a link for CUSTOM-ID, optionally USE-FILE FILE and DESCRIPTION."
   (if custom-id
     (if use-file
       (format "[[file:%s::#%s][%s]]" file custom-id description)
@@ -110,13 +113,13 @@
     nil))
 
 (defun org-kanban//link-for-id (id description)
-  "Create a link for ID."
+  "Create a link for ID with DESCRIPTION."
   (if id
     (format "[[id:%s][%s]]" id description)
     nil))
 
 (defun org-kanban//link-for-heading (heading use-file file description)
-  "Create a link for a heading."
+  "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
   (if heading
     (if use-file
       (format "[[file:%s::*%s][%s]]" file heading description)
@@ -134,9 +137,7 @@ MULTI-FILE indicates if the link must work across several files.  CUSTOM-ID link
   (if
     (and (stringp kanban) (string-equal search-for kanban))
     (let* (
-            (link-abbreviation (car layout))
-            (link-max-length (cdr layout))
-            (description (org-kanban//heading-to-description heading link-max-length link-abbreviation))
+            (description (funcall layout heading))
             (use-file (and multi-file (not (eq file (current-buffer)))))
             )
       (or (org-kanban//link-for-custom-id custom-id use-file file description)
@@ -334,20 +335,30 @@ Return file and marker."
               (forward-line (1- line))
               (goto-char (search-forward "[[")))))))))
 
+(defun org-kanban//params-layout (params)
+  "Calculate layout func based on PARAMS."
+  (let* (
+          (l (plist-get params :layout))
+          (layout (pcase l
+                    (`nil (lambda(s) (org-kanban//heading-to-description s org-kanban/layout)))
+                    ((pred functionp) (lambda(s) (funcall l s)))
+                    ((pred symbolp) (lambda(s) (org-kanban//heading-to-description s (symbol-value l))))
+                    ((pred consp) (lambda(s) (org-kanban//heading-to-description s l)))
+                    (_ (error (format "Unknown type %s" l))))))
+    layout))
+
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.
-PARAMS may contain `:mirrored`, `:match` and `:scope`"
+PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   (insert
     (let*
       (
+        (h org-kanban/layout)
         (mirrored (plist-get params :mirrored))
         (scope (plist-get params :scope))
         (match (plist-get params :match))
-        (layout
-          (or (and (plist-member params :layout) (let ((a (plist-get params :layout))) (cons (car a) (car (cdr a)))))
-            org-kanban/layout))
-        (_ (org-kanban//sanity-check-parameters "sanity-check" layout))
+        (layout (org-kanban//params-layout params))
         (files (cond ((equal scope 'tree) (list buffer-file-name))
                  ((equal scope nil) (list buffer-file-name))
                  (t (-map (lambda(file) (symbol-name file)) scope))))
