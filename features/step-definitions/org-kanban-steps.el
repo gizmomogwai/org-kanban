@@ -34,11 +34,9 @@
 
 (When "^I shorten \"\\([^\"]+\\)\" to length \"\\([^\"]+\\)\" with abbreviation \"\\([^\"]+\\)\" I should get \"\\([^\"]+\\)\"$"
   (lambda (heading length abbreviation desc)
-    (should (string= (org-kanban//heading-to-description heading (string-to-number length) abbreviation) desc))
-    ))
+    (should (string= (org-kanban//heading-to-description heading (cons abbreviation (string-to-number length))) desc))))
 
 (Given "^I open file \"\\([^\"]+\\)\"$"
   (lambda (arg)
     (find-file arg)
-    (message "opened buffer %s" (current-buffer))
-    ))
+    (message "opened buffer %s" (current-buffer))))
