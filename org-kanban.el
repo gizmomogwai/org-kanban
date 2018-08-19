@@ -128,7 +128,11 @@
 
 (defun org-kanban//link (file heading kanban search-for multi-file custom-id id layout)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
-MULTI-FILE indicates if the link must work across several files.  CUSTOM-ID links are used if given.  ID links are used if given.  LAYOUT is the specification to layout long links.  This means, that the org-kanban table links are in one of several forms:
+MULTI-FILE indicates if the link must work across several files.
+CUSTOM-ID links are used if given.
+ID links are used if given.
+LAYOUT is the specification to layout long links.
+This means, that the org-kanban table links are in one of several forms:
  - file:#custom-id
  - #custom-id
  - id:id
@@ -399,6 +403,46 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   "Print org-kanban version."
   (interactive)
   (message "org-kanban 0.4.8"))
+
+(define-derived-mode org-kanban-configure-mode special-mode
+  '("org-kanban-configure"))
+
+(define-button-type 'org-kanban--mirror-button
+  'help-echo "Change mirror type"
+  'action #'org-kanban--mirror-button-action
+  )
+(defvar org-kanban//mirror t "Mirror kanbans.")
+(defun org-kanban--mirror-button-action (button)
+  "Set the current mirrored setting from a BUTTON."
+  (message (format "... %s %s" button (button-get button 'mirror)))
+  (setq org-kanban//mirror (button-get button 'mirror))
+  (message (format "setting org-kanban//mirrored to %s" org-kanban//mirror)))
+
+(defun org-kanban//show-configure-buffer (mirror)
+  "Create the buffer and put configuration in it."
+  (let ((buffer (get-buffer-create "*org-kanban-configure*")))
+    (switch-to-buffer buffer)
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (insert
+        "Mirror: ")
+      (if (eq mirror t)
+        (insert "true")
+        (insert-button "true" :type 'org-kanban--mirror-button 'mirror t))
+      (insert
+        " " )
+      (if (eq mirror nil)
+        (insert "false")
+        (insert-button "false" :type
+          'org-kanban--mirror-button 'mirror nil))
+      (insert
+        "\n"))
+    (org-kanban-configure-mode)))
+
+(defun org-kanban/configure-block ()
+  "Configure the current org-kanban dynamic block."
+  (interactive)
+  (org-kanban//show-configure-buffer org-kanban//mirror))
 
 (provide 'org-kanban)
 ;;; org-kanban.el ends here
