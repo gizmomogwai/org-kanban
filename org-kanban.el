@@ -407,42 +407,196 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
 (define-derived-mode org-kanban-configure-mode special-mode
   '("org-kanban-configure"))
 
-(define-button-type 'org-kanban--mirror-button
-  'help-echo "Change mirror type"
-  'action #'org-kanban--mirror-button-action
-  )
-(defvar org-kanban//mirror t "Mirror kanbans.")
-(defun org-kanban--mirror-button-action (button)
+(define-button-type 'org-kanban--match-button
+  'help-echo "Change match string"
+  'action #'org-kanban--match-action)
+
+(define-button-type 'org-kanban--apply-button
+  'help-echo "Apply change"
+  'action #'org-kanban--apply-action)
+
+(define-button-type 'org-kanban--mirrored-button
+  'help-echo "Change mirrored type"
+  'action #'org-kanban--mirrored-button-action)
+(define-button-type 'org-kanban--layout-button
+  'help-echo "Change layout"
+  'action#'org-kanban--layout-action)
+
+(defun org-kanban--read-max-int (n)
+  "Read in max width N."
+  (interactive "nPlease enter max width: ")
+  n)
+(defun org-kanban--layout-action (button)
+  "Set layout from a BUTTON."
+  (let* (
+          (position (point))
+          (parameters (button-get button 'parameters))
+          (layout (plist-get parameters :layout))
+          (delete (button-get button 'delete)))
+    (if delete
+      (plist-put parameters :layout nil)
+      (let* (
+              (default-s (if layout (car layout) (car org-kanban/layout)))
+              (default-max (if layout (cdr layout) (cdr org-kanban/layout)))
+              (s (read-string "Abbreviation: " default-s))
+              (max (read-string "Max width: " (format "%s" default-max))))
+        (plist-put parameters :layout (cons s max))))
+    (org-kanban//show-configure-buffer
+      (button-get button 'buffer)
+      (button-get button 'beginning)
+      parameters
+      position)))
+
+(defun org-kanban--match-action (button)
+  "Set the current match string from a BUTTON."
+  (let* (
+          (position (point))
+          (parameters (button-get button 'parameters))
+          (match (plist-get parameters :match))
+          (delete (button-get button 'delete)))
+    (if delete
+      (plist-put parameters :match nil)
+      (plist-put parameters :match
+        (let ((match-default (if match match "")))
+          (read-from-minibuffer "Match string: " match-default))))
+    (org-kanban//show-configure-buffer
+      (button-get button 'buffer)
+      (button-get button 'beginning)
+      parameters
+      position)))
+
+(defun org-kanban--mirrored-button-action (button)
   "Set the current mirrored setting from a BUTTON."
-  (message (format "... %s %s" button (button-get button 'mirror)))
-  (setq org-kanban//mirror (button-get button 'mirror))
-  (message (format "setting org-kanban//mirrored to %s" org-kanban//mirror)))
+  (let* (
+          (position (point))
+          (parameters (button-get button 'parameters))
+          (mirrored (plist-get parameters :mirrored)))
+    (plist-put parameters :mirrored (not mirrored))
+    (org-kanban//show-configure-buffer
+      (button-get button 'buffer)
+      (button-get button 'beginning)
+      parameters
+      position)))
 
-(defun org-kanban//show-configure-buffer (mirror)
-  "Create the buffer and put configuration in it."
-  (let ((buffer (get-buffer-create "*org-kanban-configure*")))
-    (switch-to-buffer buffer)
-    (let ((inhibit-read-only t))
+(defun org-kanban--dynamicblock-from-parameters (parameters)
+  "Create heading of a dynamic block from PARAMETERS."
+  (let* (
+          (mirrored (plist-get parameters :mirrored))
+          (match (plist-get parameters :match))
+          (layout (plist-get parameters :layout)))
+    (setq res "#+BEGIN: kanban")
+    (if mirrored
+      (setq res (concat res " :mirrored t")))
+    (if match
+      (setq res (concat res (format " :match \"%s\"" match))))
+    (if layout
+      (setq res (concat res (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))))
+    res))
+
+(defun org-kanban--apply-action (button)
+  "Apply the current settings via BUTTON."
+  (with-current-buffer (button-get button 'buffer)
+    (goto-char (button-get button 'beginning))
+    (kill-line)
+    (insert (org-kanban--dynamicblock-from-parameters (button-get button 'parameters)))
+    (org-ctrl-c-ctrl-c))
+  (kill-buffer))
+
+(defun org-kanban//show-configure-buffer (buffer beginning parameters position)
+  "Create the configure buffer.
+BUFFER is the target-buffer,
+BEGINNING the position there and
+PARAMETERS the org-kanban parameters.
+POSITION in the configure buffer."
+  ;;(message "configure %s %s %s %s" buffer beginning parameters position)
+  (let ((configure-buffer (get-buffer-create "*org-kanban-configure*")))
+    (switch-to-buffer configure-buffer)
+    (let (
+           (inhibit-read-only t)
+           (mirrored (plist-get parameters :mirrored))
+           (match (plist-get parameters :match))
+           (scope (plist-get parameters :scope))
+           (layout (plist-get parameters :layout)))
       (erase-buffer)
-      (insert
-        "Mirror: ")
-      (if (eq mirror t)
-        (insert "true")
-        (insert-button "true" :type 'org-kanban--mirror-button 'mirror t))
-      (insert
-        " " )
-      (if (eq mirror nil)
-        (insert "false")
-        (insert-button "false" :type
-          'org-kanban--mirror-button 'mirror nil))
-      (insert
-        "\n"))
-    (org-kanban-configure-mode)))
 
+      ;; mirrored
+      (insert (format "Mirrored [%s]: " mirrored))
+      (if (eq mirrored t)
+        (insert-button "false"
+          :type 'org-kanban--mirrored-button
+          'mirrored nil
+          'buffer buffer
+          'beginning beginning
+          'parameters parameters)
+        (insert-button "true"
+          :type 'org-kanban--mirrored-button
+          'mirrored t
+          'buffer buffer
+          'beginning beginning
+          'parameters parameters))
+      (insert "\n")
+
+      ;; match
+      (insert (format "Match [%s]: " match))
+      (insert-button "change"
+        :type 'org-kanban--match-button
+        'buffer buffer
+        'beginning beginning
+        'parameters parameters)
+      (insert " ")
+      (if (eq match nil)
+        (insert "delete")
+        (insert-button "delete"
+          :type 'org-kanban--match-button
+          'buffer buffer
+          'beginning beginning
+          'parameters parameters
+          'delete t))
+      (insert "\n")
+
+      ;; layout
+      (insert (format "Layout [%s]: " layout))
+      (insert-button "change"
+        :type 'org-kanban--layout-button
+        'buffer buffer
+        'beginning beginning
+        'parameters parameters)
+      (insert " ")
+      (if (eq layout nil)
+        (insert "delete")
+        (insert-button "delete"
+          :type 'org-kanban--layout-button
+          'buffer buffer
+          'beginning beginning
+          'parameters parameters
+          'delete t))
+      (insert "\n")
+
+      ;; preview
+      (insert "\n")
+      (insert (format "Result: %s" (org-kanban--dynamicblock-from-parameters parameters)))
+      (insert "\n")
+
+      ;; apply
+      (insert "\n")
+      (insert-button "apply" :type
+        'org-kanban--apply-button
+        'buffer buffer
+        'beginning beginning
+        'parameters parameters))
+    (org-kanban-configure-mode)
+    (goto-char position)))
+
+;;;###autoload
 (defun org-kanban/configure-block ()
   "Configure the current org-kanban dynamic block."
   (interactive)
-  (org-kanban//show-configure-buffer org-kanban//mirror))
+  (with-demoted-errors "Error: %S"
+    (let* (
+            (beginning (org-beginning-of-dblock))
+            (parameters (org-prepare-dblock)))
+      ;;(message "start configure for %s@%s" (current-buffer) beginning)
+      (org-kanban//show-configure-buffer (current-buffer) beginning parameters 0))))
 
 (provide 'org-kanban)
 ;;; org-kanban.el ends here

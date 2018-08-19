@@ -1,18 +1,14 @@
 #+TODO: Todo Plan Develop Test Done
 * Todo Task One
 * Plan Task Two
-* Develop Task Three
-* Test Task Four
-* Done Task Five
+* Develop Task Three                                                 :urgent:
+* Done Task Five                                                     :kanban:
+* Test Task Four                                                        :abc:
 * Kanban
-#+BEGIN: kanban :layout ("..." 8) :mirrored t :scope (test1.org test2.org) 
-| Done     | Test     | Develop  | Plan     | Todo     |
-|----------+----------+----------+----------+----------|
-|          |          |          |          | [[Task One][Task One]] |
-|          |          |          | [[Task Two][Task Two]] |          |
-|          |          | [[Task Three][Task ...]] |          |          |
-|          | [[Task Four][Task ...]] |          |          |          |
-| [[Task Five][Task ...]] |          |          |          |          |
-|          |          | [[file:test2.org::*Two][Two]]      |          |          |
-| [[file:test2.org::*Three][Three]]    |          |          |          |          |
+#+BEGIN: kanban :mirrored t :match "kanban|urgent|abc" :layout (".." . 10)
+| Done      | Test      | Develop    | Plan | Todo |
+|-----------+-----------+------------+------+------|
+|           |           | [[Task Three][Task Three]] |      |      |
+| [[Task Five][Task Five]] |           |            |      |      |
+|           | [[Task Four][Task Four]] |            |      |      |
 #+END:
