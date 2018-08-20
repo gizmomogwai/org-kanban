@@ -541,7 +541,7 @@ POSITION in the configure buffer."
       (erase-buffer)
 
       ;; mirrored
-      (insert "Mirrored: ")
+      (insert (propertize "Mirrored: " 'face 'font-lock-constant-face))
       (if (eq mirrored t)
         (insert-button "false"
           :type 'org-kanban--mirrored-button
@@ -555,13 +555,13 @@ POSITION in the configure buffer."
           'buffer buffer
           'beginning beginning
           'parameters parameters))
-      (insert (format " currently [%s]" mirrored))
+      (insert (format " currently [%s]" (propertize (format "%s" mirrored) 'face 'font-lock-keyword-face)))
       (insert "\n")
-      (insert "  t|nil")
+      (insert (propertize "  t|nil" 'face 'font-lock-comment-face))
       (insert "\n")
 
       ;; match
-      (insert "Match: ")
+      (insert (propertize "Match: " 'face 'font-lock-constant-face))
       (insert-button "change"
         :type 'org-kanban--match-button
         'buffer buffer
@@ -576,13 +576,13 @@ POSITION in the configure buffer."
           'beginning beginning
           'parameters parameters
           'delete t))
-      (insert (format " currently [%s]" match))
+      (insert (format " currently [%s]" (propertize (format "%s" match) 'face 'font-lock-keyword-face)))
       (insert "\n")
-      (insert "  e.g. urgent|important, see https://orgmode.org/manual/Matching-tags-and-properties.html .")
+      (insert (propertize "  e.g. urgent|important, see https://orgmode.org/manual/Matching-tags-and-properties.html ." 'face 'font-lock-comment-face))
       (insert "\n")
 
       ;; layout
-      (insert "Layout: ")
+      (insert (propertize "Layout: " 'face 'font-lock-constant-face))
       (insert-button "change"
         :type 'org-kanban--layout-button
         'buffer buffer
@@ -597,14 +597,13 @@ POSITION in the configure buffer."
           'beginning beginning
           'parameters parameters
           'delete t))
-      (insert (format " currently [%s]" layout))
+      (insert (format " currently [%s]" (propertize (format "%s" layout) 'face 'font-lock-keyword-face)))
       (insert "\n")
-      (insert "  Max width must be bigger than abbreviation.")
+      (insert (propertize "  Max width must be bigger than abbreviation." 'face 'font-lock-comment-face))
       (insert "\n")
-      
 
       ;; scope
-      (insert "Scope: ")
+      (insert (propertize "Scope: " 'face 'font-lock-constant-face))
       (insert-button "change"
         :type 'org-kanban--scope-button
         'buffer buffer
@@ -619,20 +618,23 @@ POSITION in the configure buffer."
           'beginning beginning
           'parameters parameters
           'delete t))
-      (insert (format " currently [%s]" scope))
+      (insert (format " currently [%s]" (propertize (format "%s" scope) 'face 'font-lock-keyword-face)))
       (insert "\n")
-      (insert "  nil|tree|(file1.org ...)")
+      (insert (propertize "  nil|tree|(file1.org ...)" 'face 'font-lock-comment-face))
       (insert "\n")
 
       ;; preview
       (insert "\n")
-      (insert (format "Result: %s" (org-kanban--dynamicblock-from-parameters parameters)))
+      (insert (format "%s %s"
+                (propertize "Result: " 'face 'font-lock-constant-face)
+                (propertize (org-kanban--dynamicblock-from-parameters parameters) 'face 'font-lock-function-name-face)))
       (insert "\n")
 
       ;; apply
       (insert "\n")
       (insert-button "apply" :type
         'org-kanban--apply-button
+        'face 'font-lock-string-face
         'buffer buffer
         'beginning beginning
         'parameters parameters))
