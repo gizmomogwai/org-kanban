@@ -1,0 +1,32 @@
+#+TODO: Todo Plan Develop Test Done
+#+STARTUP: showall
+* Todo Task One                                                      :urgent:
+* Plan Two                                                          :starred:
+* Develop Three                                                      :kanban:
+  :LOGBOOK:
+  CLOCK: [2018-07-29 Sun 22:03]--[2018-07-29 Sun 23:03] =>  1:00
+  :END:
+* Test Four
+** Test Four1                                                :starred:kanban:
+   :LOGBOOK:
+   CLOCK: [2018-07-29 Sun 22:02]--[2018-07-29 Sun 23:02] =>  1:00
+   :END:
+** Test Four2                                                :starred:kanban:
+   :PROPERTIES:
+   :Title:    ttt
+   :END:
+   :LOGBOOK:
+   CLOCK: [2018-07-29 Sun 22:02]--[2018-07-29 Sun 23:02] =>  1:00
+   :END:
+* Done Five
+#+BEGIN: kanban :mirrored t :layout ("..." . 10) :scope (test1.org test2.org)
+| Done      | Test      | Develop    | Plan     | Todo     |
+|-----------+-----------+------------+----------+----------|
+|           |           |            |          | [[file:test1.org::*Task One][Task One]] |
+|           |           |            | [[file:test1.org::*Task Two][Task Two]] |          |
+|           |           | [[file:test1.org::*Task Three][Task Three]] |          |          |
+| [[file:test1.org::*Task Five][Task Five]] |           |            |          |          |
+|           | [[file:test1.org::*Task Four][Task Four]] |            |          |          |
+|           |           | [[file:test2.org::*Two][Two]]        |          |          |
+| [[file:test2.org::*Three][Three]]     |           |            |          |          |
+#+END:

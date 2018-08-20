@@ -420,12 +420,30 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   'action #'org-kanban--mirrored-button-action)
 (define-button-type 'org-kanban--layout-button
   'help-echo "Change layout"
-  'action#'org-kanban--layout-action)
+  'action #'org-kanban--layout-action)
+(define-button-type 'org-kanban--scope-button
+  'help-echo "Change scope"
+  'action #'org-kanban--scope-action)
 
-(defun org-kanban--read-max-int (n)
-  "Read in max width N."
-  (interactive "nPlease enter max width: ")
-  n)
+(defun org-kanban--scope-action (button)
+  "Set scope from a BUTTON."
+  (let* (
+          (position (point))
+          (parameters (button-get button 'parameters))
+          (scope (plist-get parameters :scope))
+          (delete (button-get button 'delete)))
+    (if delete
+      (plist-put parameters :scope nil)
+      (let* (
+              (default-scope (if scope (format "%s" scope) nil))
+              (new-scope (read-string "Scope: " default-scope)))
+        (plist-put parameters :scope new-scope)))
+    (org-kanban//show-configure-buffer
+      (button-get button 'buffer)
+      (button-get button 'beginning)
+      parameters
+      position)))
+
 (defun org-kanban--layout-action (button)
   "Set layout from a BUTTON."
   (let* (
@@ -483,7 +501,8 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   (let* (
           (mirrored (plist-get parameters :mirrored))
           (match (plist-get parameters :match))
-          (layout (plist-get parameters :layout)))
+          (layout (plist-get parameters :layout))
+          (scope (plist-get parameters :scope)))
     (setq res "#+BEGIN: kanban")
     (if mirrored
       (setq res (concat res " :mirrored t")))
@@ -491,6 +510,8 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
       (setq res (concat res (format " :match \"%s\"" match))))
     (if layout
       (setq res (concat res (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))))
+    (if scope
+      (setq res (concat res (format " :scope %s" scope))))
     res))
 
 (defun org-kanban--apply-action (button)
@@ -498,9 +519,9 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   (with-current-buffer (button-get button 'buffer)
     (goto-char (button-get button 'beginning))
     (kill-line)
-    (insert (org-kanban--dynamicblock-from-parameters (button-get button 'parameters)))
-    (org-ctrl-c-ctrl-c))
-  (kill-buffer))
+    (insert (org-kanban--dynamicblock-from-parameters (button-get button 'parameters))))
+  (kill-buffer)
+  (org-ctrl-c-ctrl-c))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters position)
   "Create the configure buffer.
@@ -566,6 +587,24 @@ POSITION in the configure buffer."
         (insert "delete")
         (insert-button "delete"
           :type 'org-kanban--layout-button
+          'buffer buffer
+          'beginning beginning
+          'parameters parameters
+          'delete t))
+      (insert "\n")
+
+      ;; scope
+      (insert (format "Scope [%s]: " scope))
+      (insert-button "change"
+        :type 'org-kanban--scope-button
+        'buffer buffer
+        'beginning beginning
+        'parameters parameters)
+      (insert " ")
+      (if (eq scope nil)
+        (insert "delete")
+        (insert-button "delete"
+          :type 'org-kanban--scope-button
           'buffer buffer
           'beginning beginning
           'parameters parameters
