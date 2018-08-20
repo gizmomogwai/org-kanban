@@ -541,7 +541,7 @@ POSITION in the configure buffer."
       (erase-buffer)
 
       ;; mirrored
-      (insert (format "Mirrored [%s]: " mirrored))
+      (insert "Mirrored: ")
       (if (eq mirrored t)
         (insert-button "false"
           :type 'org-kanban--mirrored-button
@@ -555,10 +555,13 @@ POSITION in the configure buffer."
           'buffer buffer
           'beginning beginning
           'parameters parameters))
+      (insert (format " currently [%s]" mirrored))
+      (insert "\n")
+      (insert "  t|nil")
       (insert "\n")
 
       ;; match
-      (insert (format "Match [%s]: " match))
+      (insert "Match: ")
       (insert-button "change"
         :type 'org-kanban--match-button
         'buffer buffer
@@ -573,10 +576,13 @@ POSITION in the configure buffer."
           'beginning beginning
           'parameters parameters
           'delete t))
+      (insert (format " currently [%s]" match))
+      (insert "\n")
+      (insert "  e.g. urgent|important, see https://orgmode.org/manual/Matching-tags-and-properties.html .")
       (insert "\n")
 
       ;; layout
-      (insert (format "Layout [%s]: " layout))
+      (insert "Layout: ")
       (insert-button "change"
         :type 'org-kanban--layout-button
         'buffer buffer
@@ -591,10 +597,14 @@ POSITION in the configure buffer."
           'beginning beginning
           'parameters parameters
           'delete t))
+      (insert (format " currently [%s]" layout))
       (insert "\n")
+      (insert "  Max width must be bigger than abbreviation.")
+      (insert "\n")
+      
 
       ;; scope
-      (insert (format "Scope [%s]: " scope))
+      (insert "Scope: ")
       (insert-button "change"
         :type 'org-kanban--scope-button
         'buffer buffer
@@ -609,6 +619,9 @@ POSITION in the configure buffer."
           'beginning beginning
           'parameters parameters
           'delete t))
+      (insert (format " currently [%s]" scope))
+      (insert "\n")
+      (insert "  nil|tree|(file1.org ...)")
       (insert "\n")
 
       ;; preview
