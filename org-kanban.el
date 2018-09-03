@@ -25,6 +25,7 @@
 (require 'org)
 (require 'dash)
 (require 'subr-x)
+(require 'widget)
 
 (defun org-kanban//sanity-check-parameters (context layout)
   "Check for CONTEXT if LAYOUT is consistent."
@@ -207,7 +208,6 @@ LAYOUT specification."
 
 (defun org-kanban//find-by-custom-id (line)
   "Try to find a todo by custom id in LINE."
-  (message "find by custom id %s" line)
   (let* (
           (pattern "\\[\\[#\\(.*\\)\\]\\[.*\\]")
           (match (string-match pattern line))
@@ -404,27 +404,6 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   (interactive)
   (message "org-kanban 0.4.8"))
 
-(define-derived-mode org-kanban-configure-mode special-mode
-  '("org-kanban-configure"))
-
-(define-button-type 'org-kanban--match-button
-  'help-echo "Change match string"
-  'action #'org-kanban--match-action)
-
-(define-button-type 'org-kanban--apply-button
-  'help-echo "Apply change"
-  'action #'org-kanban--apply-action)
-
-(define-button-type 'org-kanban--mirrored-button
-  'help-echo "Change mirrored type"
-  'action #'org-kanban--mirrored-button-action)
-(define-button-type 'org-kanban--layout-button
-  'help-echo "Change layout"
-  'action #'org-kanban--layout-action)
-(define-button-type 'org-kanban--scope-button
-  'help-echo "Change scope"
-  'action #'org-kanban--scope-action)
-
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
   (let* (
@@ -514,132 +493,142 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
       (setq res (concat res (format " :scope %s" scope))))
     res))
 
-(defun org-kanban--apply-action (button)
-  "Apply the current settings via BUTTON."
-  (with-current-buffer (button-get button 'buffer)
-    (goto-char (button-get button 'beginning))
-    (kill-line)
-    (insert (org-kanban--dynamicblock-from-parameters (button-get button 'parameters))))
-  (kill-buffer)
-  (org-ctrl-c-ctrl-c))
+(defun calculate-preview (mirrored match layout scope)
+  "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT and SCOPE."
+  (setq res "#+BEGIN: kanban")
+  (if mirrored
+    (setq res (concat res " :mirrored t")))
+  (if (and match (> (length match) 0))
+    (setq res (concat res (format " :match \"%s\"" match))))
+  (if layout
+    (setq res (concat res (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))))
+  (setq res (concat res (format " :scope %s" scope)))
+  res)
+
+(defun update-preview (preview mirrored match layout scope)
+  "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT and SCOPE."
+  (widget-value-set preview (calculate-preview mirrored match layout scope)))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters position)
-  "Create the configure buffer.
-BUFFER is the target-buffer,
+  "Create the configuration form for BUFFER.
 BEGINNING the position there and
 PARAMETERS the org-kanban parameters.
 POSITION in the configure buffer."
-  ;;(message "configure %s %s %s %s" buffer beginning parameters position)
-  (let ((configure-buffer (get-buffer-create "*org-kanban-configure*")))
-    (switch-to-buffer configure-buffer)
-    (let (
-           (inhibit-read-only t)
-           (mirrored (plist-get parameters :mirrored))
-           (match (plist-get parameters :match))
-           (scope (plist-get parameters :scope))
-           (layout (plist-get parameters :layout)))
-      (erase-buffer)
+  (switch-to-buffer "*org-kanban-configure*")
+  (let (
+         (inhibit-read-only t)
+         (mirrored (plist-get parameters :mirrored))
+         (match (plist-get parameters :match))
+         (scope (plist-get parameters :scope))
+         (layout (or (plist-get parameters :layout) org-kanban/layout))
+         (preview nil)
+         (match-widget nil))
+    
+    (erase-buffer)
+    (remove-overlays)
+    
+    (widget-insert (propertize "Mirrored: " 'face 'font-lock-keyword-face))
+    (widget-create 'toggle
+      :value mirrored
+      :notify (lambda (widget &rest ignore)
+                (setq mirrored (widget-value widget))
+                (update-preview preview mirrored match layout scope)))
+    (widget-insert (propertize "  see https://theagileist.wordpress.com/tag/mirrored-kanban-board/ for details" 'face 'font-lock-doc-face))
+    (widget-insert "\n\n")
+    
+    (widget-insert (propertize "Match: " 'face 'font-lock-keyword-face))
+    (setq match-widget (widget-create 'editable-field
+                         :value (if match match "")
+                         :notify (lambda (widget &rest ignore)
+                                   (setq match (widget-value widget))
+                                   (update-preview preview mirrored match layout scope))
+                         :size 30))
+    (widget-insert " ")
+    (widget-create 'push-button
+      :notify (lambda (widget &rest ignore)
+                (setq match nil)
+                (widget-value-set match-widget nil)
+                (update-preview preview mirrored match layout))
+      (propertize "Delete" 'face 'font-lock-string-face))
+    (widget-insert "\n")
+    (widget-insert (propertize "  match to tags e.g. urgent|important" 'face 'font-lock-doc-face))
+    (widget-insert "\n\n")
 
-      ;; mirrored
-      (insert (propertize "Mirrored: " 'face 'font-lock-constant-face))
-      (if (eq mirrored t)
-        (insert-button "false"
-          :type 'org-kanban--mirrored-button
-          'mirrored nil
-          'buffer buffer
-          'beginning beginning
-          'parameters parameters)
-        (insert-button "true"
-          :type 'org-kanban--mirrored-button
-          'mirrored t
-          'buffer buffer
-          'beginning beginning
-          'parameters parameters))
-      (insert (format " currently [%s]" (propertize (format "%s" mirrored) 'face 'font-lock-keyword-face)))
-      (insert "\n")
-      (insert (propertize "  t|nil" 'face 'font-lock-comment-face))
-      (insert "\n")
+    (widget-insert (propertize "Layout:\n" 'face 'font-lock-keyword-face))
+    (widget-insert (propertize "  Abbreviation: " 'face 'font-lock-keyword-face))
+    (widget-create 'editable-field
+      :value (format "%s" (if layout (car layout) ""))
+      :size 5
+      :notify (lambda (widget &rest ignore)
+                (setq layout (cons (widget-value widget) (cdr layout)))
+                (update-preview preview mirrored match layout scope)))
+    (widget-insert (propertize " Max-width: " 'face 'font-lock-keyword-face))
+    (widget-create 'editable-field
+      :value (format "%s" (if layout (cdr layout) ""))
+      :size 1
+      :notify (lambda (widget &rest ignore)
+                (setq layout (cons (car layout) (widget-value widget)))
+                (update-preview preview mirrored match layout scope)))
+    (widget-insert "\n")
+    (widget-insert (propertize "  max-width should be bigger then the length of the abbreviation" 'face 'font-lock-doc-face))
+    (widget-insert "\n\n")
 
-      ;; match
-      (insert (propertize "Match: " 'face 'font-lock-constant-face))
-      (insert-button "change"
-        :type 'org-kanban--match-button
-        'buffer buffer
-        'beginning beginning
-        'parameters parameters)
-      (insert " ")
-      (if (eq match nil)
-        (insert "delete")
-        (insert-button "delete"
-          :type 'org-kanban--match-button
-          'buffer buffer
-          'beginning beginning
-          'parameters parameters
-          'delete t))
-      (insert (format " currently [%s]" (propertize (format "%s" match) 'face 'font-lock-keyword-face)))
-      (insert "\n")
-      (insert (propertize "  e.g. urgent|important, see https://orgmode.org/manual/Matching-tags-and-properties.html ." 'face 'font-lock-comment-face))
-      (insert "\n")
+    (widget-insert (propertize "Scope " 'face 'font-lock-keyword-face))
+    (let ((default-file-list (cond
+                               ((eq scope 'tree) "(file1.org file2.org ...)")
+                               ((eq scope nil) "(file1.org file2.org ...)")
+                               (t (format "%s" scope)))))
+      (widget-create 'menu-choice
+        :tag "change type"
+        :value (cond
+                 ((eq scope 'tree) "tree")
+                 ((eq scope nil) "nil")
+                 (t (format "%s" scope)))
+        :notify (lambda (widget &rest ignore)
+                  (let ((scope-string (widget-value widget)))
+                    (setq scope
+                      (cond
+                        ((string-equal scope-string "tree") "tree")
+                        ((string-equal scope-string "nil") nil)
+                        (t (let (
+                                  (_ (setq default-file-list scope-string))
+                                  (res (car (read-from-string scope-string))))
+                             res))))
+                    (update-preview preview mirrored match layout scope)))
+        :value-set (lambda (widget &rest value)
+                     (widget-default-value-set widget
+                       (cond
+                         ((equal value '("tree")) "tree")
+                         ((equal value '("nil")) "nil")
+                         (t (format "%s" default-file-list)))))
+        '(item :tag "tree" :menu-tag "tree" :value "tree")
+        '(item :tag "whole file" :menu-tag "whole file" :value "nil")
+        '(editable-field :menu-tag "list of files" default-file-list)))
+    (widget-insert (propertize "  Scope of the org-kanban table. e.g. nil, tree or a list of files.\n" 'face 'font-lock-doc-face))
 
-      ;; layout
-      (insert (propertize "Layout: " 'face 'font-lock-constant-face))
-      (insert-button "change"
-        :type 'org-kanban--layout-button
-        'buffer buffer
-        'beginning beginning
-        'parameters parameters)
-      (insert " ")
-      (if (eq layout nil)
-        (insert "delete")
-        (insert-button "delete"
-          :type 'org-kanban--layout-button
-          'buffer buffer
-          'beginning beginning
-          'parameters parameters
-          'delete t))
-      (insert (format " currently [%s]" (propertize (format "%s" layout) 'face 'font-lock-keyword-face)))
-      (insert "\n")
-      (insert (propertize "  Max width must be bigger than abbreviation." 'face 'font-lock-comment-face))
-      (insert "\n")
+    (widget-insert "\n")
+    (widget-insert (propertize "Result: " 'face 'font-lock-keyword-face))
+    (setq preview
+      (widget-create 'const))
 
-      ;; scope
-      (insert (propertize "Scope: " 'face 'font-lock-constant-face))
-      (insert-button "change"
-        :type 'org-kanban--scope-button
-        'buffer buffer
-        'beginning beginning
-        'parameters parameters)
-      (insert " ")
-      (if (eq scope nil)
-        (insert "delete")
-        (insert-button "delete"
-          :type 'org-kanban--scope-button
-          'buffer buffer
-          'beginning beginning
-          'parameters parameters
-          'delete t))
-      (insert (format " currently [%s]" (propertize (format "%s" scope) 'face 'font-lock-keyword-face)))
-      (insert "\n")
-      (insert (propertize "  nil|tree|(file1.org ...)" 'face 'font-lock-comment-face))
-      (insert "\n")
+    (widget-create 'push-button
+      :notify (lambda(widget &rest ignore)
+                (with-current-buffer buffer
+                  (goto-char beginning)
+                  (kill-line)
+                  (insert (calculate-preview mirrored match layout scope)))
+                (kill-buffer)
+                (org-ctrl-c-ctrl-c))
+      (propertize "Apply" 'face 'font-lock-comment-face))
+    (widget-insert " ")
+    (widget-create 'push-button
+      :notify (lambda (widget &rest ignore)
+                (kill-buffer))
+      (propertize "Cancel" 'face 'font-lock-string-face))
 
-      ;; preview
-      (insert "\n")
-      (insert (format "%s %s"
-                (propertize "Result: " 'face 'font-lock-constant-face)
-                (propertize (org-kanban--dynamicblock-from-parameters parameters) 'face 'font-lock-function-name-face)))
-      (insert "\n")
-
-      ;; apply
-      (insert "\n")
-      (insert-button "apply" :type
-        'org-kanban--apply-button
-        'face 'font-lock-string-face
-        'buffer buffer
-        'beginning beginning
-        'parameters parameters))
-    (org-kanban-configure-mode)
-    (goto-char position)))
+    (update-preview preview mirrored match layout scope)
+    (use-local-map widget-keymap)
+    (widget-setup)))
 
 ;;;###autoload
 (defun org-kanban/configure-block ()
@@ -649,7 +638,6 @@ POSITION in the configure buffer."
     (let* (
             (beginning (org-beginning-of-dblock))
             (parameters (org-prepare-dblock)))
-      ;;(message "start configure for %s@%s" (current-buffer) beginning)
       (org-kanban//show-configure-buffer (current-buffer) beginning parameters 0))))
 
 (provide 'org-kanban)
