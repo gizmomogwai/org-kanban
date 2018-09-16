@@ -42,6 +42,6 @@ emacs
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-(package-list)
-search for org-kanban and press i
+(list-packages)
+search for org-kanban and press i and x
 #+END_SRC
