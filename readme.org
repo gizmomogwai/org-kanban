@@ -7,6 +7,10 @@ org-mode, Kanban, Pomodoro… Oh my…]], or [[http://www.draketo.de/files/kanba
 up with this solution.
 
 
+** TL;TR
+- Open an org file and call `org-kanban/initialize-at-end`
+
+
 ** Solution
 It uses a custom org-mode dynamic block and provides some operations
 on the table rows.
@@ -25,10 +29,6 @@ back or forth.
 ** Walkthrough (see [[https://asciinema.org/a/201532][asciinema]])
 - Open an org file with some todos e.g. org-kanban-demo.org
 - Move through all todos
-
-
-** TL;TR
-- Open an org file and call `org-kanban/initialize-at-end`
 
 
 ** Test the package
