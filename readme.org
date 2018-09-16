@@ -6,30 +6,14 @@ Inspired by some of the kanban resources for emacs out there ([[http://www.agile
 org-mode, Kanban, Pomodoro… Oh my…]], or [[http://www.draketo.de/files/kanban.el][kanban.el]]), I came
 up with this solution.
 
+
 ** Solution
 It uses a custom org-mode dynamic block and provides some operations
 on the table rows.
 
+
 ** Beware
 org-kanban only works in org-buffers that have an underlying file.
-
-** Walkthrough (see [[https://asciinema.org/a/192334][asciinema]])
-- Open an org file with some todos
-- Move to the position you want your kanban table
-- Call `org-kanban/initialize`
-- Change :mirrored from t to nil and run `org-ctrl-c-ctrl-c`
-- Move to one kanban table row
-- Call `org-kanban/shift` followed by j or k, move with cursor to finish this
-- Change :match as needed e.g. `:match "urgent|important"` 
-- Change :scope as needed e.g. `:scope tree` or `:scope (file1.org file2.org)`
-
-** Example
-#+BEGIN_SRC org-mode
-#+BEGIN: kanban :mirrored t
-#+END:
-#+END_SRC
-and =C-c C-c= gives you a kanban table, using your TODO keywords as
-swimlanes and puts the headings of your TODOS on the respective ones.
 
 If you wonder why your kanban board looks the wrong way around, please
 have a look [[https://theagileist.wordpress.com/tag/mirrored-kanban-board/][here]]. If you do not like this behavior, just
@@ -37,7 +21,15 @@ remove :mirrored t or set it to nil.
 You can use =org-kanban/shift= on a row, to move the TODO one keyword
 back or forth.
 
-Please see [[https://asciinema.org/a/192334][this]] short demonstration on how to use it.
+
+** Walkthrough (see [[https://asciinema.org/a/201532][asciinema]])
+- Open an org file with some todos e.g. org-kanban-demo.org
+- Move through all todos
+
+
+** TL;TR
+- Open an org file and call `org-kanban/initialize-at-end`
+
 
 ** Test the package
 The quickest way to test the package in isolation is to run
