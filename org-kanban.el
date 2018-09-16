@@ -123,7 +123,7 @@
   "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
   (if heading
     (if use-file
-      (format "[[file:%s::*%s][%s]]" file heading description)
+      (format "[[file:%s::%s][%s]]" file heading description)
       (format "[[%s][%s]]" heading description))
     (error "Illegal state")))
 
