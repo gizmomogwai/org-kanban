@@ -393,7 +393,10 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
                                   (list (org-kanban//heading-get-todo-keyword (org-kanban//todo-info-get-heading todo-info)))
                                   (org-kanban//todo-info-get-keywords todo-info)))
                               todo-infos)))
-        (table (--reduce (format "%s\n%s" acc it) rows))
+        (table (if rows
+                 (--reduce (format "%s\n%s" acc it) rows)
+                 ""
+                 ))
         (table-title (string-join todo-keywords "|"))
         )
       (format "|%s|\n|--|\n%s" table-title table)))
