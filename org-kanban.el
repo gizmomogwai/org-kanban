@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.8
+;; Package-Version: 0.4.9
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -405,7 +405,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.8"))
+  (message "org-kanban 0.4.9"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -496,7 +496,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
       (setq res (concat res (format " :scope %s" scope))))
     res))
 
-(defun calculate-preview (mirrored match layout scope)
+(defun org-kanban--calculate-preview (mirrored match layout scope)
   "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT and SCOPE."
   (setq res "#+BEGIN: kanban")
   (if mirrored
@@ -508,9 +508,9 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
   (setq res (concat res (format " :scope %s" scope)))
   res)
 
-(defun update-preview (preview mirrored match layout scope)
+(defun org-kanban--update-preview (preview mirrored match layout scope)
   "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT and SCOPE."
-  (widget-value-set preview (calculate-preview mirrored match layout scope)))
+  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope)))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters position)
   "Create the configuration form for BUFFER.
@@ -535,7 +535,7 @@ POSITION in the configure buffer."
       :value mirrored
       :notify (lambda (widget &rest ignore)
                 (setq mirrored (widget-value widget))
-                (update-preview preview mirrored match layout scope)))
+                (org-kanban--update-preview preview mirrored match layout scope)))
     (widget-insert (propertize "  see https://theagileist.wordpress.com/tag/mirrored-kanban-board/ for details" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
     
@@ -544,14 +544,14 @@ POSITION in the configure buffer."
                          :value (if match match "")
                          :notify (lambda (widget &rest ignore)
                                    (setq match (widget-value widget))
-                                   (update-preview preview mirrored match layout scope))
+                                   (org-kanban--update-preview preview mirrored match layout scope))
                          :size 30))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (widget &rest ignore)
                 (setq match nil)
                 (widget-value-set match-widget nil)
-                (update-preview preview mirrored match layout))
+                (org-kanban--update-preview preview mirrored match layout))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  match to tags e.g. urgent|important" 'face 'font-lock-doc-face))
@@ -564,14 +564,14 @@ POSITION in the configure buffer."
       :size 5
       :notify (lambda (widget &rest ignore)
                 (setq layout (cons (widget-value widget) (cdr layout)))
-                (update-preview preview mirrored match layout scope)))
+                (org-kanban--update-preview preview mirrored match layout scope)))
     (widget-insert (propertize " Max-width: " 'face 'font-lock-keyword-face))
     (widget-create 'editable-field
       :value (format "%s" (if layout (cdr layout) ""))
       :size 1
       :notify (lambda (widget &rest ignore)
                 (setq layout (cons (car layout) (widget-value widget)))
-                (update-preview preview mirrored match layout scope)))
+                (org-kanban--update-preview preview mirrored match layout scope)))
     (widget-insert "\n")
     (widget-insert (propertize "  max-width should be bigger then the length of the abbreviation" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
@@ -597,7 +597,7 @@ POSITION in the configure buffer."
                                   (_ (setq default-file-list scope-string))
                                   (res (car (read-from-string scope-string))))
                              res))))
-                    (update-preview preview mirrored match layout scope)))
+                    (org-kanban--update-preview preview mirrored match layout scope)))
         :value-set (lambda (widget &rest value)
                      (widget-default-value-set widget
                        (cond
@@ -619,7 +619,7 @@ POSITION in the configure buffer."
                 (with-current-buffer buffer
                   (goto-char beginning)
                   (kill-line)
-                  (insert (calculate-preview mirrored match layout scope)))
+                  (insert (org-kanban--calculate-preview mirrored match layout scope)))
                 (kill-buffer)
                 (org-ctrl-c-ctrl-c))
       (propertize "Apply" 'face 'font-lock-comment-face))
@@ -629,7 +629,7 @@ POSITION in the configure buffer."
                 (kill-buffer))
       (propertize "Cancel" 'face 'font-lock-string-face))
 
-    (update-preview preview mirrored match layout scope)
+    (org-kanban--update-preview preview mirrored match layout scope)
     (use-local-map widget-keymap)
     (widget-setup)))
 
