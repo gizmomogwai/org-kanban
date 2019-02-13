@@ -3,7 +3,9 @@ Feature: Work kanban tables
     Given I open file "tests/test1.org"
     And I insert:
     """
-    * TODO a
+    * TODO a [1/2]
+    - [X] test1
+    - [ ] test2
     * DONE b
     * DONE c
       :PROPERTIES:
@@ -26,92 +28,92 @@ Feature: Work kanban tables
     """
     * Kanban
     #+BEGIN: kanban
-    | TODO | DONE |
-    |------+------|
-    | [[a][a]]    |      |
-    |      | [[b][b]]    |
-    |      | [[#customid1][c]]    |
-    |      | [[id:id2][d]]    |
+    | TODO    | DONE |
+    |---------+------|
+    | [[a][a {1/2}]] |      |
+    |         | [[b][b]]    |
+    |         | [[#customid1][c]]    |
+    |         | [[id:id2][d]]    |
     #+END:
     """
 
   Scenario: Move Todo Items
-    When I go to line "16"
+    When I go to line "18"
     And I run org-kanban/shift
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    |      | [[a][a]]    |
-    |      | [[b][b]]    |
+    | TODO | DONE    |
+    |------+---------|
+    |      | [[a][a {1/2}]] |
+    |      | [[b][b]]       |
     """
 
     And I press "j"
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    | [[a][a]]    |      |
-    |      | [[b][b]]    |
+    | TODO    | DONE |
+    |---------+------|
+    | [[a][a {1/2}]] |      |
+    |         | [[b][b]]    |
     """
 
     And I press "k"
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    |      | [[a][a]]    |
-    |      | [[b][b]]    |
+    | TODO | DONE    |
+    |------+---------|
+    |      | [[a][a {1/2}]] |
+    |      | [[b][b]]       |
     """
 
     And I press "k"
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    |      | [[a][a]]    |
-    |      | [[b][b]]    |
+    | TODO | DONE    |
+    |------+---------|
+    |      | [[a][a {1/2}]] |
+    |      | [[b][b]]       |
     """
 
     And I press "j"
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    | [[a][a]]    |      |
-    |      | [[b][b]]    |
+    | TODO    | DONE |
+    |---------+------|
+    | [[a][a {1/2}]] |      |
+    |         | [[b][b]]    |
     """
 
     And I press "j"
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    | [[a][a]]    |      |
-    |      | [[b][b]]    |
+    | TODO    | DONE |
+    |---------+------|
+    | [[a][a {1/2}]] |      |
+    |         | [[b][b]]    |
     """
 
   Scenario: Move Todo Items by customid
-    When I go to line "18"
+    When I go to line "20"
     And I run org-kanban/prev
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    | [[a][a]]    |      |
-    |      | [[b][b]]    |
-    | [[#customid1][c]]    |      |
+    | TODO    | DONE |
+    |---------+------|
+    | [[a][a {1/2}]] |      |
+    |         | [[b][b]]    |
+    | [[#customid1][c]]       |      |
     """
 
   Scenario: Move Todo Items by id
-    When I go to line "19"
+    When I go to line "21"
     And I run org-kanban/prev
     Then I should see:
     """
-    | TODO | DONE |
-    |------+------|
-    | [[a][a]]    |      |
-    |      | [[b][b]]    |
-    |      | [[#customid1][c]]    |
-    | [[id:id2][d]]    |      |
+    | TODO    | DONE |
+    |---------+------|
+    | [[a][a {1/2}]] |      |
+    |         | [[b][b]]    |
+    |         | [[#customid1][c]]    |
+    | [[id:id2][d]]       |      |
     """

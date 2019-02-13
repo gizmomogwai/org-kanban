@@ -4,7 +4,32 @@
 * Develop Task Three                                                 :urgent:
 * Done Task Five                                                     :kanban:
 * Test Task Four                                                        :abc:
-* Kanban
+* Test Task One2
+* Test Task Two2
+* Test Task Three2 with list [1/3]
+- [X] item 1
+- [ ] item 2
+- [ ] item 3
+
+* kanban 1
+#+BEGIN: kanban :layout ("..." . 1000) :scope (test1.org test2.org)
+| Todo        | Plan     | Develop    | Test                        | Done      |
+|-------------+----------+------------+-----------------------------+-----------|
+| [[Task One][Task One]]    |          |            |                             |           |
+|             | [[Task Two][Task Two]] |            |                             |           |
+|             |          | [[Task Three][Task Three]] |                             |           |
+|             |          |            |                             | [[Task Five][Task Five]] |
+|             |          |            | [[Task Four][Task Four]]                   |           |
+|             |          |            | [[Task One2][Task One2]]                   |           |
+|             |          |            | [[Task Two2][Task Two2]]                   |           |
+|             |          |            | [[Task Three2 with list][Task Three2 with list {1/3}]] |           |
+|             |          | [[file:test2.org::Two][Two]]        |                             |           |
+| [[file:test2.org::Three][Three {0/2}]] |          |            |                             |           |
+|             |          |            | [[file:test2.org::Three.1][Three.1]]                     |           |
+| [[file:test2.org::Three.2][Three.2]]     |          |            |                             |           |
+#+END:
+
+* kanban 2
 #+BEGIN: kanban :mirrored t :match "kanban|urgent|abc" :layout (".." . 10)
 | Done      | Test      | Develop    | Plan | Todo |
 |-----------+-----------+------------+------+------|

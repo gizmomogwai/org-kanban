@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.9
+;; Package-Version: 0.4.10
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -127,6 +127,14 @@
       (format "[[%s][%s]]" heading description))
     (error "Illegal state")))
 
+(defun org-kanban//cleanup-description (description)
+  "Cleanup DESCRIPTION for use in a org link."
+  (s-replace "]" "}" (s-replace "[" "{" description)))
+
+(defun org-kanban//cleanup-heading (heading)
+  "Cleanup HEADING for use in a org link."
+  (replace-regexp-in-string "\s*\\[.*]" "" heading))
+
 (defun org-kanban//link (file heading kanban search-for multi-file custom-id id layout)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
 MULTI-FILE indicates if the link must work across several files.
@@ -142,12 +150,12 @@ This means, that the org-kanban table links are in one of several forms:
   (if
     (and (stringp kanban) (string-equal search-for kanban))
     (let* (
-            (description (funcall layout heading))
+            (description (org-kanban//cleanup-description (funcall layout heading)))
             (use-file (and multi-file (not (eq file (current-buffer)))))
             )
       (or (org-kanban//link-for-custom-id custom-id use-file file description)
         (org-kanban//link-for-id id description)
-        (org-kanban//link-for-heading heading use-file file description)
+        (org-kanban//link-for-heading (org-kanban//cleanup-heading heading) use-file file description)
         ))
     ""))
 
@@ -405,7 +413,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.9"))
+  (message "org-kanban 0.4.10"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
