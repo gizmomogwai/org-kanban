@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.11
+;; Package-Version: 0.4.12
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -26,6 +26,7 @@
 (require 'dash)
 (require 'subr-x)
 (require 'widget)
+(require 'wid-edit)
 
 (defun org-kanban//sanity-check-parameters (context layout)
   "Check for CONTEXT if LAYOUT is consistent."
@@ -382,59 +383,59 @@ Return file and marker."
     result))
 
 ;;;###autoload
-(defun org-dblock-write:kanban (params)
-  "Create the kanban dynamic block.
+  (defun org-dblock-write:kanban (params)
+    "Create the kanban dynamic block.
 PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
-  (insert
-    (let*
-      (
-        (mirrored (plist-get params :mirrored))
-        (match (plist-get params :match))
-        (layout (org-kanban//params-layout params))
-        (files (org-kanban//params-files params))
-        (scope (org-kanban//params-scope params files))
-        (multi-file (> (length files) 1))
-        (todo-keywords (org-kanban//todo-keywords files mirrored))
-        (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
-        (row-for (lambda(todo-info) (org-kanban//row-for todo-info todo-keywords multi-file layout)))
-        (rows (-map row-for (-filter
-                              (lambda(todo-info)
-                                (-intersection
-                                  (list (org-kanban//heading-get-todo-keyword (org-kanban//todo-info-get-heading todo-info)))
-                                  (org-kanban//todo-info-get-keywords todo-info)))
-                              todo-infos)))
-        (table (if rows
-                 (--reduce (format "%s\n%s" acc it) rows)
-                 ""
-                 ))
-        (table-title (string-join todo-keywords "|"))
-        )
-      (format "|%s|\n|--|\n%s" table-title table)))
-  (org-table-align))
+    (insert
+      (let*
+        (
+          (mirrored (plist-get params :mirrored))
+          (match (plist-get params :match))
+          (layout (org-kanban//params-layout params))
+          (files (org-kanban//params-files params))
+          (scope (org-kanban//params-scope params files))
+          (multi-file (> (length files) 1))
+          (todo-keywords (org-kanban//todo-keywords files mirrored))
+          (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
+          (row-for (lambda(todo-info) (org-kanban//row-for todo-info todo-keywords multi-file layout)))
+          (rows (-map row-for (-filter
+                                (lambda(todo-info)
+                                  (-intersection
+                                    (list (org-kanban//heading-get-todo-keyword (org-kanban//todo-info-get-heading todo-info)))
+                                    (org-kanban//todo-info-get-keywords todo-info)))
+                                todo-infos)))
+          (table (if rows
+                   (--reduce (format "%s\n%s" acc it) rows)
+                   ""
+                   ))
+          (table-title (string-join todo-keywords "|"))
+          )
+        (format "|%s|\n|--|\n%s" table-title table)))
+    (org-table-align))
 
-(defun org-kanban/version ()
-  "Print org-kanban version."
-  (interactive)
-  (message "org-kanban 0.4.11"))
+  (defun org-kanban/version ()
+    "Print org-kanban version."
+    (interactive)
+    (message "org-kanban 0.4.12"))
 
-(defun org-kanban--scope-action (button)
-  "Set scope from a BUTTON."
-  (let* (
-          (position (point))
-          (parameters (button-get button 'parameters))
-          (scope (plist-get parameters :scope))
-          (delete (button-get button 'delete)))
-    (if delete
-      (plist-put parameters :scope nil)
-      (let* (
-              (default-scope (if scope (format "%s" scope) nil))
-              (new-scope (read-string "Scope: " default-scope)))
-        (plist-put parameters :scope new-scope)))
-    (org-kanban//show-configure-buffer
-      (button-get button 'buffer)
-      (button-get button 'beginning)
-      parameters
-      position)))
+  (defun org-kanban--scope-action (button)
+    "Set scope from a BUTTON."
+    (let* (
+            (position (point))
+            (parameters (button-get button 'parameters))
+            (scope (plist-get parameters :scope))
+            (delete (button-get button 'delete)))
+      (if delete
+        (plist-put parameters :scope nil)
+        (let* (
+                (default-scope (if scope (format "%s" scope) nil))
+                (new-scope (read-string "Scope: " default-scope)))
+          (plist-put parameters :scope new-scope)))
+      (org-kanban//show-configure-buffer
+        (button-get button 'buffer)
+        (button-get button 'beginning)
+        parameters
+        position)))
 
 (defun org-kanban--layout-action (button)
   "Set layout from a BUTTON."
