@@ -41,9 +41,11 @@
   :prefix "org-kanban")
 (defcustom org-kanban/prev-key "j"
   "Key for promoting an entry of a kanban table to the previous state."
+  :type 'string
   :group 'org-kanban)
 (defcustom org-kanban/next-key "k"
   "Key for promoting an entry of a kanban table to the next state."
+  :type 'string
   :group 'org-kanban)
 (defcustom org-kanban/layout (cons "..." 1000)
   "Layout for long descriptions."
@@ -493,28 +495,22 @@ PARAMS may contain `:mirrored`, `:match`, `:scope` and `:layout`."
           (match (plist-get parameters :match))
           (layout (plist-get parameters :layout))
           (scope (plist-get parameters :scope)))
-    (setq res "#+BEGIN: kanban")
-    (if mirrored
-      (setq res (concat res " :mirrored t")))
-    (if match
-      (setq res (concat res (format " :match \"%s\"" match))))
-    (if layout
-      (setq res (concat res (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))))
-    (if scope
-      (setq res (concat res (format " :scope %s" scope))))
-    res))
+    (s-join " " (delq nil
+                  (list "#+BEGIN: kanban"
+                    (if mirrored ":mirrored t")
+                    (if match (format " :match \"%s\"" match))
+                    (if layout (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))
+                    (if scope (format " :scope %s" scope)))))))
 
 (defun org-kanban--calculate-preview (mirrored match layout scope)
   "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT and SCOPE."
-  (setq res "#+BEGIN: kanban")
-  (if mirrored
-    (setq res (concat res " :mirrored t")))
-  (if (and match (> (length match) 0))
-    (setq res (concat res (format " :match \"%s\"" match))))
-  (if layout
-    (setq res (concat res (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))))
-  (setq res (concat res (format " :scope %s" scope)))
-  res)
+  (s-join " " (delq nil
+                (list "#+BEGIN: kanban"
+                  (if mirrored ":mirrored t")
+                  (if (and match (> (length match) 0))
+                    (format ":match \"%s\"" match))
+                  (if layout (format ":layout (\"%s\" . %s)" (car layout) (cdr layout)))
+                  (format ":scope %s" scope)))))
 
 (defun org-kanban--update-preview (preview mirrored match layout scope)
   "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT and SCOPE."
@@ -559,7 +555,7 @@ POSITION in the configure buffer."
       :notify (lambda (widget &rest ignore)
                 (setq match nil)
                 (widget-value-set match-widget nil)
-                (org-kanban--update-preview preview mirrored match layout))
+                (org-kanban--update-preview preview mirrored match layout scope))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  match to tags e.g. urgent|important" 'face 'font-lock-doc-face))
