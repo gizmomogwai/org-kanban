@@ -1,8 +1,8 @@
 (source gnu)
 (source melpa)
-(source "org"       "http://orgmode.org/elpa/")
+(source "org" "http://orgmode.org/elpa/")
 
-(package "org-kanban" "0.4.13" "Kanban for org-mode.")
+(package "org-kanban" "0.4.14" "Kanban for org-mode.")
 (package-file "org-kanban.el")
 
 (depends-on "dash")
