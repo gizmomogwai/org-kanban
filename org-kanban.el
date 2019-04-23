@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.14
+;; Package-Version: 0.4.15
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -131,13 +131,21 @@
       (format "[[%s][%s]]" heading description))
     (error "Illegal state")))
 
-(defun org-kanban//cleanup-description (description)
-  "Cleanup DESCRIPTION for use in a org link."
-  (s-replace "]" "}" (s-replace "[" "{" description)))
+(defun org-kanban//escape-description (description)
+  "Cleanup DESCRIPTION for use in an org link."
+  (s-replace "|" "｜"
+    (s-replace "]" "}"
+      (s-replace "[" "{"
+        description))))
 
-(defun org-kanban//cleanup-heading (heading)
-  "Cleanup HEADING for use in a org link."
-  (replace-regexp-in-string "\s*\\[.*]" "" heading))
+(defun org-kanban//escape-heading (heading)
+  "Cleanup HEADING for use in an org link."
+  (s-replace "|" "｜"
+    (replace-regexp-in-string "\s*\\[.*]" "" heading)))
+
+(defun org-kanban//unescape-heading (heading)
+  "Transform HEADING from org link to real heading."
+  (s-replace  "｜" "|" heading))
 
 (defun org-kanban//link (file heading kanban search-for multi-file custom-id id layout)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
@@ -154,12 +162,13 @@ This means, that the org-kanban table links are in one of several forms:
   (if
     (and (stringp kanban) (string-equal search-for kanban))
     (let* (
-            (description (org-kanban//cleanup-description (funcall layout heading)))
+            (description (org-kanban//escape-description (funcall layout heading)))
             (use-file (and multi-file (not (eq file (current-buffer)))))
             )
-      (or (org-kanban//link-for-custom-id custom-id use-file file description)
+      (or
+        (org-kanban//link-for-custom-id custom-id use-file file description)
         (org-kanban//link-for-id id description)
-        (org-kanban//link-for-heading (org-kanban//cleanup-heading heading) use-file file description)
+        (org-kanban//link-for-heading (org-kanban//escape-heading heading) use-file file description)
         ))
     ""))
 
@@ -213,7 +222,7 @@ LAYOUT specification."
           (pattern "\\[\\[file:\\(.*\\)::\\(.*\\)\\]\\[.*\\]")
           (match (string-match pattern line))
           (file (and match (match-string 1 line)))
-          (heading (and match (match-string 2 line)))
+          (heading (and match (org-kanban//unescape-heading (match-string 2 line))))
           (entry (and heading (save-excursion
                                 (find-file file)
                                 (org-find-exact-headline-in-buffer heading)))))
@@ -233,7 +242,7 @@ LAYOUT specification."
   (let* (
           (pattern "\\[\\[\\(.*\\)\\]\\[.*\\]")
           (match (string-match pattern line))
-          (heading (and match (match-string 1 line)))
+          (heading (and match (org-kanban//unescape-heading (match-string 1 line))))
           (entry (and heading (org-find-exact-headline-in-buffer heading))))
     (if entry (list (buffer-file-name) entry) nil)))
 
@@ -257,7 +266,8 @@ Return file and marker."
                       (move-end-of-line 1)
                       (point)))
           (line (buffer-substring-no-properties line-start line-end)))
-    (or (org-kanban//find-by-file-and-custom-id line)
+    (or
+      (org-kanban//find-by-file-and-custom-id line)
       (org-kanban//find-by-file-and-heading line)
       (org-kanban//find-by-custom-id line)
       (org-kanban//find-by-id line)
@@ -452,7 +462,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.14"))
+  (message "org-kanban 0.4.15"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
