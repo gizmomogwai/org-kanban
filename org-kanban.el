@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.15
+;; Package-Version: 0.4.16
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -347,33 +347,43 @@ Return file and marker."
             (name (org-no-properties (match-string 1))))
       (append (list :name name) (read (concat "(" (match-string 3) ")"))))))
 
+(defun org-kanban//move-table-entry (direction)
+  "Move the cell/entry in kanban table in direction DIRECTION."
+  (org-narrow-to-element)
+  ;; goes to the element in the row, assume we are anywhere on the line
+  (or (search-forward "[[" nil t)
+    (search-backward "[["))
+  (unwind-protect
+    (org-table-move-column (if (eq 'left direction) 't nil))
+    (widen)
+    (org-table-align)))
+
+(defun org-kanban//get-table-todo ()
+  "Return todo state in given column in kanban table."
+  (save-excursion
+    (let* ((cur-col (org-table-current-column)))
+      (org-table-goto-line 1)
+      (org-table-goto-column cur-col)
+      (-> (org-table-get-field)
+        (org-no-properties)
+        (s-trim)))))
+
 (defun org-kanban//move (direction)
   "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
-  (let* ((range (plist-get (org-kanban//get-dynamic-block-parameters) :range)))
-    (save-window-excursion
-      (if (-contains? (list 'left 'right) direction)
-        (let* (
-                (file-and-marker (org-kanban//find))
-                (line (line-number-at-pos))
-                (file (nth 0 file-and-marker))
-                (marker (nth 1 file-and-marker)))
-          (if (and file-and-marker file marker)
-            (if (save-excursion
-                  (find-file file)
-                  (goto-char marker)
-                  (let* (
-                          (current (substring-no-properties (org-get-todo-state)))
-                          (border (car (if (eq direction 'right) (reverse org-todo-keywords-1) org-todo-keywords-1)))
-                          (range-border (if (eq direction 'right) (cdr range) (car range)))
-                          (change (and (not (string-equal current border))
-                                    (not (string-equal current range-border)))))
-                    (if change (org-todo direction))
-                    change))
-              (progn
-                (org-dblock-update)
-                (goto-char 0)
-                (forward-line (1- line))
-                (goto-char (search-forward "[["))))))))))
+  (save-window-excursion
+    (if (-contains? (list 'left 'right) direction)
+      (let* (
+              (file-and-marker (org-kanban//find))
+              (file (nth 0 file-and-marker))
+              (marker (nth 1 file-and-marker)))
+        (when (and file-and-marker file marker)
+          (with-demoted-errors
+            (org-kanban//move-table-entry direction)
+            (let ((todo (org-kanban//get-table-todo)))
+              (save-excursion
+                (find-file file)
+                (goto-char marker)
+                (org-todo todo)))))))))
 
   (defun org-kanban//params-layout (params)
     "Calculate layout func based on PARAMS."
@@ -462,7 +472,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.15"))
+  (message "org-kanban 0.4.16"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
