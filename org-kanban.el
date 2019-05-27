@@ -368,6 +368,12 @@ Return file and marker."
         (org-no-properties)
         (s-trim)))))
 
+(defmacro org-kanban//measure-time (title &rest body)
+  "Print time prefixed with TITLE it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "%s %.06f" ,title (float-time (time-since time)))))
+
 (defun org-kanban//move (direction)
   "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
   (save-window-excursion
