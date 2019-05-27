@@ -33,3 +33,12 @@ task :test do
   sh "cask exec ecukes --verbose --debug --reporter magnars"
   sh "cask eval \"(byte-compile-file \\\"org-kanban.el\\\")\""
 end
+
+desc 'generate big testfile'
+task :generate_big_testfile do
+  File.open("big_testfile.org", "w") do |io|
+    (1..600).each do |i|
+      io.puts("* TODO Testthing #{i}")
+    end
+  end
+end
