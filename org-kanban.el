@@ -341,8 +341,8 @@ Return file and marker."
   "Get the dynamic block parameters if point is inside a block."
   (save-excursion
     (let* (
-            (jump-to-beginning (org-beginning-of-dblock))
-            (match (unless (looking-at org-dblock-start-re)
+            (_ (org-beginning-of-dblock))
+            (__ (unless (looking-at org-dblock-start-re)
                      (user-error "Not at a dynamic block")))
             (name (org-no-properties (match-string 1))))
       (append (list :name name) (read (concat "(" (match-string 3) ")"))))))
@@ -483,7 +483,6 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
   (let* (
-          (position (point))
           (parameters (button-get button 'parameters))
           (scope (plist-get parameters :scope))
           (delete (button-get button 'delete)))
@@ -496,13 +495,11 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
     (org-kanban//show-configure-buffer
       (button-get button 'buffer)
       (button-get button 'beginning)
-      parameters
-      position)))
+      parameters)))
 
 (defun org-kanban--layout-action (button)
   "Set layout from a BUTTON."
   (let* (
-          (position (point))
           (parameters (button-get button 'parameters))
           (layout (plist-get parameters :layout))
           (delete (button-get button 'delete)))
@@ -517,13 +514,11 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
     (org-kanban//show-configure-buffer
       (button-get button 'buffer)
       (button-get button 'beginning)
-      parameters
-      position)))
+      parameters)))
 
 (defun org-kanban--match-action (button)
   "Set the current match string from a BUTTON."
   (let* (
-          (position (point))
           (parameters (button-get button 'parameters))
           (match (plist-get parameters :match))
           (delete (button-get button 'delete)))
@@ -535,21 +530,18 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
     (org-kanban//show-configure-buffer
       (button-get button 'buffer)
       (button-get button 'beginning)
-      parameters
-      position)))
+      parameters)))
 
 (defun org-kanban--mirrored-button-action (button)
   "Set the current mirrored setting from a BUTTON."
   (let* (
-          (position (point))
           (parameters (button-get button 'parameters))
           (mirrored (plist-get parameters :mirrored)))
     (plist-put parameters :mirrored (not mirrored))
     (org-kanban//show-configure-buffer
       (button-get button 'buffer)
       (button-get button 'beginning)
-      parameters
-      position)))
+      parameters)))
 
 (defun org-kanban--dynamicblock-from-parameters (parameters)
   "Create heading of a dynamic block from PARAMETERS."
@@ -580,11 +572,10 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
   "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE and RANGE."
   (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range)))
 
-(defun org-kanban//show-configure-buffer (buffer beginning parameters position)
+(defun org-kanban//show-configure-buffer (buffer beginning parameters)
   "Create the configuration form for BUFFER.
 BEGINNING the position there and
-PARAMETERS the org-kanban parameters.
-POSITION in the configure buffer."
+PARAMETERS the org-kanban parameters."
   (switch-to-buffer "*org-kanban-configure*")
   (let (
          (inhibit-read-only t)
@@ -737,7 +728,7 @@ POSITION in the configure buffer."
     (let* (
             (beginning (org-beginning-of-dblock))
             (parameters (org-prepare-dblock)))
-      (org-kanban//show-configure-buffer (current-buffer) beginning parameters 0))))
+      (org-kanban//show-configure-buffer (current-buffer) beginning parameters))))
 
 (provide 'org-kanban)
 ;;; org-kanban.el ends here
