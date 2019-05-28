@@ -593,7 +593,7 @@ PARAMETERS the org-kanban parameters."
     (widget-insert (propertize "Mirrored: " 'face 'font-lock-keyword-face))
     (widget-create 'toggle
       :value mirrored
-      :notify (lambda (widget &rest ignore)
+      :notify (lambda (widget &rest _ignore)
                 (setq mirrored (widget-value widget))
                 (org-kanban--update-preview preview mirrored match layout scope range)))
     (widget-insert (propertize "  see https://theagileist.wordpress.com/tag/mirrored-kanban-board/ for details" 'face 'font-lock-doc-face))
@@ -603,12 +603,12 @@ PARAMETERS the org-kanban parameters."
     (setq match-widget (widget-create 'editable-field
                          :value (format "%s" (or match ""))
                          :size 30
-                         :notify (lambda (widget &rest ignore)
+                         :notify (lambda (widget &rest _ignore)
                                    (setq match (widget-value widget))
                                    (org-kanban--update-preview preview mirrored match layout scope range))))
     (widget-insert " ")
     (widget-create 'push-button
-      :notify (lambda (widget &rest ignore)
+      :notify (lambda (_widget &rest _ignore)
                 (widget-value-set match-widget "")
                 (setq match nil)
                 (org-kanban--update-preview preview mirrored match layout scope range))
@@ -622,19 +622,19 @@ PARAMETERS the org-kanban parameters."
     (setq range-from-widget (widget-create 'editable-field
                               :value (format "%s" (or (car range) ""))
                               :size 7
-                              :notify (lambda (widget &rest ignore)
+                              :notify (lambda (widget &rest _ignore)
                                         (setq range (cons (widget-value widget) (cdr range)))
                                         (org-kanban--update-preview preview mirrored match layout scope range))))
     (widget-insert (propertize " to: " 'face 'font-lock-keyword-face))
     (setq range-to-widget (widget-create 'editable-field
                             :value (format "%s" (or (cdr range) ""))
                             :size 7
-                            :notify (lambda (widget &rest ignore)
+                            :notify (lambda (widget &rest _ignore)
                                       (setq range (cons (car range) (widget-value widget)))
                                       (org-kanban--update-preview preview mirrored match layout scope range))))
     (widget-insert " ")
     (widget-create 'push-button
-      :notify (lambda (widget &rest ignore)
+      :notify (lambda (_widget &rest _ignore)
                 (widget-value-set range-from-widget "")
                 (widget-value-set range-to-widget "")
                 (setq range nil)
@@ -649,14 +649,14 @@ PARAMETERS the org-kanban parameters."
     (widget-create 'editable-field
       :value (format "%s" (if layout (car layout) ""))
       :size 5
-      :notify (lambda (widget &rest ignore)
+      :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (widget-value widget) (cdr layout)))
                 (org-kanban--update-preview preview mirrored match layout scope range)))
     (widget-insert (propertize " Max-width: " 'face 'font-lock-keyword-face))
     (widget-create 'editable-field
       :value (format "%s" (if layout (cdr layout) ""))
       :size 1
-      :notify (lambda (widget &rest ignore)
+      :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (car layout) (widget-value widget)))
                 (org-kanban--update-preview preview mirrored match layout scope range)))
     (widget-insert "\n")
@@ -674,7 +674,7 @@ PARAMETERS the org-kanban parameters."
                  ((eq scope 'tree) "tree")
                  ((eq scope nil) "nil")
                  (t (format "%s" scope)))
-        :notify (lambda (widget &rest ignore)
+        :notify (lambda (widget &rest _ignore)
                   (let ((scope-string (widget-value widget)))
                     (setq scope
                       (cond
@@ -702,7 +702,7 @@ PARAMETERS the org-kanban parameters."
       (widget-create 'const))
 
     (widget-create 'push-button
-      :notify (lambda(widget &rest ignore)
+      :notify (lambda(_widget &rest _ignore)
                 (with-current-buffer buffer
                   (goto-char beginning)
                   (kill-line)
@@ -712,7 +712,7 @@ PARAMETERS the org-kanban parameters."
       (propertize "Apply" 'face 'font-lock-comment-face))
     (widget-insert " ")
     (widget-create 'push-button
-      :notify (lambda (widget &rest ignore)
+      :notify (lambda (_widget &rest _ignore)
                 (kill-buffer))
       (propertize "Cancel" 'face 'font-lock-string-face))
 
