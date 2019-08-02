@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.16
+;; Package-Version: 0.4.17
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -41,12 +41,20 @@
   "Settings for org-kanban."
   :group 'org
   :prefix "org-kanban")
-(defcustom org-kanban/prev-key "j"
+(defcustom org-kanban/prev-keys "ah"
   "Key for promoting an entry of a kanban table to the previous state."
   :type 'string
   :group 'org-kanban)
-(defcustom org-kanban/next-key "k"
+(defcustom org-kanban/next-keys "dl"
   "Key for promoting an entry of a kanban table to the next state."
+  :type 'string
+  :group 'org-kanban)
+(defcustom org-kanban/subtree-up-keys "wk"
+  "Key for moving the subtree of an entry up in the org document."
+  :type 'string
+  :group 'org-kanban)
+(defcustom org-kanban/subtree-down-keys "sj"
+  "Key for moving the subtree of an entry down in the org document."
   :type 'string
   :group 'org-kanban)
 (defcustom org-kanban/layout (cons "..." 1000)
@@ -273,6 +281,59 @@ Return file and marker."
       (org-kanban//find-by-id line)
       (org-kanban//find-by-heading line))))
 
+(defun org-kanban/move-subtree-up ()
+  "Move the todo entry in the current line of the kanban table up."
+  (interactive)
+  (org-kanban//move-subtree 'up))
+
+(defun org-kanban/move-subtree-down ()
+  "Move the todo entry in the current line of the kanban table down."
+  (interactive)
+  (org-kanban//move-subtree 'down))
+
+(defun org-kanban//move-subtree (&optional direction)
+  "Move subtree into DIRECTION."
+  (save-window-excursion
+    (if (-contains? (list 'up 'down) direction)
+      (let* (
+              (file-and-marker (org-kanban//find))
+              (file (nth 0 file-and-marker))
+              (line (line-number-at-pos))
+              (marker (nth 1 file-and-marker)))
+        (when (and file-and-marker file marker)
+          (with-demoted-errors
+            ;;(org-kanban//move-table-entry direction)
+            (message "pos before move subtree %s" (point))
+            (let ((new-pos 0))
+              (save-excursion
+              (find-file file)
+              (goto-char marker)
+              (if (eq direction 'up)
+                (org-move-subtree-up)
+                (org-move-subtree-down))
+              (setq new-pos (point)))
+              (org-dblock-update)
+              (org-beginning-of-dblock)
+              (if (org-kanban//search-element new-pos)
+                (goto-char (search-forward "[["))))))))))
+
+(defun org-kanban//search-element (points-to)
+  "Search for the org-kanban table entry that POINTS-TO the todo."
+  (message "Try to place %s" points-to)
+  (let* (
+          (done-p nil))
+    (while (not done-p)
+      (message "currently at point %s" (point))
+      (let* (
+              (file-and-marker (org-kanban//find))
+              (file (nth 0 file-and-marker))
+              (marker (nth 1 file-and-marker)))
+        (if marker
+          (if (eq (marker-position marker) points-to)
+            (progn             (setq done-p t) (message "super"))
+            (forward-line 1))
+          (forward-line 1))))))
+    
 (defun org-kanban/next ()
   "Move the todo entry in the current line of the kanban table to the next state."
   (interactive)
@@ -283,17 +344,28 @@ Return file and marker."
   (interactive)
   (org-kanban//move 'left))
 
-(defun org-kanban/shift (&optional left-or-right)
-  "Move todo to LEFT-OR-RIGHT (repeatedly)."
+(defun org-kanban/shift (&optional direction)
+  "Move todo to DIRECTION (repeatedly)."
   (interactive)
-  (org-kanban//move (if left-or-right left-or-right 'right))
-  (message (format "Use %s and %s to shift" org-kanban/prev-key org-kanban/next-key))
+  (message "Use %s and %s to change todo state, %s and %s to reorder subtrees" org-kanban/prev-keys org-kanban/next-key org-kanban/subtree-up-keys org-kanban/subtree-down-keys)
+  (cond
+    ((eq 'left direction) (org-kanban//move direction))
+    ((eq 'right direction) (org-kanban//move direction))
+    ((eq 'up direction) (org-kanban//move-subtree direction))
+    ((eq 'down direction) (org-kanban//move-subtree direction)))
   (set-transient-map
     (let* (
             (map (make-sparse-keymap)))
-      (define-key map org-kanban/prev-key (lambda () (interactive) (org-kanban/shift 'left)))
-      (define-key map org-kanban/next-key (lambda () (interactive) (org-kanban/shift 'right)))
+      (org-kanban//define-keys map org-kanban/prev-keys (lambda () (interactive) (org-kanban/shift 'left)))
+      (org-kanban//define-keys map org-kanban/next-keys (lambda () (interactive) (org-kanban/shift 'right)))
+      (org-kanban//define-keys map org-kanban/subtree-down-keys (lambda () (interactive) (org-kanban/shift 'down)))
+      (org-kanban//define-keys map org-kanban/subtree-up-keys (lambda () (interactive) (org-kanban/shift 'up)))
       map)))
+
+(defun org-kanban//define-keys (map keys fun)
+  "Define FUN for all KEYS in MAP."
+  (dolist (key (append keys nil))
+    (define-key map (format "%c" key) fun)))
 
 ;;;###autoload
 (defun org-kanban/initialize (&optional arg)
@@ -478,7 +550,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.16"))
+  (message "org-kanban 0.4.17"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
