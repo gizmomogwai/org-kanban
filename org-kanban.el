@@ -347,7 +347,7 @@ Return file and marker."
 (defun org-kanban/shift (&optional direction)
   "Move todo to DIRECTION (repeatedly)."
   (interactive)
-  (message "Use %s and %s to change todo state, %s and %s to reorder subtrees" org-kanban/prev-keys org-kanban/next-key org-kanban/subtree-up-keys org-kanban/subtree-down-keys)
+  (message "Use %s and %s to change todo state, %s and %s to reorder subtrees" org-kanban/prev-keys org-kanban/next-keys org-kanban/subtree-up-keys org-kanban/subtree-down-keys)
   (cond
     ((eq 'left direction) (org-kanban//move direction))
     ((eq 'right direction) (org-kanban//move direction))
