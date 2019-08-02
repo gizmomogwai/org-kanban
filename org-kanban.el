@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.17
+;; Package-Version: 0.4.18
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -298,12 +298,10 @@ Return file and marker."
       (let* (
               (file-and-marker (org-kanban//find))
               (file (nth 0 file-and-marker))
-              (line (line-number-at-pos))
               (marker (nth 1 file-and-marker)))
         (when (and file-and-marker file marker)
           (with-demoted-errors
             ;;(org-kanban//move-table-entry direction)
-            (message "pos before move subtree %s" (point))
             (let ((new-pos 0))
               (save-excursion
               (find-file file)
@@ -314,23 +312,23 @@ Return file and marker."
               (setq new-pos (point)))
               (org-dblock-update)
               (org-beginning-of-dblock)
-              (if (org-kanban//search-element new-pos)
+              (if (org-kanban//search-element file new-pos)
                 (goto-char (search-forward "[["))))))))))
 
-(defun org-kanban//search-element (points-to)
-  "Search for the org-kanban table entry that POINTS-TO the todo."
-  (message "Try to place %s" points-to)
+(defun org-kanban//search-element (required-file required-point)
+  "Search for the org-kanban table entry that points to REQUIRED-FILE and REQUIRED-POINT."
   (let* (
           (done-p nil))
     (while (not done-p)
-      (message "currently at point %s" (point))
       (let* (
               (file-and-marker (org-kanban//find))
               (file (nth 0 file-and-marker))
               (marker (nth 1 file-and-marker)))
         (if marker
-          (if (eq (marker-position marker) points-to)
-            (progn             (setq done-p t) (message "super"))
+          (if (and
+                (eq (marker-position marker) required-point)
+                (eq file required-file))
+            (setq done-p t)
             (forward-line 1))
           (forward-line 1))))))
     
@@ -550,7 +548,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.17"))
+  (message "org-kanban 0.4.18"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."

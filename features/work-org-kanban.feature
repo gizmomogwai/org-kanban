@@ -42,53 +42,41 @@ Feature: Work kanban tables
     And I run org-kanban/shift
     Then I should see:
     """
-    | TODO | DONE    |
-    |------+---------|
-    |      | [[a][a {1/2}]] |
-    |      | [[b][b]]       |
-    """
-
-    And I press "j"
-    Then I should see:
-    """
-    | TODO    | DONE |
-    |---------+------|
     | [[a][a {1/2}]] |      |
     |         | [[b][b]]    |
     """
 
-    And I press "k"
+    And I press "h"
     Then I should see:
     """
-    | TODO | DONE    |
-    |------+---------|
-    |      | [[a][a {1/2}]] |
-    |      | [[b][b]]       |
-    """
-
-    And I press "k"
-    Then I should see:
-    """
-    | TODO | DONE    |
-    |------+---------|
-    |      | [[a][a {1/2}]] |
-    |      | [[b][b]]       |
-    """
-
-    And I press "j"
-    Then I should see:
-    """
-    | TODO    | DONE |
-    |---------+------|
     | [[a][a {1/2}]] |      |
     |         | [[b][b]]    |
     """
 
-    And I press "j"
+    And I press "l"
     Then I should see:
     """
-    | TODO    | DONE |
-    |---------+------|
+    |      | [[a][a {1/2}]] |
+    |      | [[b][b]]       |
+    """
+
+    And I press "l"
+    Then I should see:
+    """
+    |      | [[a][a {1/2}]] |
+    |      | [[b][b]]       |
+    """
+
+    And I press "h"
+    Then I should see:
+    """
+    | [[a][a {1/2}]] |      |
+    |         | [[b][b]]    |
+    """
+
+    And I press "h"
+    Then I should see:
+    """
     | [[a][a {1/2}]] |      |
     |         | [[b][b]]    |
     """
@@ -98,8 +86,6 @@ Feature: Work kanban tables
     And I run org-kanban/prev
     Then I should see:
     """
-    | TODO    | DONE |
-    |---------+------|
     | [[a][a {1/2}]] |      |
     |         | [[b][b]]    |
     | [[#customid1][c]]       |      |
@@ -117,3 +103,7 @@ Feature: Work kanban tables
     |         | [[#customid1][c]]    |
     | [[id:id2][d]]       |      |
     """
+
+      | [[a][a {1/2}]] |      |
+      |      | [[b][b]]       |
+jo
