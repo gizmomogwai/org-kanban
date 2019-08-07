@@ -144,12 +144,12 @@
   (s-replace "|" "｜"
     (s-replace "]" "}"
       (s-replace "[" "{"
-        description))))
+        (replace-regexp-in-string "\\[\\[.*]\\[\\(.*\\)]]" (lambda (x) (match-string 1 x)) description)))))
 
 (defun org-kanban//escape-heading (heading)
   "Cleanup HEADING for use in an org link."
   (s-replace "|" "｜"
-    (replace-regexp-in-string "\s*\\[.*]" "" heading)))
+    (replace-regexp-in-string "\s*\\[.*]" "" (replace-regexp-in-string "\\[\\[.*]\\[\\(.*\\)]]" (lambda (x) (match-string 1 x)) heading))))
 
 (defun org-kanban//unescape-heading (heading)
   "Transform HEADING from org link to real heading."
