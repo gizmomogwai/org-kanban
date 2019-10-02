@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.19
+;; Package-Version: 0.4.20
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -69,13 +69,14 @@
   :group 'org-kanban)
 
 (defun org-kanban//todo-info-extract ()
-  "Extract all required infos from a todo.  e.g. buffer, heading-components, allowed keywords, ids, ..."
+  "Extract all required infos from a todo.  e.g. buffer, heading-components, allowed keywords, ids, priority, ..."
   (list
     (current-buffer)
     (org-heading-components)
     org-todo-keywords-1
     (org-entry-get nil "CUSTOM_ID")
     (org-entry-get nil "ID")
+    (org-entry-get nil "PRIORITY")
     ))
 
 (defun org-kanban//todo-info-get-file (todo-info)
@@ -97,6 +98,9 @@
 (defun org-kanban//todo-info-get-id (todo-info)
   "Get the ID from a heading TODO-INFO."
   (nth 4 todo-info))
+(defun org-kanban//todo-info-get-priority (todo-info)
+  "Get the PRIORITY from a heading TODO-INFO."
+  (nth 5 todo-info))
 
 (defun org-kanban//heading-get-title (heading)
   "Get the title from an `org-mode` HEADING."
@@ -485,13 +489,19 @@ Return file and marker."
 
 (defun org-kanban//params-scope (params files)
   "Calculate scope based on PARAMS and FILES."
-  (let* (
-          (scope (plist-get params :scope))
-          (result (pcase scope
-                    (`nil files)
-                    (`tree scope)
-                    (_ files))))
-    result))
+  (let* ((scope (plist-get params :scope)))
+    (pcase scope
+      (`nil files)
+      (`tree scope)
+      (_ files))))
+
+(defun org-kanban//params-comparator (params)
+  "Calculate comparator based on PARAMS."
+  (let* ((c (plist-get params :comparator)))
+    (pcase c
+      (`< (lambda (a b) (string< (org-kanban//todo-info-get-priority a) (org-kanban//todo-info-get-priority b))))
+      (`> (lambda (a b) (string> (org-kanban//todo-info-get-priority a) (org-kanban//todo-info-get-priority b))))
+      (_ nil))))
 
 (defun org-kanban//range-fun (value keywords from to)
   "Return if VALUE is between FROM and TO in KEYWORDS."
@@ -506,6 +516,13 @@ Return file and marker."
       t)
     t))
 
+(defun org-kanban//todo-comparator (todo-a todo-b)
+  "Compare TODO-A against TODO-B."
+  (message "%s" todo-a)
+  (message "%s" todo-b)
+  t
+  )
+
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.
@@ -516,19 +533,21 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
         (mirrored (plist-get params :mirrored))
         (match (plist-get params :match))
         (range (plist-get params :range))
+        (comparator (org-kanban//params-comparator params))
         (layout (org-kanban//params-layout params))
         (files (org-kanban//params-files params))
         (scope (org-kanban//params-scope params files))
         (multi-file (> (length files) 1))
         (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range)))))
         (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
+        (sorted-todo-infos (if comparator (-sort comparator todo-infos) todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info)
                                         (org-kanban//range-fun
                                           (nth 2 (org-kanban//todo-info-get-heading todo-info))
                                           (org-kanban//todo-info-get-keywords todo-info)
                                           (car range)
                                           (cdr range)))
-                               todo-infos))
+                               sorted-todo-infos))
         (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords multi-file layout)))
         (rows (-map row-for (-filter
                               (lambda (todo-info)
@@ -548,7 +567,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.19"))
+  (message "org-kanban 0.4.20"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -627,8 +646,8 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
                     (if layout (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))
                     (if scope (format " :scope %s" scope)))))))
 
-(defun org-kanban--calculate-preview (mirrored match layout scope range)
-  "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE and RANGE."
+(defun org-kanban--calculate-preview (mirrored match layout scope range comparator)
+  "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE and COMPARATOR."
   (s-join " " (delq nil
                 (list "#+BEGIN: kanban"
                   (if mirrored ":mirrored t")
@@ -636,11 +655,12 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
                     (format ":match \"%s\"" match))
                   (if layout (format ":layout (\"%s\" . %s)" (car layout) (cdr layout)))
                   (format ":scope %s" scope)
-                  (if range (format ":range (\"%s\" . \"%s\")" (car range) (cdr range)))))))
+                  (if range (format ":range (\"%s\" . \"%s\")" (car range) (cdr range)))
+                  (if comparator (format ":comparator %s" comparator))))))
 
-(defun org-kanban--update-preview (preview mirrored match layout scope range)
-  "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE and RANGE."
-  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range)))
+(defun org-kanban--update-preview (preview mirrored match layout scope range comparator)
+  "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE and COMPARATOR."
+  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range comparator)))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters)
   "Create the configuration form for BUFFER.
@@ -653,6 +673,7 @@ PARAMETERS the org-kanban parameters."
          (match (plist-get parameters :match))
          (scope (plist-get parameters :scope))
          (range (plist-get parameters :range))
+         (comparator (plist-get parameters :comparator))
          (layout (or (plist-get parameters :layout) org-kanban/layout))
          (preview nil)
          (match-widget nil))
@@ -665,7 +686,7 @@ PARAMETERS the org-kanban parameters."
       :value mirrored
       :notify (lambda (widget &rest _ignore)
                 (setq mirrored (widget-value widget))
-                (org-kanban--update-preview preview mirrored match layout scope range)))
+                (org-kanban--update-preview preview mirrored match layout scope range comparator)))
     (widget-insert (propertize "  see https://theagileist.wordpress.com/tag/mirrored-kanban-board/ for details" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
@@ -675,13 +696,13 @@ PARAMETERS the org-kanban parameters."
                          :size 30
                          :notify (lambda (widget &rest _ignore)
                                    (setq match (widget-value widget))
-                                   (org-kanban--update-preview preview mirrored match layout scope range))))
+                                   (org-kanban--update-preview preview mirrored match layout scope range comparator))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set match-widget "")
                 (setq match nil)
-                (org-kanban--update-preview preview mirrored match layout scope range))
+                (org-kanban--update-preview preview mirrored match layout scope range comparator))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  match to tags e.g. urgent|important" 'face 'font-lock-doc-face))
@@ -694,21 +715,21 @@ PARAMETERS the org-kanban parameters."
                               :size 7
                               :notify (lambda (widget &rest _ignore)
                                         (setq range (cons (widget-value widget) (cdr range)))
-                                        (org-kanban--update-preview preview mirrored match layout scope range))))
+                                        (org-kanban--update-preview preview mirrored match layout scope range comparator))))
     (widget-insert (propertize " to: " 'face 'font-lock-keyword-face))
     (setq range-to-widget (widget-create 'editable-field
                             :value (format "%s" (or (cdr range) ""))
                             :size 7
                             :notify (lambda (widget &rest _ignore)
                                       (setq range (cons (car range) (widget-value widget)))
-                                      (org-kanban--update-preview preview mirrored match layout scope range))))
+                                      (org-kanban--update-preview preview mirrored match layout scope range comparator))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set range-from-widget "")
                 (widget-value-set range-to-widget "")
                 (setq range nil)
-                (org-kanban--update-preview preview mirrored match layout scope range))
+                (org-kanban--update-preview preview mirrored match layout scope range comparator))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  from and to should be keywords" 'face 'font-lock-doc-face))
@@ -721,14 +742,14 @@ PARAMETERS the org-kanban parameters."
       :size 5
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (widget-value widget) (cdr layout)))
-                (org-kanban--update-preview preview mirrored match layout scope range)))
+                (org-kanban--update-preview preview mirrored match layout scope range comparator)))
     (widget-insert (propertize " Max-width: " 'face 'font-lock-keyword-face))
     (widget-create 'editable-field
       :value (format "%s" (if layout (cdr layout) ""))
       :size 1
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (car layout) (widget-value widget)))
-                (org-kanban--update-preview preview mirrored match layout scope range)))
+                (org-kanban--update-preview preview mirrored match layout scope range comparator)))
     (widget-insert "\n")
     (widget-insert (propertize "  max-width should be bigger then the length of the abbreviation" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
@@ -754,7 +775,7 @@ PARAMETERS the org-kanban parameters."
                                   (_ (setq default-file-list scope-string))
                                   (res (car (read-from-string scope-string))))
                              res))))
-                    (org-kanban--update-preview preview mirrored match layout scope range)))
+                    (org-kanban--update-preview preview mirrored match layout scope range comparator)))
         :value-set (lambda (widget &rest value)
                      (widget-default-value-set widget
                        (cond
@@ -765,6 +786,28 @@ PARAMETERS the org-kanban parameters."
         '(item :tag "whole file" :menu-tag "whole file" :value "nil")
         '(editable-field :menu-tag "list of files" default-file-list)))
     (widget-insert (propertize "  Scope of the org-kanban table. e.g. nil, tree or a list of files.\n" 'face 'font-lock-doc-face))
+    (widget-insert "\n")
+
+    (widget-insert (propertize "Comparator " 'face 'font-lock-keyword-face))
+    (widget-create 'menu-choice
+      :tag "change type"
+      :value (cond
+               ((eq comparator '<) "<")
+               ((eq comparator '>) ">")
+               ((eq comparator 'nil) nil))
+      :notify (lambda (widget &rest _ignore)
+                (setq comparator (widget-value widget))
+                (org-kanban--update-preview preview mirrored match layout scope range comparator))
+      :value-set (lambda (widget &rest value)
+                   (widget-default-value-set widget
+                     (cond
+                       ((equal value '("<")) "<")
+                       ((equal value '(">")) ">")
+                       ((equal value nil)))))
+       '(item :tag "<" :menu-tag "<" :value "<")
+       '(item :tag ">" :menu-tag ">" :value ">")
+       '(item :tag "nil" :menu-tag "nil" :value nil))
+    (widget-insert (propertize "  Comparator for sorting table entries. e.g. <, > or nil\n" 'face 'font-lock-doc-face))
 
     (widget-insert "\n")
     (widget-insert (propertize "Result: " 'face 'font-lock-keyword-face))
@@ -776,7 +819,7 @@ PARAMETERS the org-kanban parameters."
                 (with-current-buffer buffer
                   (goto-char beginning)
                   (kill-line)
-                  (insert (org-kanban--calculate-preview mirrored match layout scope range)))
+                  (insert (org-kanban--calculate-preview mirrored match layout scope range comparator)))
                 (kill-buffer)
                 (org-ctrl-c-ctrl-c))
       (propertize "Apply" 'face 'font-lock-comment-face))
@@ -786,7 +829,7 @@ PARAMETERS the org-kanban parameters."
                 (kill-buffer))
       (propertize "Cancel" 'face 'font-lock-string-face))
 
-    (org-kanban--update-preview preview mirrored match layout scope range)
+    (org-kanban--update-preview preview mirrored match layout scope range comparator)
     (use-local-map widget-keymap)
     (widget-setup)))
 
