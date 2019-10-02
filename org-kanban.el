@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.18
+;; Package-Version: 0.4.19
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -135,7 +135,7 @@
   "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
   (if heading
     (if use-file
-      (format "[[file:%s::%s][%s]]" file heading description)
+      (format "[[file:%s::*%s][%s]]" file heading description)
       (format "[[%s][%s]]" heading description))
     (error "Illegal state")))
 
@@ -165,7 +165,7 @@ This means, that the org-kanban table links are in one of several forms:
  - file:#custom-id
  - #custom-id
  - id:id
- - file:heading
+ - file:*heading
  - heading"
   (if
     (and (stringp kanban) (string-equal search-for kanban))
@@ -227,7 +227,7 @@ LAYOUT specification."
 (defun org-kanban//find-by-file-and-heading (line)
   "Search for a todo in a LINE with file and heading."
   (let* (
-          (pattern "\\[\\[file:\\(.*\\)::\\(.*\\)\\]\\[.*\\]")
+          (pattern "\\[\\[file:\\(.*\\)::\\*\\(.*\\)\\]\\[.*\\]")
           (match (string-match pattern line))
           (file (and match (match-string 1 line)))
           (heading (and match (org-kanban//unescape-heading (match-string 2 line))))
@@ -548,7 +548,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.18"))
+  (message "org-kanban 0.4.19"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
