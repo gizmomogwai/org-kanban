@@ -30,9 +30,9 @@ Feature: Work kanban tables
     #+BEGIN: kanban
     | TODO    | DONE |
     |---------+------|
-    | [[a][a {1/2}]] |      |
-    |         | [[b][b]]    |
-    |         | [[#customid1][c]]    |
+    | [[file:test1.org::*a][a {1/2}]] |      |
+    |         | [[file:test1.org::*b][b]]    |
+    |         | [[file:test1.org::#customid1][c]]    |
     |         | [[id:id2][d]]    |
     #+END:
     """
@@ -42,43 +42,43 @@ Feature: Work kanban tables
     And I run org-kanban/shift
     Then I should see:
     """
-    | [[a][a {1/2}]] |      |
-    |         | [[b][b]]    |
+    | [[file:test1.org::*a][a {1/2}]] |      |
+    |         | [[file:test1.org::*b][b]]    |
     """
 
     And I press "h"
     Then I should see:
     """
-    | [[a][a {1/2}]] |      |
-    |         | [[b][b]]    |
+    | [[file:test1.org::*a][a {1/2}]] |      |
+    |         | [[file:test1.org::*b][b]]    |
     """
 
     And I press "l"
     Then I should see:
     """
-    |      | [[a][a {1/2}]] |
-    |      | [[b][b]]       |
+    |      | [[file:test1.org::*a][a {1/2}]] |
+    |      | [[file:test1.org::*b][b]]       |
     """
 
     And I press "l"
     Then I should see:
     """
-    |      | [[a][a {1/2}]] |
-    |      | [[b][b]]       |
+    |      | [[file:test1.org::*a][a {1/2}]] |
+    |      | [[file:test1.org::*b][b]]       |
     """
 
     And I press "h"
     Then I should see:
     """
-    | [[a][a {1/2}]] |      |
-    |         | [[b][b]]    |
+    | [[file:test1.org::*a][a {1/2}]] |      |
+    |         | [[file:test1.org::*b][b]]    |
     """
 
     And I press "h"
     Then I should see:
     """
-    | [[a][a {1/2}]] |      |
-    |         | [[b][b]]    |
+    | [[file:test1.org::*a][a {1/2}]] |      |
+    |         | [[file:test1.org::*b][b]]    |
     """
 
   Scenario: Move Todo Items by customid
@@ -86,9 +86,9 @@ Feature: Work kanban tables
     And I run org-kanban/prev
     Then I should see:
     """
-    | [[a][a {1/2}]] |      |
-    |         | [[b][b]]    |
-    | [[#customid1][c]]       |      |
+    | [[file:test1.org::*a][a {1/2}]] |      |
+    |         | [[file:test1.org::*b][b]]    |
+    | [[file:test1.org::#customid1][c]]       |      |
     """
 
   Scenario: Move Todo Items by id
@@ -98,12 +98,12 @@ Feature: Work kanban tables
     """
     | TODO    | DONE |
     |---------+------|
-    | [[a][a {1/2}]] |      |
-    |         | [[b][b]]    |
-    |         | [[#customid1][c]]    |
+    | [[file:test1.org::*a][a {1/2}]] |      |
+    |         | [[file:test1.org::*b][b]]    |
+    |         | [[file:test1.org::#customid1][c]]    |
     | [[id:id2][d]]       |      |
     """
 
-      | [[a][a {1/2}]] |      |
-      |      | [[b][b]]       |
+      | [[file:test1.org::*a][a {1/2}]] |      |
+      |      | [[file:test1.org::*b][b]]       |
 jo

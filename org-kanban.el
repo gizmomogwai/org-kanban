@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.20
+;; Package-Version: 0.4.21
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -121,12 +121,10 @@
         link-abbreviation)
       heading)))
 
-(defun org-kanban//link-for-custom-id (custom-id use-file file description)
+(defun org-kanban//link-for-custom-id (custom-id file description)
   "Create a link for CUSTOM-ID, optionally USE-FILE FILE and DESCRIPTION."
   (if custom-id
-    (if use-file
-      (format "[[file:%s::#%s][%s]]" file custom-id description)
-      (format "[[#%s][%s]]" custom-id description))
+    (format "[[file:%s::#%s][%s]]" file custom-id description)
     nil))
 
 (defun org-kanban//link-for-id (id description)
@@ -135,12 +133,10 @@
     (format "[[id:%s][%s]]" id description)
     nil))
 
-(defun org-kanban//link-for-heading (heading use-file file description)
+(defun org-kanban//link-for-heading (heading file description)
   "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
   (if heading
-    (if use-file
       (format "[[file:%s::*%s][%s]]" file heading description)
-      (format "[[%s][%s]]" heading description))
     (error "Illegal state")))
 
 (defun org-kanban//escape-description (description)
@@ -159,7 +155,7 @@
   "Transform HEADING from org link to real heading."
   (s-replace  "｜" "|" heading))
 
-(defun org-kanban//link (file heading kanban search-for multi-file custom-id id layout)
+(defun org-kanban//link (file heading kanban search-for custom-id id layout)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
 MULTI-FILE indicates if the link must work across several files.
 CUSTOM-ID links are used if given.
@@ -175,12 +171,11 @@ This means, that the org-kanban table links are in one of several forms:
     (and (stringp kanban) (string-equal search-for kanban))
     (let* (
             (description (org-kanban//escape-description (funcall layout heading)))
-            (use-file (and multi-file (not (eq file (current-buffer)))))
             )
       (or
-        (org-kanban//link-for-custom-id custom-id use-file file description)
+        (org-kanban//link-for-custom-id custom-id file description)
         (org-kanban//link-for-id id description)
-        (org-kanban//link-for-heading (org-kanban//escape-heading heading) use-file file description)
+        (org-kanban//link-for-heading (org-kanban//escape-heading heading) file description)
         ))
     ""))
 
@@ -197,10 +192,9 @@ This means, that the org-kanban table links are in one of several forms:
             (keywords (if mirrored (reverse filtered) filtered)))
       keywords)))
 
-(defun org-kanban//row-for (todo-info todo-keywords multi-file layout)
+(defun org-kanban//row-for (todo-info todo-keywords layout)
   "Convert a kanban TODO-INFO to a row of a org-table.
 TODO-KEYWORDS are all the current org todos.
-MULTI-FILE indicates, if simple file links may be used.
 LAYOUT specification."
   (let* (
           (file (org-kanban//todo-info-get-file todo-info))
@@ -209,7 +203,7 @@ LAYOUT specification."
           (kanban (org-kanban//heading-get-todo-keyword heading))
           (custom-id (org-kanban//todo-info-get-custom-id todo-info))
           (id (org-kanban//todo-info-get-id todo-info))
-          (row-entries (-map (lambda(i) (org-kanban//link file title i kanban multi-file custom-id id layout)) todo-keywords))
+          (row-entries (-map (lambda(i) (org-kanban//link file title i kanban custom-id id layout)) todo-keywords))
           (row (string-join row-entries "|")))
     (format "|%s|" row)))
 
@@ -537,7 +531,6 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
         (layout (org-kanban//params-layout params))
         (files (org-kanban//params-files params))
         (scope (org-kanban//params-scope params files))
-        (multi-file (> (length files) 1))
         (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range)))))
         (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
         (sorted-todo-infos (if comparator (-sort comparator todo-infos) todo-infos))
@@ -548,7 +541,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
                                           (car range)
                                           (cdr range)))
                                sorted-todo-infos))
-        (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords multi-file layout)))
+        (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords layout)))
         (rows (-map row-for (-filter
                               (lambda (todo-info)
                                 (-intersection
@@ -567,7 +560,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.20"))
+  (message "org-kanban 0.4.21"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
