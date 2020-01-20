@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.21
+;; Package-Version: 0.4.22
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -77,6 +77,7 @@
     (org-entry-get nil "CUSTOM_ID")
     (org-entry-get nil "ID")
     (org-entry-get nil "PRIORITY")
+    (org-entry-get nil "TODO")
     ))
 
 (defun org-kanban//todo-info-get-file (todo-info)
@@ -101,6 +102,9 @@
 (defun org-kanban//todo-info-get-priority (todo-info)
   "Get the PRIORITY from a heading TODO-INFO."
   (nth 5 todo-info))
+(defun org-kanban//todo-info-get-state (todo-info)
+  "Get the STATE from a heading TODO-INFO."
+  (nth 6 todo-info))
 
 (defun org-kanban//heading-get-title (heading)
   "Get the title from an `org-mode` HEADING."
@@ -489,12 +493,25 @@ Return file and marker."
       (`tree scope)
       (_ files))))
 
-(defun org-kanban//params-comparator (params)
-  "Calculate comparator based on PARAMS."
+(defun org-kanban//params-compare-by-priority (a b f)
+  "Compare A and B by priority and function F."
+  (funcall f (org-kanban//todo-info-get-priority a) (org-kanban//todo-info-get-priority b)))
+
+(defun org-kanban//params-compare-by-state (a b all-keywords f)
+  "Compare A with B with the help of ALL-KEYWORDS and F."
+  (let* (
+          (idx-1 (or (-elem-index (org-kanban//todo-info-get-state a) all-keywords) 0))
+          (idx-2 (or (-elem-index (org-kanban//todo-info-get-state b) all-keywords) 0)))
+    (funcall f idx-1 idx-2)))
+
+(defun org-kanban//params-comparator (params all-keywords)
+  "Calculate comparator based on ALL-KEYWORDS and PARAMS."
   (let* ((c (plist-get params :comparator)))
     (pcase c
-      (`< (lambda (a b) (string< (org-kanban//todo-info-get-priority a) (org-kanban//todo-info-get-priority b))))
-      (`> (lambda (a b) (string> (org-kanban//todo-info-get-priority a) (org-kanban//todo-info-get-priority b))))
+      (`< (lambda (a b) (org-kanban//params-compare-by-priority a b 'string<)))
+      (`> (lambda (a b) (org-kanban//params-compare-by-priority a b 'string>)))
+      (`s (lambda (a b) (org-kanban//params-compare-by-state a b all-keywords '<)))
+      (`S (lambda (a b) (org-kanban//params-compare-by-state a b all-keywords '>)))
       (_ nil))))
 
 (defun org-kanban//range-fun (value keywords from to)
@@ -527,11 +544,11 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
         (mirrored (plist-get params :mirrored))
         (match (plist-get params :match))
         (range (plist-get params :range))
-        (comparator (org-kanban//params-comparator params))
         (layout (org-kanban//params-layout params))
         (files (org-kanban//params-files params))
         (scope (org-kanban//params-scope params files))
         (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range)))))
+        (comparator (org-kanban//params-comparator params todo-keywords))
         (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
         (sorted-todo-infos (if comparator (-sort comparator todo-infos) todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info)
@@ -560,7 +577,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.21"))
+  (message "org-kanban 0.4.22"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -787,6 +804,8 @@ PARAMETERS the org-kanban parameters."
       :value (cond
                ((eq comparator '<) "<")
                ((eq comparator '>) ">")
+               ((eq comparator 's) "s")
+               ((eq comparator 'S) "S")
                ((eq comparator 'nil) nil))
       :notify (lambda (widget &rest _ignore)
                 (setq comparator (widget-value widget))
@@ -796,11 +815,15 @@ PARAMETERS the org-kanban parameters."
                      (cond
                        ((equal value '("<")) "<")
                        ((equal value '(">")) ">")
+                       ((equal value '("s")) "s")
+                       ((equal value '("S")) "S")
                        ((equal value nil)))))
        '(item :tag "<" :menu-tag "<" :value "<")
        '(item :tag ">" :menu-tag ">" :value ">")
+       '(item :tag "s" :menu-tag "s" :value "s")
+       '(item :tag "S" :menu-tag "S" :value "S")
        '(item :tag "nil" :menu-tag "nil" :value nil))
-    (widget-insert (propertize "  Comparator for sorting table entries. e.g. <, > or nil\n" 'face 'font-lock-doc-face))
+    (widget-insert (propertize "  Comparator for sorting table entries. e.g. <, > (for priority sorting) or s, S (for state sorting) or nil\n" 'face 'font-lock-doc-face))
 
     (widget-insert "\n")
     (widget-insert (propertize "Result: " 'face 'font-lock-keyword-face))
