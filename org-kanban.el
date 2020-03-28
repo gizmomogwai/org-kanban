@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.13.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.4.23
+;; Package-Version: 0.4.24
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -87,6 +87,14 @@
 (defun org-kanban//todo-info-get-heading (todo-info)
   "Get the heading info from a TODO-INFO."
   (nth 1 todo-info))
+
+(defun org-kanban--todo-info-get-level (todo-info)
+  "Get the level from a TODO-INFO."
+  (nth 0 (nth 1 todo-info)))
+
+(defun org-kanban--todo-info-get-keyword (todo-info)
+  "Get the keyword from a TODO-INFO."
+  (nth 2 (nth 1 todo-info)))
 
 (defun org-kanban//todo-info-get-keywords (todo-info)
   "Get the allowed keywords for a TODO-INFO."
@@ -493,6 +501,10 @@ Return file and marker."
       (`tree scope)
       (_ files))))
 
+(defun org-kanban--params-max-level (params)
+  "Get the depth from PARAMS.  1000 if not there."
+  (or (plist-get params :max-level) 1000))
+
 (defun org-kanban--compare-by-priority (a b f)
   "Compare A and B by priority and function F."
   (let* (
@@ -568,6 +580,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
         (mirrored (plist-get params :mirrored))
         (match (plist-get params :match))
         (range (plist-get params :range))
+        (max-level (org-kanban--params-max-level params))
         (layout (org-kanban//params-layout params))
         (files (org-kanban//params-files params))
         (scope (org-kanban//params-scope params files))
@@ -577,11 +590,18 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
         (sorted-todo-infos (if sort-spec (-sort sort-spec todo-infos) todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info)
                                         (org-kanban//range-fun
-                                          (nth 2 (org-kanban//todo-info-get-heading todo-info))
+                                          (org-kanban--todo-info-get-keyword todo-info)
                                           (org-kanban//todo-info-get-keywords todo-info)
                                           (car range)
                                           (cdr range)))
                                sorted-todo-infos))
+        (filtered-todo-infos (-filter (lambda (todo-info)
+                                        (if (eq scope 'tree)
+                                          (let* (
+                                                  (tree-info (nth 0 todo-infos))
+                                                  (tree-level (org-kanban--todo-info-get-level tree-info)))
+                                            (< (org-kanban--todo-info-get-level todo-info) (+ max-level tree-level)))
+                                          (<= (org-kanban--todo-info-get-level todo-info) max-level))) filtered-todo-infos))
         (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords layout)))
         (rows (-map row-for (-filter
                               (lambda (todo-info)
@@ -601,7 +621,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.4.23"))
+  (message "org-kanban 0.4.24"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -680,8 +700,8 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
                     (if layout (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))
                     (if scope (format " :scope %s" scope)))))))
 
-(defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec)
-  "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE and SORT-SPEC."
+(defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec max-level)
+  "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC and MAX-LEVEL."
   (s-join " " (delq nil
                 (list "#+BEGIN: kanban"
                   (if mirrored ":mirrored t")
@@ -693,11 +713,14 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout` and `:range`."
                                                                  range)
                               (cdr range)))
                   (if (and sort-spec (> (length sort-spec) 0))
-                    (format ":sort \"%s\"" sort-spec))))))
+                    (format ":sort \"%s\"" sort-spec))
+                  (if (and max-level (> (length max-level) 0))
+                    (format ":max-level %s" max-level))
+                  ))))
 
-(defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec)
-  "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE and SORT-SPEC."
-  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range sort-spec)))
+(defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec max-level)
+  "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC and MAX-LEVEL."
+  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range sort-spec max-level)))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters)
   "Create the configuration form for BUFFER.
@@ -712,11 +735,13 @@ PARAMETERS the org-kanban parameters."
          (range (plist-get parameters :range))
          (sort-spec (plist-get parameters :sort))
          (layout (or (plist-get parameters :layout) org-kanban/layout))
+         (max-level (format "%s" (or (plist-get parameters :max-level) "")))
          (preview nil)
          (match-widget nil)
          (range-from-widget nil)
          (range-to-widget nil)
          (sort-spec-widget nil)
+         (max-level-widget nil)
          )
 
     (erase-buffer)
@@ -727,7 +752,7 @@ PARAMETERS the org-kanban parameters."
       :value mirrored
       :notify (lambda (widget &rest _ignore)
                 (setq mirrored (widget-value widget))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level)))
     (widget-insert (propertize "  see https://theagileist.wordpress.com/tag/mirrored-kanban-board/ for details" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
@@ -737,13 +762,13 @@ PARAMETERS the org-kanban parameters."
                          :size 30
                          :notify (lambda (widget &rest _ignore)
                                    (setq match (widget-value widget))
-                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec))))
+                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set match-widget "")
                 (setq match nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  match to tags e.g. urgent|important" 'face 'font-lock-doc-face))
@@ -756,21 +781,21 @@ PARAMETERS the org-kanban parameters."
                               :size 7
                               :notify (lambda (widget &rest _ignore)
                                         (setq range (cons (widget-value widget) (cdr range)))
-                                        (org-kanban--update-preview preview mirrored match layout scope range sort-spec))))
+                                        (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))))
     (widget-insert (propertize " to: " 'face 'font-lock-keyword-face))
     (setq range-to-widget (widget-create 'editable-field
                             :value (format "%s" (or (cdr range) ""))
                             :size 7
                             :notify (lambda (widget &rest _ignore)
                                       (setq range (cons (car range) (widget-value widget)))
-                                      (org-kanban--update-preview preview mirrored match layout scope range sort-spec))))
+                                      (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set range-from-widget "")
                 (widget-value-set range-to-widget "")
                 (setq range nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  from and to should be keywords" 'face 'font-lock-doc-face))
@@ -783,14 +808,14 @@ PARAMETERS the org-kanban parameters."
       :size 5
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (widget-value widget) (cdr layout)))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level)))
     (widget-insert (propertize " Max-width: " 'face 'font-lock-keyword-face))
     (widget-create 'editable-field
       :value (format "%s" (if layout (cdr layout) ""))
       :size 1
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (car layout) (widget-value widget)))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level)))
     (widget-insert "\n")
     (widget-insert (propertize "  max-width should be bigger then the length of the abbreviation" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
@@ -816,7 +841,7 @@ PARAMETERS the org-kanban parameters."
                                   (_ (setq default-file-list scope-string))
                                   (res (car (read-from-string scope-string))))
                              res))))
-                    (org-kanban--update-preview preview mirrored match layout scope range sort-spec)))
+                    (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level)))
         :value-set (lambda (widget &rest value)
                      (widget-default-value-set widget
                        (cond
@@ -835,20 +860,38 @@ PARAMETERS the org-kanban parameters."
                          :size 30
                          :notify (lambda (widget &rest _ignore)
                                    (setq sort-spec (widget-value widget))
-                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec))))
+                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))))
     (widget-insert " ")
+
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set sort-spec-widget "")
                 (setq sort-spec nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  Sort spec use a combination of todo[o/O]order and [p/P]riority" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
-
+    
+    (widget-insert (propertize "Max Level: " 'face 'font-lock-keyword-face))
+    (setq max-level-widget (widget-create 'editable-field
+                             :value (format "%s" (or max-level ""))
+                             :size 3
+                             :notify (lambda (widget &rest _ignore)
+                                       (setq max-level (or (widget-value widget) ""))
+                                       (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))))
+    (widget-insert " ")
+    (widget-create 'push-button
+      :notify (lambda (_widget &rest _ignore)
+                (widget-value-set max-level-widget "")
+                (setq max-level "")
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level))
+      (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
+    (widget-insert (propertize "  Max Level to show in org-kanban table. Is relative when used with treescope." 'face 'font-lock-doc-face))
+    (widget-insert "\n\n")
+
     (widget-insert (propertize "Result: " 'face 'font-lock-keyword-face))
     (setq preview
       (widget-create 'const))
@@ -858,7 +901,7 @@ PARAMETERS the org-kanban parameters."
                 (with-current-buffer buffer
                   (goto-char beginning)
                   (kill-line)
-                  (insert (org-kanban--calculate-preview mirrored match layout scope range sort-spec)))
+                  (insert (org-kanban--calculate-preview mirrored match layout scope range sort-spec max-level)))
                 (kill-buffer)
                 (org-ctrl-c-ctrl-c))
       (propertize "Apply" 'face 'font-lock-comment-face))
@@ -868,7 +911,7 @@ PARAMETERS the org-kanban parameters."
                 (kill-buffer))
       (propertize "Cancel" 'face 'font-lock-string-face))
 
-    (org-kanban--update-preview preview mirrored match layout scope range sort-spec)
+    (org-kanban--update-preview preview mirrored match layout scope range sort-spec max-level)
     (use-local-map widget-keymap)
     (widget-setup)))
 
