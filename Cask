@@ -2,7 +2,7 @@
 (source melpa)
 (source "org" "http://orgmode.org/elpa/")
 
-(package "org-kanban" "0.5.0" "Kanban for org-mode.")
+(package "org-kanban" "0.6.0" "Kanban for org-mode.")
 (package-file "org-kanban.el")
 
 (depends-on "dash")
