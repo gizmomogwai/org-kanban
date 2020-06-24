@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.6.0
+;; Package-Version: 0.6.1
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -22,12 +22,13 @@
 
 ;;; Code:
 
-(require 's)
-(require 'org)
 (require 'dash)
+(require 'org)
+(require 'org-table)
+(require 's)
 (require 'subr-x)
-(require 'widget)
 (require 'wid-edit)
+(require 'widget)
 
 (defun org-kanban//sanity-check-parameters (context layout)
   "Check for CONTEXT if LAYOUT is consistent."
@@ -251,7 +252,6 @@ appended to the matrix."
                                   matrix)))
               new-matrix)
             (let* ( ;; add new row
-                    (row-index (length matrix))
                     (row (make-list (length (car matrix)) nil))
                     (new-row (-replace-at column value row))
                     (new-matrix (append matrix (list new-row))))
@@ -676,7 +676,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.0"))
+  (message "org-kanban 0.6.1"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
