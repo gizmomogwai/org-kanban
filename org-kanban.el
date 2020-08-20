@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.6.1
+;; Package-Version: 0.6.2
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -673,7 +673,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.1"))
+  (message "org-kanban 0.6.2"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
