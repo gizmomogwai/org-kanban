@@ -8,7 +8,7 @@
 ;;         Aldric Giacomoni <trevoke@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.6.2
+;; Package-Version: 0.6.3
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -134,10 +134,14 @@
         link-abbreviation)
       heading)))
 
+(defun org-kanban//relative-filename (file)
+  "Calculate relative filename for FILE based on current buffer."
+  (file-relative-name (buffer-file-name file) (file-name-directory (buffer-file-name (current-buffer)))))
+
 (defun org-kanban//link-for-custom-id (custom-id file description)
   "Create a link for CUSTOM-ID, optionally USE-FILE FILE and DESCRIPTION."
   (if custom-id
-    (format "[[file:%s::#%s][%s]]" file custom-id description)
+    (format "[[file:%s::#%s][%s]]" (org-kanban//relative-filename file) custom-id description)
     nil))
 
 (defun org-kanban//link-for-id (id description)
@@ -149,7 +153,7 @@
 (defun org-kanban//link-for-heading (heading file description)
   "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
   (if heading
-      (format "[[file:%s::*%s][%s]]" file heading description)
+      (format "[[file:%s::*%s][%s]]" (org-kanban//relative-filename file) heading description)
     (error "Illegal state")))
 
 (defun org-kanban//escape-description (description)
@@ -394,7 +398,7 @@ Return file and marker."
             (setq done-p t)
             (forward-line 1))
           (forward-line 1))))))
-    
+
 (defun org-kanban/next ()
   "Move the todo entry in the current line of the kanban table to the next state."
   (interactive)
@@ -673,7 +677,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.2"))
+  (message "org-kanban 0.6.3"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
