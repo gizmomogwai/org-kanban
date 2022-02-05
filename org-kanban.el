@@ -630,7 +630,7 @@ the rest of the functions is used."
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.
-PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth` and `:compressed`."
+PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth`, `:compressed`, and `:keywords`."
   (insert
     (let*
       (
@@ -638,11 +638,12 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
         (compressed (plist-get params :compressed))
         (match (plist-get params :match))
         (range (plist-get params :range))
+        (keywords (plist-get params :keywords))
         (depth (org-kanban--params-depth params))
         (layout (org-kanban//params-layout params))
         (files (org-kanban//params-files params))
         (scope (org-kanban//params-scope params files))
-        (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range))) '("TODO" "STRT" "DONE" "KILL")))
+        (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range))) keywords))
         (sort-spec-string (plist-get params :sort))
         (sort-spec (org-kanban--prepare-comparator sort-spec-string todo-keywords))
         (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
