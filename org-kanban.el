@@ -196,7 +196,7 @@ This means, that the org-kanban table links are in one of several forms:
         ))
     ""))
 
-(defun org-kanban//todo-keywords (files mirrored range-fun)
+(defun org-kanban//todo-keywords (files mirrored range-fun keyword-matches)
   "Get list of org todos from FILES.  MIRRORED describes if keywords should be reversed.  RANGE-FUN filters keywords."
   (save-window-excursion
     (let* (
@@ -206,8 +206,12 @@ This means, that the org-kanban table links are in one of several forms:
                                             org-todo-keywords-1)
                                           files)))
             (filtered (-distinct (-filter (lambda (i) (funcall range-fun i list-of-keywords)) list-of-keywords)))
-            (keywords (if mirrored (reverse filtered) filtered)))
-      keywords)))
+            (keywords (if mirrored (reverse filtered) filtered))
+            (keywords* (if keyword-matches
+                           (-filter (lambda (i) (member i keyword-matches)) keywords)
+                            keywords))
+            )
+      keywords*)))
 
 (defun org-kanban//row-entries-for (todo-info todo-keywords layout)
   "Convert a kanban TODO-INFO to elements of a row for org-table.
@@ -638,7 +642,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
         (layout (org-kanban//params-layout params))
         (files (org-kanban//params-files params))
         (scope (org-kanban//params-scope params files))
-        (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range)))))
+        (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range))) '("TODO" "STRT" "DONE" "KILL")))
         (sort-spec-string (plist-get params :sort))
         (sort-spec (org-kanban--prepare-comparator sort-spec-string todo-keywords))
         (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
