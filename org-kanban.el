@@ -540,7 +540,7 @@ Return file and marker."
                       (_ (error (format "Unknown type %s" l))))))
       layout))
 
-(defun expand-like-agenda-files (files)
+(defun org-kanban//expand-like-agenda-files (files)
   (apply 'append
          (mapcar (lambda (f)
                    (let ((f (symbol-name f)))
@@ -557,7 +557,7 @@ Return file and marker."
           (files (pcase scope
                    (`nil (list buffer-file-name))
                    (`tree (list buffer-file-name))
-                   (_  (expand-like-agenda-files scope)))))
+                   (_  (org-kanban//expand-like-agenda-files scope)))))
     files))
 
 (defun org-kanban//params-scope (params files)
