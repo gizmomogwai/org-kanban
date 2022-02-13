@@ -542,13 +542,13 @@ Return file and marker."
 
 (defun expand-like-agenda-files (files)
   (apply 'append
-	 (mapcar (lambda (f)
-		   (let ((f (symbol-name f)))
-		     (if (file-directory-p f)
-			 (directory-files
-			  f t org-agenda-file-regexp)
-		       (list (expand-file-name f)))))
-		 files)))
+         (mapcar (lambda (f)
+                   (let ((f (symbol-name f)))
+                     (if (file-directory-p f)
+                         (directory-files
+                          f t org-agenda-file-regexp)
+                       (list (expand-file-name f)))))
+                 files)))
 
 (defun org-kanban//params-files (params)
   "Calculate files based on PARAMS."
