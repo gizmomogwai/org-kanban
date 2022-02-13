@@ -540,6 +540,16 @@ Return file and marker."
                       (_ (error (format "Unknown type %s" l))))))
       layout))
 
+(defun expand-like-agenda-files (files)
+  (apply 'append
+	 (mapcar (lambda (f)
+		   (let ((f (symbol-name f)))
+		     (if (file-directory-p f)
+			 (directory-files
+			  f t org-agenda-file-regexp)
+		       (list (expand-file-name f)))))
+		 files)))
+
 (defun org-kanban//params-files (params)
   "Calculate files based on PARAMS."
   (let* (
@@ -547,7 +557,7 @@ Return file and marker."
           (files (pcase scope
                    (`nil (list buffer-file-name))
                    (`tree (list buffer-file-name))
-                   (_  (-map (lambda(file) (symbol-name file)) scope)))))
+                   (_  (expand-like-agenda-files scope)))))
     files))
 
 (defun org-kanban//params-scope (params files)
