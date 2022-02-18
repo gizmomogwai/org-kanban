@@ -541,14 +541,13 @@ Return file and marker."
       layout))
 
 (defun org-kanban//expand-like-agenda-files (files)
-  (apply 'append
-         (mapcar (lambda (f)
-                   (let ((f (symbol-name f)))
-                     (if (file-directory-p f)
-                         (directory-files
-                          f t org-agenda-file-regexp)
-                       (list (expand-file-name f)))))
-                 files)))
+  "Expand FILES like org agenda would do it.  This will also pick up all org files in a directory."
+  (let ((file-strings (-map (lambda (f) (symbol-name f)) files)))
+    (-flatten (-map (lambda (f)
+                      (if (file-directory-p f)
+                        (directory-files f t org-agenda-file-regexp)
+                        (list (expand-file-name f))))
+        file-strings))))
 
 (defun org-kanban//params-files (params)
   "Calculate files based on PARAMS."
