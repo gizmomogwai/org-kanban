@@ -6,6 +6,9 @@
 ;; Author: Christian Köstlin <christian.koestlin@gmail.com>
 ;; Contributors:
 ;;         Aldric Giacomoni <trevoke@gmail.com>
+;;         Damian Chrzanowski <a00246203@student.ait.ie>
+;;         Vlk <zdenek.mzourek@gmail.com>
+;;         Pieter Hijma <pieterhijma@users.noreply.github.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0") (emacs "24.4") (org "9.1"))
 ;; Package-Version: 0.6.3
