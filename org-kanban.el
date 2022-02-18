@@ -893,7 +893,7 @@ PARAMETERS the org-kanban parameters."
     (widget-insert (propertize "Scope " 'face 'font-lock-keyword-face))
     (let ((default-file-list (cond
                                ((eq scope 'tree) "(file1.org file2.org ...)")
-                               ((eq scope nil) "(file1.org file2.org ...)")
+                               ((eq scope nil) "(file1.org file2.org dir ...)")
                                (t (format "%s" scope)))))
       (widget-create 'menu-choice
         :tag "change type"
@@ -921,7 +921,7 @@ PARAMETERS the org-kanban parameters."
         '(item :tag "tree" :menu-tag "tree" :value "tree")
         '(item :tag "whole file" :menu-tag "whole file" :value "nil")
         '(editable-field :menu-tag "list of files" default-file-list)))
-    (widget-insert (propertize "  Scope of the org-kanban table. e.g. nil, tree or a list of files.\n" 'face 'font-lock-doc-face))
+    (widget-insert (propertize "  Scope of the org-kanban table. e.g. nil, tree or a list of files or directories.\n" 'face 'font-lock-doc-face))
     (widget-insert "\n")
 
     (widget-insert (propertize "Sort Spec: " 'face 'font-lock-keyword-face))
@@ -943,7 +943,7 @@ PARAMETERS the org-kanban parameters."
     (widget-insert (propertize "  Sort spec use a combination of todo[o/O]order and [p/P]riority" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
-    
+
     (widget-insert (propertize "Depth: " 'face 'font-lock-keyword-face))
     (setq depth-widget (widget-create 'editable-field
                              :value (format "%s" (or depth ""))
