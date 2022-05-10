@@ -11,7 +11,7 @@
 ;;         Pieter Hijma <pieterhijma@users.noreply.github.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0") (emacs "24.4") (org "9.1"))
-;; Package-Version: 0.6.3
+;; Package-Version: 0.6.4
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -669,6 +669,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
                                                   (tree-level (org-kanban--todo-info-get-level tree-info)))
                                             (< (org-kanban--todo-info-get-level todo-info) (+ depth tree-level)))
                                           (<= (org-kanban--todo-info-get-level todo-info) depth))) filtered-todo-infos))
+        (filtered-todo-infos (-filter (lambda (todo-info) (nth 4 (org-kanban//todo-info-get-heading todo-info))) filtered-todo-infos))
         (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords layout)))
         (table-title (string-join todo-keywords "|"))
         (filtered (-filter (lambda (todo-info)
@@ -689,7 +690,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.3"))
+  (message "org-kanban 0.6.4"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
