@@ -1,0 +1,10 @@
+* TODO row1
+* TODO row2
+* here
+
+#+BEGIN: kanban :mirrored t
+| DONE | TODO |
+|------+------|
+|      | [[file:bugreport-infinite-loop-when-moving-subtree.org::*row1][row1]] |
+|      | [[file:bugreport-infinite-loop-when-moving-subtree.org::*row2][row2]] |
+#+END:
