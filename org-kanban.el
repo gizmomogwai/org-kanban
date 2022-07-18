@@ -397,7 +397,7 @@ Return file and marker."
         (if marker
           (if (and
                 (eq (marker-position marker) required-point)
-                (eq file required-file))
+                (string-equal file required-file))
             (setq done-p t)
             (forward-line 1))
           (forward-line 1))))))
