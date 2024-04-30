@@ -11,7 +11,7 @@
 ;;         Pieter Hijma <pieterhijma@users.noreply.github.com>
 ;;         Darius Foo <darius.foo.tw@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
-;; Package-Requires: ((s) (dash "2.17.0") (emacs "24.4") (org))
+;; Package-Requires: ((s) (dash "2.17.0"))
 ;; Package-Version: 0.6.6
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
