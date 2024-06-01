@@ -1,10 +1,19 @@
 #+TODO: Todo Plan Develop Test Done
 #+STARTUP: showall
 * Todo Task One                                                      :urgent:
+SCHEDULED: <2024-05-29 Wed>
 * Plan Two                                                          :starred:
+SCHEDULED: <2024-05-30 Wed>
 * Develop Three                                                      :kanban:
+SCHEDULED: <2024-05-31 Wed>
 * Test Four
 ** Test Four1                                                :starred:kanban:
 ** Test Four2                                                :starred:kanban:
 * Done Five
 * Kanban
+#+BEGIN: kanban :mirrored t :match "SCHEDULED>=\"<2024-05-30>\"" :layout ("..." . 1000) :scope nil
+| Done | Test | Develop | Plan | Todo |
+|------+------+---------+------+------|
+|      |      |         | [[file:demo.org::*Two][Two]]  |      |
+|      |      | [[file:demo.org::*Three][Three]]   |      |      |
+#+END:

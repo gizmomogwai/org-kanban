@@ -31,7 +31,7 @@ task :test do
   sh 'cask list'
   sh 'cask eval "(org-version t t t)"'
   sh "cask eval \"(byte-compile-file \\\"org-kanban.el\\\")\""
-  sh "cask exec ecukes --verbose --debug --reporter magnars"
+  sh "cask exec ecukes --quiet --reporter progress"
 end
 
 desc 'generate big testfile'

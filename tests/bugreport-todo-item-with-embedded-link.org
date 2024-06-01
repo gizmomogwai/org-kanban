@@ -1,0 +1,13 @@
+* Kanban
+Here
+* TODO Item 1 with [[*Item 2][link to Item 2]]
+* TODO Item 2 [1/2]
+- [X] 1
+- [ ] 2
+* TODO Item 3 [33%]
+- [ ] 1
+- [ ] 2
+- [X] 3
+* TODO Item 4 [1/2]
+** TODO 1
+** DONE 2

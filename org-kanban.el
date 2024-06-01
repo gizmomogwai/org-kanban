@@ -162,23 +162,31 @@
 
 (defun org-kanban//escape-description (description)
   "Cleanup DESCRIPTION for use in an org link."
-  (s-replace "|" "｜"
-    (s-replace "]" "}"
-      (s-replace "[" "{"
-        (replace-regexp-in-string "\\[\\[.*]\\[\\(.*\\)]]" (lambda (x) (match-string 1 x)) description)))))
+  (s-replace "|" "｜" ; trick to not break tables
+    (replace-regexp-in-string "\\[\\[.*]\\[\\(.*\\)]]" (lambda (x) (match-string 1 x)) description) ; replace links with linktext
+    ))
+
 
 (defun org-kanban//escape-heading (heading)
   "Cleanup HEADING for use in an org link."
-  (s-replace "|" "｜"
-    (replace-regexp-in-string "\s*\\[.*]" "" (replace-regexp-in-string "\\[\\[.*]\\[\\(.*\\)]]" (lambda (x) (match-string 1 x)) heading))))
+  (let* (
+          (escaped-links (replace-regexp-in-string "\\[\\[.+?]\\[.+?]]"
+                           (lambda (x) (s-replace "]" "\\\\]" (s-replace "[" "\\\\[" (match-string 0 x)))) heading))
+          (removed-slash-checkbox (replace-regexp-in-string "\\[[[:digit:]]+?/[[:digit:]]+?\\]" "" escaped-links))
+          (removed-percent-checkbox (replace-regexp-in-string "\\[[[:digit:]]+?%\\]" "" removed-slash-checkbox))
+          (trimmed (s-replace "|" "｜" removed-percent-checkbox)))
+    trimmed))
+
+(replace-regexp-in-string "\\[[[:digit:]]+?/[[:digit:]]+?\\]" "a" "[1/2]")
 
 (defun org-kanban//unescape-heading (heading)
   "Transform HEADING from org link to real heading."
-  (s-replace  "｜" "|" heading))
+  (s-replace "\\[" "["
+    (s-replace "\\]" "]"
+      (s-replace  "｜" "|" heading))))
 
 (defun org-kanban//link (file heading kanban search-for custom-id id layout)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
-MULTI-FILE indicates if the link must work across several files.
 CUSTOM-ID links are used if given.
 ID links are used if given.
 LAYOUT is the specification to layout long links.

@@ -30,7 +30,7 @@ Feature: Work kanban tables
     #+BEGIN: kanban
     | TODO    | DONE |
     |---------+------|
-    | [[file:test1.org::*a][a {1/2}]] |      |
+    | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
     |         | [[file:test1.org::#customid1][c]]    |
     |         | [[id:id2][d]]    |
@@ -42,42 +42,42 @@ Feature: Work kanban tables
     And I run org-kanban/shift
     Then I should see:
     """
-    | [[file:test1.org::*a][a {1/2}]] |      |
+    | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
     """
 
     And I press "h"
     Then I should see:
     """
-    | [[file:test1.org::*a][a {1/2}]] |      |
+    | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
     """
 
     And I press "l"
     Then I should see:
     """
-    |      | [[file:test1.org::*a][a {1/2}]] |
+    |      | [[file:test1.org::*a ][a [1/2]]] |
     |      | [[file:test1.org::*b][b]]       |
     """
 
     And I press "l"
     Then I should see:
     """
-    |      | [[file:test1.org::*a][a {1/2}]] |
+    |      | [[file:test1.org::*a ][a [1/2]]] |
     |      | [[file:test1.org::*b][b]]       |
     """
 
     And I press "h"
     Then I should see:
     """
-    | [[file:test1.org::*a][a {1/2}]] |      |
+    | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
     """
 
     And I press "h"
     Then I should see:
     """
-    | [[file:test1.org::*a][a {1/2}]] |      |
+    | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
     """
 
@@ -86,7 +86,7 @@ Feature: Work kanban tables
     And I run org-kanban/prev
     Then I should see:
     """
-    | [[file:test1.org::*a][a {1/2}]] |      |
+    | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
     | [[file:test1.org::#customid1][c]]       |      |
     """
@@ -96,14 +96,8 @@ Feature: Work kanban tables
     And I run org-kanban/prev
     Then I should see:
     """
-    | TODO    | DONE |
-    |---------+------|
-    | [[file:test1.org::*a][a {1/2}]] |      |
+    | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
     |         | [[file:test1.org::#customid1][c]]    |
     | [[id:id2][d]]       |      |
     """
-
-      | [[file:test1.org::*a][a {1/2}]] |      |
-      |      | [[file:test1.org::*b][b]]       |
-jo
