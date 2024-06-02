@@ -12,7 +12,7 @@
 ;;         Darius Foo <darius.foo.tw@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0"))
-;; Package-Version: 0.6.6
+;; Package-Version: 0.6.7
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -166,18 +166,16 @@
     (replace-regexp-in-string "\\[\\[.*]\\[\\(.*\\)]]" (lambda (x) (match-string 1 x)) description) ; replace links with linktext
     ))
 
-
 (defun org-kanban//escape-heading (heading)
   "Cleanup HEADING for use in an org link."
   (let* (
-          (escaped-links (replace-regexp-in-string "\\[\\[.+?]\\[.+?]]"
+          (escaped-links (replace-regexp-in-string (rx "[[" (+? not-newline) "][" (+? not-newline) "]]")
                            (lambda (x) (s-replace "]" "\\\\]" (s-replace "[" "\\\\[" (match-string 0 x)))) heading))
-          (removed-slash-checkbox (replace-regexp-in-string "\\[[[:digit:]]+?/[[:digit:]]+?\\]" "" escaped-links))
-          (removed-percent-checkbox (replace-regexp-in-string "\\[[[:digit:]]+?%\\]" "" removed-slash-checkbox))
+          (escaped-cite (replace-regexp-in-string (rx "[" (group "cite" (+? not-newline)) "]") "\\\\[\\1\\\\]" escaped-links))
+          (removed-slash-checkbox (replace-regexp-in-string (rx "[" (+? digit) "/" (+? digit) "]") "" escaped-cite))
+          (removed-percent-checkbox (replace-regexp-in-string (rx "[" (+? digit) "%]") "" removed-slash-checkbox))
           (trimmed (s-replace "|" "｜" removed-percent-checkbox)))
     trimmed))
-
-(replace-regexp-in-string "\\[[[:digit:]]+?/[[:digit:]]+?\\]" "a" "[1/2]")
 
 (defun org-kanban//unescape-heading (heading)
   "Transform HEADING from org link to real heading."
@@ -699,7 +697,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.6"))
+  (message "org-kanban 0.6.7"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."

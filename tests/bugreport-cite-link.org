@@ -1,0 +1,5 @@
+#+bibliography: test.bib
+* Kanban
+#+BEGIN: kanban :mirrored t :layout ("..." . 10)
+#+END:
+** TODO abc [cite:@knuth:1984]

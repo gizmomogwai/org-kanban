@@ -30,6 +30,7 @@ task :test do
   end
   sh 'cask list'
   sh 'cask eval "(org-version t t t)"'
+  sh "rm -rf *.elc"
   sh "cask eval \"(byte-compile-file \\\"org-kanban.el\\\")\""
   sh "cask exec ecukes --quiet --reporter progress"
 end

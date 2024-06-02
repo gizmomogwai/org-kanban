@@ -27,13 +27,13 @@
  )
 
 (After
- (message "After")
+ ;;(message "After")
  ;; After each scenario is run
- (message "Killing buffer %s" (current-buffer))
+ ;;(message "Killing buffer %s" (current-buffer))
  (kill-buffer (current-buffer))
  )
 
 (Teardown
- (message "Teardown")
+ ;;(message "Teardown")
  ;; After when everything has been run
  )
