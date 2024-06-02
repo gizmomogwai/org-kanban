@@ -12,7 +12,7 @@
 ;;         Darius Foo <darius.foo.tw@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0"))
-;; Package-Version: 0.6.7
+;; Package-Version: 0.6.8
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -74,7 +74,9 @@
   :group 'org-kanban)
 
 (defun org-kanban//todo-info-extract ()
-  "Extract all required infos from a todo.  e.g. buffer, heading-components, allowed keywords, ids, priority, ..."
+  "Extract all required infos from a todo.
+
+e.g. buffer, heading-components, allowed keywords, ids, priority, ..."
   (list
     (current-buffer)
     (org-heading-components)
@@ -128,7 +130,8 @@
   (nth 2 todo))
 
 (defun org-kanban//heading-to-description (heading layout)
-  "Create a description from a HEADING.  The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10))."
+  "Create a description from a HEADING.
+The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10))."
   (org-kanban//sanity-check-parameters "sanity-check" layout)
   (let* ((link-abbreviation (car layout))
           (max-length (cdr layout)))
@@ -207,7 +210,8 @@ This means, that the org-kanban table links are in one of several forms:
     ""))
 
 (defun org-kanban//todo-keywords (files mirrored range-fun)
-  "Get list of org todos from FILES.  MIRRORED describes if keywords should be reversed.  RANGE-FUN filters keywords."
+  "Get list of org todos from FILES.
+MIRRORED describes if keywords should be reversed.  RANGE-FUN filters keywords."
   (save-window-excursion
     (let* (
             (list-of-keywords (-flatten (-map
@@ -377,7 +381,7 @@ Return file and marker."
               (file (nth 0 file-and-marker))
               (marker (nth 1 file-and-marker)))
         (when (and file-and-marker file marker)
-          (with-demoted-errors
+          (with-demoted-errors "Error: %S"
             ;;(org-kanban//move-table-entry direction)
             (let ((new-pos 0))
               (save-excursion
@@ -393,7 +397,8 @@ Return file and marker."
                 (goto-char (search-forward "[["))))))))))
 
 (defun org-kanban//search-element (required-file required-point)
-  "Search for the org-kanban table entry that points to REQUIRED-FILE and REQUIRED-POINT."
+  "Search for a matching org-kanban table entry.
+The entry need to match on REQUIRED-FILE and REQUIRED-POINT."
   (let* (
           (done-p nil))
     (while (not done-p)
@@ -415,7 +420,7 @@ Return file and marker."
   (org-kanban//move 'right))
 
 (defun org-kanban/prev ()
-  "Move the todo entry in the current line of the kanban table to the previous state."
+  "Move the kanban table entry in the current line to the previous state."
   (interactive)
   (org-kanban//move 'left))
 
@@ -522,7 +527,8 @@ Return file and marker."
      (message "%s %.06f" ,title (float-time (time-since time)))))
 
 (defun org-kanban//move (direction)
-  "Move the todo entry in the current line of the kanban table to the next state in direction DIRECTION."
+  "Move the kanban table entry in the current line to the next state.
+The next state is calculated by DIRECTION which can be \='left or \='right."
   (save-window-excursion
     (if (-contains? (list 'left 'right) direction)
       (let* (
@@ -530,7 +536,7 @@ Return file and marker."
               (file (nth 0 file-and-marker))
               (marker (nth 1 file-and-marker)))
         (when (and file-and-marker file marker)
-          (with-demoted-errors
+          (with-demoted-errors "Error: %S"
             (org-kanban//move-table-entry direction)
             (let ((todo (org-kanban//get-table-todo)))
               (save-excursion
@@ -551,7 +557,8 @@ Return file and marker."
       layout))
 
 (defun org-kanban//expand-like-agenda-files (files)
-  "Expand FILES like org agenda would do it.  This will also pick up all org files in a directory."
+  "Expand FILES like org agenda would do it.
+This will also pick up all org files in a directory."
   (let ((file-strings (-map (lambda (f) (symbol-name f)) files)))
     (-flatten (-map (lambda (f)
                       (if (file-directory-p f)
@@ -616,7 +623,8 @@ the rest of the functions is used."
   (lambda (a b) (org-kanban--compare-with-functions a b functions)))
 
 (defun org-kanban--prepare-comparator (spec all-keywords)
-  "Prepare a comparator function according to SPEC and ALL-KEYWORDS.  Supported are pP and oO."
+  "Prepare a comparator function according to SPEC and ALL-KEYWORDS.
+Supported are pP and oO."
   (org-kanban--combine-comparators
     (mapcar
       (lambda (c)
@@ -645,7 +653,8 @@ the rest of the functions is used."
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.
-PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth` and `:compressed`."
+PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
+`:range`, `:depth` and `:compressed`."
   (insert
     (let*
       (
@@ -697,7 +706,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.7"))
+  (message "org-kanban 0.6.8"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -780,7 +789,9 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
                     )))))
 
 (defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec-string depth compressed)
-  "Calculate the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING, DEPTH and COMPRESSED."
+  "Calculate the org-kanban header.
+State is passed in MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING,
+DEPTH and COMPRESSED."
   (s-join " " (delq nil
                 (list "#+BEGIN: kanban"
                   (if mirrored ":mirrored t")
@@ -799,7 +810,9 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`, `:range`, `:depth
                   ))))
 
 (defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec-string depth compressed)
-  "Update the PREVIEW widget with the org-kanban header for MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING, DEPTH and COMPRESSED."
+  "Update the PREVIEW widget with the org-kanban header.
+State is passed in MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING,
+DEPTH and COMPRESSED."
   (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed)))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters)
