@@ -12,7 +12,7 @@
 ;;         Darius Foo <darius.foo.tw@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0"))
-;; Package-Version: 0.6.8
+;; Package-Version: 0.6.9
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -158,7 +158,7 @@ The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10)).
     nil))
 
 (defun org-kanban//link-for-heading (heading file description)
-  "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
+  "Create a link for a HEADING optionally a FILE and DESCRIPTION."
   (if heading
       (format "[[file:%s::*%s][%s]]" (org-kanban//relative-filename file) heading description)
     (error "Illegal state")))
@@ -170,7 +170,7 @@ The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10)).
     ))
 
 (defun org-kanban//escape-heading (heading)
-  "Cleanup HEADING for use in an org link."
+  "Cleanup HEADING for use  an org link."
   (let* (
           (escaped-links (replace-regexp-in-string (rx "[[" (+? not-newline) "][" (+? not-newline) "]]")
                            (lambda (x) (s-replace "]" "\\\\]" (s-replace "[" "\\\\[" (match-string 0 x)))) heading))
@@ -200,7 +200,7 @@ This means, that the org-kanban table links are in one of several forms:
   (if
     (and (stringp kanban) (string-equal search-for kanban))
     (let* (
-            (description (org-kanban//escape-description (funcall layout heading)))
+            (description (funcall layout (org-kanban//escape-description heading)))
             )
       (or
         (org-kanban//link-for-custom-id custom-id file description)
@@ -706,7 +706,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.8"))
+  (message "org-kanban 0.6.9"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
