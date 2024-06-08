@@ -1,0 +1,3 @@
+#+BEGIN: kanban :mirrored t :layout ("..." . 23)
+#+END:
+* TODO Item 1 with [[*Item 2][link to Item 2]] [1/2]
