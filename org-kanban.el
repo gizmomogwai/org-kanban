@@ -573,6 +573,7 @@ This will also pick up all org files in a directory."
           (files (pcase scope
                    (`nil (list buffer-file-name))
                    (`tree (list buffer-file-name))
+                   ((pred functionp) (let* ((result (funcall scope))) (save-window-excursion (org-link-open-from-string result) (list buffer-file-name))))
                    (_  (org-kanban//expand-like-agenda-files scope)))))
     files))
 
@@ -582,6 +583,7 @@ This will also pick up all org files in a directory."
     (pcase scope
       (`nil files)
       (`tree scope)
+      ((pred functionp) scope)
       (_ files))))
 
 (defun org-kanban--params-depth (params)
@@ -669,7 +671,10 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
         (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range)))))
         (sort-spec-string (plist-get params :sort))
         (sort-spec (org-kanban--prepare-comparator sort-spec-string todo-keywords))
-        (todo-infos (org-map-entries 'org-kanban//todo-info-extract match scope))
+        (todo-infos (if (functionp scope)
+                      (let* ((result (funcall scope))) (save-window-excursion (org-link-open-from-string result)
+                                                         (org-map-entries 'org-kanban//todo-info-extract match 'tree)))
+                                                         (org-map-entries 'org-kanban//todo-info-extract match scope)))                      
         (sorted-todo-infos (if sort-spec (-sort sort-spec todo-infos) todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info)
                                         (org-kanban//range-fun

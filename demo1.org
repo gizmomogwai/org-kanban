@@ -1,0 +1,15 @@
+;;; -*- org-log-done: nil org-tags-column: 100 -*-
+#+TODO: Todo Plan Develop Test Done
+
+* Todo demo1 Task 1
+* Todo demo1 Task 2
+* Todo demo1 Task 3                                                                                 :urgent:
+* Todo demo1 Task 4                                                                                 :kanban:
+* Todo demo1 Task 5                                                                                 :important:
+
+
+#+BEGIN: kanban :mirrored t :scope (lambda () "file:./demo2.org::#t3")
+| Done | Test | Develop | Plan | Todo         |
+|------+------+---------+------+--------------|
+|      |      |         |      | [[file:demo2.org::#t3][demo2 task 3]] |
+#+END:
