@@ -12,7 +12,7 @@
 ;;         Darius Foo <darius.foo.tw@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0"))
-;; Package-Version: 0.6.9
+;; Package-Version: 0.6.10
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -567,7 +567,8 @@ This will also pick up all org files in a directory."
         file-strings))))
 
 (defun org-kanban//params-files (params)
-  "Calculate files based on PARAMS."
+  "Calculate files on which the kanban is based from PARAMS.
+This uses the parameter :scope of the block."
   (let* (
           (scope (plist-get params :scope))
           (files (pcase scope
@@ -578,7 +579,9 @@ This will also pick up all org files in a directory."
     files))
 
 (defun org-kanban//params-scope (params files)
-  "Calculate scope based on PARAMS and FILES."
+  "Calculate scope based on PARAMS and FILES.
+The result is directly forwarded to `org-map-entries,
+the only exception :scope being a function."
   (let* ((scope (plist-get params :scope)))
     (pcase scope
       (`nil files)
@@ -652,6 +655,14 @@ Supported are pP and oO."
       t)
     t))
 
+(defun org-kanban--collect-todos (match scope)
+  "Collect all todos for the kanban based on MATCH in SCOPE."
+  (if (functionp scope)
+    (let* ((result (funcall scope)))
+      (save-window-excursion (org-link-open-from-string result)
+        (org-map-entries 'org-kanban//todo-info-extract match 'tree)))
+    (org-map-entries 'org-kanban//todo-info-extract match scope)))
+
 ;;;###autoload
 (defun org-dblock-write:kanban (params)
   "Create the kanban dynamic block.
@@ -671,10 +682,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
         (todo-keywords (org-kanban//todo-keywords files mirrored (lambda (value keywords) (org-kanban//range-fun value keywords (car range) (cdr range)))))
         (sort-spec-string (plist-get params :sort))
         (sort-spec (org-kanban--prepare-comparator sort-spec-string todo-keywords))
-        (todo-infos (if (functionp scope)
-                      (let* ((result (funcall scope))) (save-window-excursion (org-link-open-from-string result)
-                                                         (org-map-entries 'org-kanban//todo-info-extract match 'tree)))
-                                                         (org-map-entries 'org-kanban//todo-info-extract match scope)))                      
+        (todo-infos (org-kanban--collect-todos match scope))
         (sorted-todo-infos (if sort-spec (-sort sort-spec todo-infos) todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info)
                                         (org-kanban//range-fun
@@ -684,7 +692,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                                           (cdr range)))
                                sorted-todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info)
-                                        (if (eq scope 'tree)
+                                        (if (or (eq scope 'tree) (functionp scope))
                                           (let* (
                                                   (tree-info (nth 0 todo-infos))
                                                   (tree-level (org-kanban--todo-info-get-level tree-info)))
@@ -711,7 +719,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.9"))
+  (message "org-kanban 0.6.10"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -950,7 +958,11 @@ PARAMETERS the org-kanban parameters."
         '(item :tag "tree" :menu-tag "tree" :value "tree")
         '(item :tag "whole file" :menu-tag "whole file" :value "nil")
         '(editable-field :menu-tag "list of files" default-file-list)))
-    (widget-insert (propertize "  Scope of the org-kanban table. e.g. nil, tree or a list of files or directories.\n" 'face 'font-lock-doc-face))
+    (widget-insert (propertize "  Scope of the org-kanban table.\n" 'face 'font-lock-doc-face))
+    (widget-insert (propertize "   - nil (current buffer)\n" 'face 'font-lock-doc-face))
+    (widget-insert (propertize "   - tree (in the current buffer)\n" 'face 'font-lock-doc-face))
+    (widget-insert (propertize "   - list of files or directories\n" 'face 'font-lock-doc-face))
+    (widget-insert (propertize "   - function returning a string that is compatible with org-link-open-from-string\n" 'face 'font-lock-doc-face))
     (widget-insert "\n")
 
     (widget-insert (propertize "Sort Spec: " 'face 'font-lock-keyword-face))

@@ -30,7 +30,8 @@
  ;;(message "After")
  ;; After each scenario is run
  ;;(message "Killing buffer %s" (current-buffer))
- (kill-buffer (current-buffer))
+  (kill-buffer (current-buffer))
+  (kill-buffer (get-buffer "test1.org"))
  )
 
 (Teardown
