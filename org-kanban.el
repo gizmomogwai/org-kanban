@@ -186,8 +186,9 @@ The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10)).
     (s-replace "\\]" "]"
       (s-replace  "｜" "|" heading))))
 
-(defun org-kanban//link (file heading kanban search-for custom-id id layout)
+(defun org-kanban//link (plaintext file heading kanban search-for custom-id id layout)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
+PLAINTEXT generates no links.
 CUSTOM-ID links are used if given.
 ID links are used if given.
 LAYOUT is the specification to layout long links.
@@ -197,17 +198,20 @@ This means, that the org-kanban table links are in one of several forms:
  - id:id
  - file:*heading
  - heading"
-  (if
-    (and (stringp kanban) (string-equal search-for kanban))
-    (let* (
-            (description (funcall layout (org-kanban//escape-description heading)))
+    (if
+      (and (stringp kanban) (string-equal search-for kanban))
+      (let* (
+              (description (funcall layout (org-kanban//escape-description heading)))
+              )
+        (if plaintext heading
+          (or
+            (org-kanban//link-for-custom-id custom-id file description)
+            (org-kanban//link-for-id id description)
+            (org-kanban//link-for-heading (org-kanban//escape-heading heading) file description)
             )
-      (or
-        (org-kanban//link-for-custom-id custom-id file description)
-        (org-kanban//link-for-id id description)
-        (org-kanban//link-for-heading (org-kanban//escape-heading heading) file description)
-        ))
-    ""))
+          ))
+      "")
+    )
 
 (defun org-kanban//todo-keywords (files mirrored range-fun)
   "Get list of org todos from FILES.
@@ -223,12 +227,12 @@ MIRRORED describes if keywords should be reversed.  RANGE-FUN filters keywords."
             (keywords (if mirrored (reverse filtered) filtered)))
       keywords)))
 
-(defun org-kanban//row-entries-for (todo-info todo-keywords layout)
+(defun org-kanban//row-entries-for (todo-info todo-keywords layout plaintext)
   "Convert a kanban TODO-INFO to elements of a row for org-table.
 The result is a list of entries that can be converted by
 `org-kanban//row-entries-to-row.
 TODO-KEYWORDS are all the current org todos.
-LAYOUT specification."
+LAYOUT specification.  PLAINTEXT generates textonly entries for todos."
   (let* (
           (file (org-kanban//todo-info-get-file todo-info))
           (heading (org-kanban//todo-info-get-heading todo-info))
@@ -236,7 +240,7 @@ LAYOUT specification."
           (kanban (org-kanban//heading-get-todo-keyword heading))
           (custom-id (org-kanban//todo-info-get-custom-id todo-info))
           (id (org-kanban//todo-info-get-id todo-info))
-          (row-entries (-map (lambda(i) (org-kanban//link file title i kanban custom-id id layout)) todo-keywords)))
+          (row-entries (-map (lambda(i) (org-kanban//link plaintext file title i kanban custom-id id layout)) todo-keywords)))
     row-entries))
 
 (defun org-kanban//row-entries-to-string (row-entries)
@@ -245,11 +249,11 @@ LAYOUT specification."
           (row (string-join row-entries "|")))
     (format "|%s|" row)))
 
-(defun org-kanban//row-for (todo-info todo-keywords layout)
-  "Convert a kanban TODO-INFO to a row of a org-table.
+(defun org-kanban//row-for (todo-info todo-keywords layout plaintext)
+  "Convert a kanban TODO-INFO to a row of an org-kanban-table.
 TODO-KEYWORDS are all the current org todos.
-LAYOUT specification."
-  (org-kanban//row-entries-to-string (org-kanban//row-entries-for todo-info todo-keywords layout)))
+LAYOUT specification.  PLAINTEXT does not create links."
+  (org-kanban//row-entries-to-string (org-kanban//row-entries-for todo-info todo-keywords layout plaintext)))
 
 (defun org-kanban//transpose-lists (lists)
   "Transpose LISTS."
@@ -670,7 +674,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
 `:range`, `:depth` and `:compressed`."
   (insert
     (let*
-      (
+      ( (plaintext (plist-get params :plaintext))
         (mirrored (plist-get params :mirrored))
         (compressed (plist-get params :compressed))
         (match (plist-get params :match))
@@ -699,7 +703,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                                             (< (org-kanban--todo-info-get-level todo-info) (+ depth tree-level)))
                                           (<= (org-kanban--todo-info-get-level todo-info) depth))) filtered-todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info) (nth 4 (org-kanban//todo-info-get-heading todo-info))) filtered-todo-infos))
-        (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords layout)))
+        (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords layout plaintext)))
         (table-title (string-join todo-keywords "|"))
         (filtered (-filter (lambda (todo-info)
                              (-intersection
@@ -801,10 +805,10 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                     (if compressed " :compressed t")
                     )))))
 
-(defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec-string depth compressed)
+(defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec-string depth compressed plaintext)
   "Calculate the org-kanban header.
 State is passed in MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING,
-DEPTH and COMPRESSED."
+DEPTH, COMPRESSED and PLAINTEXT."
   (s-join " " (delq nil
                 (list "#+BEGIN: kanban"
                   (if mirrored ":mirrored t")
@@ -820,13 +824,14 @@ DEPTH and COMPRESSED."
                   (if (and depth (> (length depth) 0))
                     (format ":depth %s" depth))
                   (if compressed ":compressed t")
+                  (if plaintext ":plaintext t")
                   ))))
 
-(defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec-string depth compressed)
+(defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec-string depth compressed plaintext)
   "Update the PREVIEW widget with the org-kanban header.
 State is passed in MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING,
-DEPTH and COMPRESSED."
-  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed)))
+DEPTH, COMPRESSED and PLAINTEXT."
+  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters)
   "Create the configuration form for BUFFER.
@@ -835,6 +840,7 @@ PARAMETERS the org-kanban parameters."
   (switch-to-buffer "*org-kanban-configure*")
   (let (
          (inhibit-read-only t)
+         (plaintext (plist-get parameters :plaintext))
          (mirrored (plist-get parameters :mirrored))
          (compressed (plist-get parameters :compressed))
          (match (plist-get parameters :match))
@@ -859,7 +865,7 @@ PARAMETERS the org-kanban parameters."
       :value mirrored
       :notify (lambda (widget &rest _ignore)
                 (setq mirrored (widget-value widget))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
     (widget-insert (propertize "  see https://theagileist.wordpress.com/tag/mirrored-kanban-board/ for details" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
@@ -869,13 +875,13 @@ PARAMETERS the org-kanban parameters."
                          :size 30
                          :notify (lambda (widget &rest _ignore)
                                    (setq match (widget-value widget))
-                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))))
+                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set match-widget "")
                 (setq match nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  match to tags e.g. urgent|important" 'face 'font-lock-doc-face))
@@ -888,21 +894,21 @@ PARAMETERS the org-kanban parameters."
                               :size 7
                               :notify (lambda (widget &rest _ignore)
                                         (setq range (cons (widget-value widget) (cdr range)))
-                                        (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))))
+                                        (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))))
     (widget-insert (propertize " to: " 'face 'font-lock-keyword-face))
     (setq range-to-widget (widget-create 'editable-field
                             :value (format "%s" (or (cdr range) ""))
                             :size 7
                             :notify (lambda (widget &rest _ignore)
                                       (setq range (cons (car range) (widget-value widget)))
-                                      (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))))
+                                      (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set range-from-widget "")
                 (widget-value-set range-to-widget "")
                 (setq range nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  from and to should be keywords" 'face 'font-lock-doc-face))
@@ -915,14 +921,14 @@ PARAMETERS the org-kanban parameters."
       :size 5
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (widget-value widget) (cdr layout)))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
     (widget-insert (propertize " Max-width: " 'face 'font-lock-keyword-face))
     (widget-create 'editable-field
       :value (format "%s" (if layout (cdr layout) ""))
       :size 1
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (car layout) (widget-value widget)))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
     (widget-insert "\n")
     (widget-insert (propertize "  max-width should be bigger then the length of the abbreviation" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
@@ -948,7 +954,7 @@ PARAMETERS the org-kanban parameters."
                                   (_ (setq default-file-list scope-string))
                                   (res (car (read-from-string scope-string))))
                              res))))
-                    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed)))
+                    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
         :value-set (lambda (widget &rest value)
                      (widget-default-value-set widget
                        (cond
@@ -971,14 +977,14 @@ PARAMETERS the org-kanban parameters."
                          :size 30
                          :notify (lambda (widget &rest _ignore)
                                    (setq sort-spec-string (widget-value widget))
-                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))))
+                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))))
     (widget-insert " ")
 
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set sort-spec-widget "")
                 (setq sort-spec-string nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  Sort spec use a combination of todo[o/O]order and [p/P]riority" 'face 'font-lock-doc-face))
@@ -991,13 +997,13 @@ PARAMETERS the org-kanban parameters."
                              :size 3
                              :notify (lambda (widget &rest _ignore)
                                        (setq depth (or (widget-value widget) ""))
-                                       (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))))
+                                       (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set depth-widget "")
                 (setq depth "")
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  Depth to which show todos in the org-kanban table.  This is relative to the files or root element of :scope tree." 'face 'font-lock-doc-face))
@@ -1008,8 +1014,17 @@ PARAMETERS the org-kanban parameters."
       :value compressed
       :notify (lambda (widget &rest _ignore)
                 (setq compressed (widget-value widget))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
     (widget-insert (propertize "  Interactive shifting is not (yet) supported for compressed kanban tables." 'face 'font-lock-doc-face))
+    (widget-insert "\n\n")
+
+    (widget-insert (propertize "Plaintext: " 'face 'font-lock-keyword-face))
+    (widget-create 'toggle
+      :value plaintext
+      :notify (lambda (widget &rest _ignore)
+                (setq plaintext (widget-value widget))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
+    (widget-insert (propertize "  Plaintext does not create links in the kanban table.\n  Interactive shifting is not supported for plaintext kanban tables." 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
     (widget-insert (propertize "Result: " 'face 'font-lock-keyword-face))
@@ -1021,7 +1036,7 @@ PARAMETERS the org-kanban parameters."
                 (with-current-buffer buffer
                   (goto-char beginning)
                   (kill-line)
-                  (insert (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed)))
+                  (insert (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed plaintext)))
                 (kill-buffer)
                 (org-ctrl-c-ctrl-c))
       (propertize "Apply" 'face 'font-lock-comment-face))
@@ -1031,7 +1046,7 @@ PARAMETERS the org-kanban parameters."
                 (kill-buffer))
       (propertize "Cancel" 'face 'font-lock-string-face))
 
-    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed)
+    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed plaintext)
     (use-local-map widget-keymap)
     (widget-setup)))
 
