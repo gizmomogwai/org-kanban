@@ -12,7 +12,7 @@
 ;;         Darius Foo <darius.foo.tw@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0"))
-;; Package-Version: 0.6.10
+;; Package-Version: 0.6.11
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -723,7 +723,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.10"))
+  (message "org-kanban 0.6.11"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
