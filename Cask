@@ -8,7 +8,6 @@
 (depends-on "dash")
 (development
  (depends-on "ert-runner")
- (depends-on "cask")
  (depends-on "undercover")
  (depends-on "ert-expectations")
  (depends-on "ecukes")
