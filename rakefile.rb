@@ -14,7 +14,7 @@ def get_match(content, regexp)
 end
 
 desc 'test'
-task :test do
+task :test, [:verbose] do |t, args|
   melpa_version = get_match(File.read('org-kanban.el', encoding: 'UTF-8'), Regexp.new('Package-Version: (.*)'))
   elisp_version = get_match(File.read('org-kanban.el', encoding: 'UTF-8'), Regexp.new('\\(message "org-kanban (.*)"\\)\\)'))
   cask_version = get_match(File.read('Cask', encoding: 'UTF-8'), Regexp.new('\\(package "org-kanban" "(.*)" "Kanban for org-mode."\\)'))
@@ -32,7 +32,11 @@ task :test do
   sh 'cask eval "(org-version t t t)"'
   sh "rm -rf *.elc"
   sh "cask eval \"(byte-compile-file \\\"org-kanban.el\\\")\""
-  sh "cask exec ecukes --quiet --reporter progress"
+  if args[:verbose]
+    sh "cask exec ecukes --quiet --reporter magnars"
+  else
+    sh "cask exec ecukes --quiet --reporter progress"
+  end
 end
 
 desc 'generate big testfile'
