@@ -1,0 +1,11 @@
+* TODO 1
+* TODO 2
+* TODO 1234567890
+
+#+BEGIN: kanban :layout ("..." . 5) :link nil
+|  TODO | DONE |
+|-------+------|
+|     1 |      |
+|     2 |      |
+| 12... |      |
+#+END:
