@@ -12,7 +12,7 @@
 ;;         Darius Foo <darius.foo.tw@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
 ;; Package-Requires: ((s) (dash "2.17.0"))
-;; Package-Version: 0.6.13
+;; Package-Version: 0.6.14
 ;; Homepage: http://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
@@ -678,7 +678,6 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
   (insert
     (let*
       ( (link (make-flag :default (not (plist-member params :link)) :value (plist-get params :link)))
-        (caption (plist-get params :caption))
         (mirrored (plist-get params :mirrored))
         (compressed (plist-get params :compressed))
         (match (plist-get params :match))
@@ -720,15 +719,18 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                    (if rows
                      (--reduce (format "%s\n%s" acc it) rows)
                      ""
-                     )))))
-        (format "%s|%s|\n|--|\n%s" (if caption (format "#+CAPTION: %s\n" caption) "") table-title table)
+                     ))))
+        (headers (plist-get params :headers))
+        (header-string (if headers (concat (string-join headers "\n") "\n") ""))
+        )
+        (format "%s|%s|\n|--|\n%s" header-string table-title table)
         ))
   (org-table-align))
 
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.13"))
+  (message "org-kanban 0.6.14"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -810,10 +812,10 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                     (if compressed " :compressed t")
                     )))))
 
-(defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec-string depth compressed link caption)
+(defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec-string depth compressed link headers)
   "Calculate the org-kanban header.
 State is passed in MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING,
-DEPTH, COMPRESSED, LINK (flag) and CAPTION."
+DEPTH, COMPRESSED, LINK (flag) and HEADERS."
   (s-join " " (delq nil
                 (list "#+BEGIN: kanban"
                   (if mirrored ":mirrored t")
@@ -830,14 +832,14 @@ DEPTH, COMPRESSED, LINK (flag) and CAPTION."
                     (format ":depth %s" depth))
                   (if compressed ":compressed t")
                   (if (not (flag-default link)) (format ":link %s" (flag-value link)))
-                  (if (and caption (> (length caption) 0)) (format ":caption \"%s\"" caption))
+                  (if headers (format ":headers %s" headers))
                   ))))
 
-(defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec-string depth compressed link caption)
+(defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec-string depth compressed link headers)
   "Update the PREVIEW widget with the org-kanban header.
 State is passed in MIRRORED, MATCH, LAYOUT, SCOPE, RANGE, SORT-SPEC-STRING,
-DEPTH, COMPRESSED, LINK (flag) and CAPTION."
-  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed link caption)))
+DEPTH, COMPRESSED, LINK (flag) and HEADERS."
+  (widget-value-set preview (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed link headers)))
 
 (defun org-kanban//show-configure-buffer (buffer beginning parameters)
   "Create the configuration form for BUFFER.
@@ -847,7 +849,7 @@ PARAMETERS the org-kanban parameters."
   (let (
          (inhibit-read-only t)
          (link (make-flag :default (not (plist-member parameters :link)) :value (plist-get parameters :link)))
-         (caption (plist-get parameters :caption))
+         (headers (plist-get parameters :headers))
          (mirrored (plist-get parameters :mirrored))
          (compressed (plist-get parameters :compressed))
          (match (plist-get parameters :match))
@@ -863,7 +865,7 @@ PARAMETERS the org-kanban parameters."
          (sort-spec-widget nil)
          (depth-widget nil)
          (link-widget nil)
-         (caption-widget nil)
+         (headers-widget nil)
          )
 
     (erase-buffer)
@@ -874,7 +876,7 @@ PARAMETERS the org-kanban parameters."
       :value mirrored
       :notify (lambda (widget &rest _ignore)
                 (setq mirrored (widget-value widget))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers)))
     (widget-insert (propertize "  see https://theagileist.wordpress.com/tag/mirrored-kanban-board/ for details" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
@@ -884,13 +886,13 @@ PARAMETERS the org-kanban parameters."
                          :size 30
                          :notify (lambda (widget &rest _ignore)
                                    (setq match (widget-value widget))
-                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))))
+                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set match-widget "")
                 (setq match nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  match to tags e.g. urgent|important" 'face 'font-lock-doc-face))
@@ -903,21 +905,21 @@ PARAMETERS the org-kanban parameters."
                               :size 7
                               :notify (lambda (widget &rest _ignore)
                                         (setq range (cons (widget-value widget) (cdr range)))
-                                        (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))))
+                                        (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))))
     (widget-insert (propertize " to: " 'face 'font-lock-keyword-face))
     (setq range-to-widget (widget-create 'editable-field
                             :value (format "%s" (or (cdr range) ""))
                             :size 7
                             :notify (lambda (widget &rest _ignore)
                                       (setq range (cons (car range) (widget-value widget)))
-                                      (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))))
+                                      (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set range-from-widget "")
                 (widget-value-set range-to-widget "")
                 (setq range nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  from and to should be keywords" 'face 'font-lock-doc-face))
@@ -930,14 +932,14 @@ PARAMETERS the org-kanban parameters."
       :size 5
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (widget-value widget) (cdr layout)))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers)))
     (widget-insert (propertize " Max-width: " 'face 'font-lock-keyword-face))
     (widget-create 'editable-field
       :value (format "%s" (if layout (cdr layout) ""))
       :size 1
       :notify (lambda (widget &rest _ignore)
                 (setq layout (cons (car layout) (widget-value widget)))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers)))
     (widget-insert "\n")
     (widget-insert (propertize "  max-width should be bigger then the length of the abbreviation" 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
@@ -963,7 +965,7 @@ PARAMETERS the org-kanban parameters."
                                   (_ (setq default-file-list scope-string))
                                   (res (car (read-from-string scope-string))))
                              res))))
-                    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption)))
+                    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers)))
         :value-set (lambda (widget &rest value)
                      (widget-default-value-set widget
                        (cond
@@ -986,14 +988,14 @@ PARAMETERS the org-kanban parameters."
                          :size 30
                          :notify (lambda (widget &rest _ignore)
                                    (setq sort-spec-string (widget-value widget))
-                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))))
+                                   (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))))
     (widget-insert " ")
 
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set sort-spec-widget "")
                 (setq sort-spec-string nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  Sort spec use a combination of todo[o/O]order and [p/P]riority" 'face 'font-lock-doc-face))
@@ -1006,13 +1008,13 @@ PARAMETERS the org-kanban parameters."
                              :size 3
                              :notify (lambda (widget &rest _ignore)
                                        (setq depth (or (widget-value widget) ""))
-                                       (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))))
+                                       (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set depth-widget "")
                 (setq depth "")
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  Depth to which show todos in the org-kanban table.  This is relative to the files or root element of :scope tree." 'face 'font-lock-doc-face))
@@ -1023,7 +1025,7 @@ PARAMETERS the org-kanban parameters."
       :value compressed
       :notify (lambda (widget &rest _ignore)
                 (setq compressed (widget-value widget))
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption)))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers)))
     (widget-insert (propertize "  Interactive shifting is not (yet) supported for compressed kanban tables." 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
@@ -1033,34 +1035,34 @@ PARAMETERS the org-kanban parameters."
       :value (flag-value link)
       :notify (lambda (widget &rest _ignore)
                 (setf (flag-value link) (widget-value widget) (flag-default link) nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
                 (widget-value-set link-widget "on")
                 (setf (flag-default link) t)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))
       (propertize "Use default" 'face 'font-lock-string-face))
     (widget-insert "\n")
     (widget-insert (propertize "  Flag to specify if links should be generated in the kanban table.  Defaults to t." 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
-    (widget-insert (propertize "Caption: " 'face 'font-lock-keyword-face))
-    (setq caption-widget (widget-create 'editable-field
-                           :value (format "%s" (or caption ""))
+    (widget-insert (propertize "Headers: " 'face 'font-lock-keyword-face))
+    (setq headers-widget (widget-create 'editable-field
+                           :value (format "%s" (or (--map (format "\"%s\"" it) headers)))
                            :size 100
                            :notify (lambda (widget &rest _ignore)
-                                     (setq caption (or (widget-value widget) nil))
-                                     (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))))
+                                     (setq headers (or (widget-value widget) nil))
+                                     (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))))
     (widget-insert " ")
     (widget-create 'push-button
       :notify (lambda (_widget &rest _ignore)
-                (widget-value-set caption-widget nil)
-                (setq caption nil)
-                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption))
+                (widget-value-set headers-widget nil)
+                (setq headers nil)
+                (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers))
       (propertize "Delete" 'face 'font-lock-string-face))
     (widget-insert "\n")
-    (widget-insert (propertize "  Caption to add to the table." 'face 'font-lock-doc-face))
+    (widget-insert (propertize "  Headers to add to the table. e.g. (\"#+CAPTION: a caption\" \"#+NAME: a name\").  The listelements are joined by \\n." 'face 'font-lock-doc-face))
     (widget-insert "\n\n")
 
     (widget-insert (propertize "Result: " 'face 'font-lock-keyword-face))
@@ -1072,7 +1074,7 @@ PARAMETERS the org-kanban parameters."
                 (with-current-buffer buffer
                   (goto-char beginning)
                   (kill-line)
-                  (insert (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed link caption)))
+                  (insert (org-kanban--calculate-preview mirrored match layout scope range sort-spec-string depth compressed link headers)))
                 (kill-buffer)
                 (org-ctrl-c-ctrl-c))
       (propertize "Apply" 'face 'font-lock-comment-face))
@@ -1082,7 +1084,7 @@ PARAMETERS the org-kanban parameters."
                 (kill-buffer))
       (propertize "Cancel" 'face 'font-lock-string-face))
 
-    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link caption)
+    (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers)
     (use-local-map widget-keymap)
     (widget-setup)))
 
