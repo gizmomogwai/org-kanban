@@ -89,7 +89,7 @@ e.g. buffer, heading-components, allowed keywords, ids, priority, ..."
     (org-entry-get nil "TODO")
     ))
 
-(defun org-kanban//todo-info-get-file (todo-info)
+(defun org-kanban//todo-info-get-buffer (todo-info)
   "Get the buffer from a TODO-INFO."
   (nth 0 todo-info))
 
@@ -143,14 +143,18 @@ The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10)).
         link-abbreviation)
       heading)))
 
-(defun org-kanban//relative-filename (file)
-  "Calculate relative filename for FILE based on current buffer."
-  (file-relative-name (buffer-file-name file) (file-name-directory (buffer-file-name (current-buffer)))))
+(defun org-kanban//relative-filename (buffer)
+  "Calculate relative filename for BUFFER based on current buffer."
+  (file-relative-name (buffer-file-name buffer) (file-name-directory (buffer-file-name (current-buffer)))))
 
-(defun org-kanban//link-for-custom-id (custom-id file description)
-  "Create a link for CUSTOM-ID, optionally USE-FILE FILE and DESCRIPTION."
+(defun org-kanban//link-for-custom-id (custom-id buffer description table-file-name)
+  "Create a link for CUSTOM-ID, optionally BUFFER and DESCRIPTION.
+TABLE-FILE-NAME is the filename of the buffer on which the table should be
+rendered (or nil)."
   (if custom-id
-    (format "[[file:%s::#%s][%s]]" (org-kanban//relative-filename file) custom-id description)
+    (if (and table-file-name (s-equals? table-file-name (buffer-file-name buffer)))
+      (format "[[#%s][%s]]" custom-id description)
+      (format "[[file:%s::#%s][%s]]" (org-kanban//relative-filename buffer) custom-id description))
     nil))
 
 (defun org-kanban//link-for-id (id description)
@@ -188,12 +192,15 @@ The description is truncated according to the LAYOUT cons (e.g. (\"...\" . 10)).
     (s-replace "\\]" "]"
       (s-replace  "｜" "|" heading))))
 
-(defun org-kanban//link (link file heading kanban search-for custom-id id layout)
+(defun org-kanban//link (link file heading kanban search-for custom-id id layout table-file-name)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
+Needs to fit to `org-kanban//find.
 LINK (flag) if links should be generated.
 CUSTOM-ID links are used if given.
 ID links are used if given.
 LAYOUT is the specification to layout long links.
+TABLE-FILE-NAME is the filename of the buffer on which the table should be
+rendered (or nil).
 This means, that the org-kanban table links are in one of several forms:
  - file:#custom-id
  - #custom-id
@@ -207,7 +214,7 @@ This means, that the org-kanban table links are in one of several forms:
               )
         (if (or (flag-default link) (flag-value link))
           (or
-            (org-kanban//link-for-custom-id custom-id file layouted-heading)
+            (org-kanban//link-for-custom-id custom-id file layouted-heading table-file-name)
             (org-kanban//link-for-id id layouted-heading)
             (org-kanban//link-for-heading (org-kanban//escape-heading heading) file layouted-heading)
             )
@@ -230,20 +237,22 @@ MIRRORED describes if keywords should be reversed.  RANGE-FUN filters keywords."
             (keywords (if mirrored (reverse filtered) filtered)))
       keywords)))
 
-(defun org-kanban//row-entries-for (todo-info todo-keywords layout link)
+(defun org-kanban//row-entries-for (todo-info todo-keywords layout link table-file-name)
   "Convert a kanban TODO-INFO to elements of a row for org-table.
 The result is a list of entries that can be converted by
 `org-kanban//row-entries-to-row.
 TODO-KEYWORDS are all the current org todos.
-LAYOUT specification.  LINK (flag) if links should be generated."
+LAYOUT specification.  LINK (flag) if links should be generated.
+TABLE-FILE-NAME is the filename of the buffer on which the table should be
+rendered (or nil)."
   (let* (
-          (file (org-kanban//todo-info-get-file todo-info))
+          (buffer (org-kanban//todo-info-get-buffer todo-info))
           (heading (org-kanban//todo-info-get-heading todo-info))
           (title (org-kanban//heading-get-title heading))
           (kanban (org-kanban//heading-get-todo-keyword heading))
           (custom-id (org-kanban//todo-info-get-custom-id todo-info))
           (id (org-kanban//todo-info-get-id todo-info))
-          (row-entries (-map (lambda(i) (org-kanban//link link file title i kanban custom-id id layout)) todo-keywords)))
+          (row-entries (-map (lambda(i) (org-kanban//link link buffer title i kanban custom-id id layout table-file-name)) todo-keywords)))
     row-entries))
 
 (defun org-kanban//row-entries-to-string (row-entries)
@@ -252,11 +261,13 @@ LAYOUT specification.  LINK (flag) if links should be generated."
           (row (string-join row-entries "|")))
     (format "|%s|" row)))
 
-(defun org-kanban//row-for (todo-info todo-keywords layout link)
+(defun org-kanban//row-for (todo-info todo-keywords layout link table-file-name)
   "Convert a kanban TODO-INFO to a row of an org-kanban-table.
 TODO-KEYWORDS are all the current org todos.
-LAYOUT specification.  LINK (flag) if links should be generated."
-  (org-kanban//row-entries-to-string (org-kanban//row-entries-for todo-info todo-keywords layout link)))
+LAYOUT specification.  LINK (flag) if links should be generated.
+TABLE-FILE-NAME is the filename of the buffer on which the table should be
+rendered (or nil)."
+  (org-kanban//row-entries-to-string (org-kanban//row-entries-for todo-info todo-keywords layout link table-file-name)))
 
 (defun org-kanban//transpose-lists (lists)
   "Transpose LISTS."
@@ -353,6 +364,7 @@ The processing is done on string level."
 
 (defun org-kanban//find ()
   "Search for a todo matching to the current kanban table row.
+Needs to match to `org-kanban//link.
 Return file and marker."
   (let* (
           (line-start (save-excursion
@@ -706,7 +718,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                                             (< (org-kanban--todo-info-get-level todo-info) (+ depth tree-level)))
                                           (<= (org-kanban--todo-info-get-level todo-info) depth))) filtered-todo-infos))
         (filtered-todo-infos (-filter (lambda (todo-info) (nth 4 (org-kanban//todo-info-get-heading todo-info))) filtered-todo-infos))
-        (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords layout link)))
+        (row-for (lambda (todo-info) (org-kanban//row-for todo-info todo-keywords layout link (buffer-file-name))))
         (table-title (string-join todo-keywords "|"))
         (filtered (-filter (lambda (todo-info)
                              (-intersection

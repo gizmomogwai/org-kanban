@@ -32,7 +32,7 @@ Feature: Work kanban tables
     |---------+------|
     | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
-    |         | [[file:test1.org::#customid1][c]]    |
+    |         | [[#customid1][c]]    |
     |         | [[id:id2][d]]    |
     #+END:
     """
@@ -88,7 +88,7 @@ Feature: Work kanban tables
     """
     | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
-    | [[file:test1.org::#customid1][c]]       |      |
+    | [[#customid1][c]]       |      |
     """
 
   Scenario: Move Todo Items by id
@@ -98,6 +98,6 @@ Feature: Work kanban tables
     """
     | [[file:test1.org::*a ][a [1/2]]] |      |
     |         | [[file:test1.org::*b][b]]    |
-    |         | [[file:test1.org::#customid1][c]]    |
+    |         | [[#customid1][c]]    |
     | [[id:id2][d]]       |      |
     """

@@ -1,2 +1,6 @@
 #+BEGIN: kanban :mirrored t :layout ("..." . 23) :scope (lambda () "file:./feature-allow-function-in-scope-example.org::#cid-3")
+| DONE | TODO |
+|------+------|
+|      | [[file:feature-allow-function-in-scope-example.org::#cid-3][3]]    |
+|      | [[file:feature-allow-function-in-scope-example.org::#cid-4][4]]    |
 #+END:

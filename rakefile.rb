@@ -33,9 +33,9 @@ task :test, [:verbose] do |t, args|
   sh "rm -rf *.elc"
   sh "cask eval \"(byte-compile-file \\\"org-kanban.el\\\")\""
   if args[:verbose]
-    sh "cask exec ecukes --quiet --reporter magnars"
+    sh "cask exec ecukes --debug"
   else
-    sh "cask exec ecukes --quiet --reporter progress"
+    sh "cask exec ecukes --reporter progress"
   end
 end
 
