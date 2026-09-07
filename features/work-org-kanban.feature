@@ -1,4 +1,5 @@
 Feature: Work kanban tables
+  # <ZWSP> denotes the U+200B Org adds after descriptions ending in ].
   Background:
     Given I open file "tests/test1.org"
     And I insert:
@@ -24,80 +25,79 @@ Feature: Work kanban tables
     And I press "C-c C-c"
 
   Scenario: Create Kanban Tables
-    Then I should see:
-    """
-    * Kanban
-    #+BEGIN: kanban
-    | TODO    | DONE |
-    |---------+------|
-    | [[file:test1.org::*a ][a [1/2]]] |      |
-    |         | [[file:test1.org::*b][b]]    |
-    |         | [[#customid1][c]]    |
-    |         | [[id:id2][d]]    |
-    #+END:
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | [[file:test1.org::*a ][a [1/2]<ZWSP>]] | |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | | [[id:id2][d]] |
 
   Scenario: Move Todo Items
     When I go to line "18"
     And I run org-kanban/shift
-    Then I should see:
-    """
-    | [[file:test1.org::*a ][a [1/2]]] |      |
-    |         | [[file:test1.org::*b][b]]    |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | [[file:test1.org::*a ][a [1/2]<ZWSP>]] | |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | | [[id:id2][d]] |
 
     And I press "h"
-    Then I should see:
-    """
-    | [[file:test1.org::*a ][a [1/2]]] |      |
-    |         | [[file:test1.org::*b][b]]    |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | [[file:test1.org::*a ][a [1/2]<ZWSP>]] | |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | | [[id:id2][d]] |
 
     And I press "l"
-    Then I should see:
-    """
-    |      | [[file:test1.org::*a ][a [1/2]]] |
-    |      | [[file:test1.org::*b][b]]       |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | | [[file:test1.org::*a ][a [1/2]<ZWSP>]] |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | | [[id:id2][d]] |
 
     And I press "l"
-    Then I should see:
-    """
-    |      | [[file:test1.org::*a ][a [1/2]]] |
-    |      | [[file:test1.org::*b][b]]       |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | | [[file:test1.org::*a ][a [1/2]<ZWSP>]] |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | | [[id:id2][d]] |
 
     And I press "h"
-    Then I should see:
-    """
-    | [[file:test1.org::*a ][a [1/2]]] |      |
-    |         | [[file:test1.org::*b][b]]    |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | [[file:test1.org::*a ][a [1/2]<ZWSP>]] | |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | | [[id:id2][d]] |
 
     And I press "h"
-    Then I should see:
-    """
-    | [[file:test1.org::*a ][a [1/2]]] |      |
-    |         | [[file:test1.org::*b][b]]    |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | [[file:test1.org::*a ][a [1/2]<ZWSP>]] | |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | | [[id:id2][d]] |
 
   Scenario: Move Todo Items by customid
     When I go to line "20"
     And I run org-kanban/prev
-    Then I should see:
-    """
-    | [[file:test1.org::*a ][a [1/2]]] |      |
-    |         | [[file:test1.org::*b][b]]    |
-    | [[#customid1][c]]       |      |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | [[file:test1.org::*a ][a [1/2]<ZWSP>]] | |
+    | | [[file:test1.org::*b][b]] |
+    | [[#customid1][c]] | |
+    | | [[id:id2][d]] |
 
   Scenario: Move Todo Items by id
     When I go to line "21"
     And I run org-kanban/prev
-    Then I should see:
-    """
-    | [[file:test1.org::*a ][a [1/2]]] |      |
-    |         | [[file:test1.org::*b][b]]    |
-    |         | [[#customid1][c]]    |
-    | [[id:id2][d]]       |      |
-    """
+    Then the kanban table should be:
+    | TODO | DONE |
+    | [[file:test1.org::*a ][a [1/2]<ZWSP>]] | |
+    | | [[file:test1.org::*b][b]] |
+    | | [[#customid1][c]] |
+    | [[id:id2][d]] | |

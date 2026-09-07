@@ -153,20 +153,20 @@ TABLE-FILE-NAME is the filename of the buffer on which the table should be
 rendered (or nil)."
   (if custom-id
     (if (and table-file-name (s-equals? table-file-name (buffer-file-name buffer)))
-      (format "[[#%s][%s]]" custom-id description)
-      (format "[[file:%s::#%s][%s]]" (org-kanban//relative-filename buffer) custom-id description))
+      (org-link-make-string (format "#%s" custom-id) description)
+      (org-link-make-string (format "file:%s::#%s" (org-kanban//relative-filename buffer) custom-id) description))
     nil))
 
 (defun org-kanban//link-for-id (id description)
   "Create a link for ID with DESCRIPTION."
   (if id
-    (format "[[id:%s][%s]]" id description)
+    (org-link-make-string (format "id:%s" id) description)
     nil))
 
 (defun org-kanban//link-for-heading (heading file description)
   "Create a link for a HEADING optionally a FILE and DESCRIPTION."
   (if heading
-      (format "[[file:%s::*%s][%s]]" (org-kanban//relative-filename file) heading description)
+      (org-link-make-string (format "file:%s::*%s" (org-kanban//relative-filename file) heading) description)
     (error "Illegal state")))
 
 (defun org-kanban//escape-description (description)
@@ -176,21 +176,16 @@ rendered (or nil)."
     ))
 
 (defun org-kanban//escape-heading (heading)
-  "Cleanup HEADING for use  an org link."
+  "Prepare HEADING for a table link; `org-link-make-string' escapes it."
   (let* (
-          (escaped-links (replace-regexp-in-string (rx "[[" (+? not-newline) "][" (+? not-newline) "]]")
-                           (lambda (x) (s-replace "]" "\\\\]" (s-replace "[" "\\\\[" (match-string 0 x)))) heading))
-          (escaped-cite (replace-regexp-in-string (rx "[" (group "cite" (+? not-newline)) "]") "\\\\[\\1\\\\]" escaped-links))
-          (removed-slash-checkbox (replace-regexp-in-string (rx "[" (+? digit) "/" (+? digit) "]") "" escaped-cite))
+          (removed-slash-checkbox (replace-regexp-in-string (rx "[" (+? digit) "/" (+? digit) "]") "" heading))
           (removed-percent-checkbox (replace-regexp-in-string (rx "[" (+? digit) "%]") "" removed-slash-checkbox))
           (trimmed (s-replace "|" "｜" removed-percent-checkbox)))
     trimmed))
 
 (defun org-kanban//unescape-heading (heading)
   "Transform HEADING from org link to real heading."
-  (s-replace "\\[" "["
-    (s-replace "\\]" "]"
-      (s-replace  "｜" "|" heading))))
+  (s-replace "｜" "|" (org-link-unescape heading)))
 
 (defun org-kanban//link (link file heading kanban search-for custom-id id layout table-file-name)
   "Create a link to FILE and HEADING if the KANBAN value is equal to SEARCH-FOR.
