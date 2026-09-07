@@ -153,20 +153,20 @@ TABLE-FILE-NAME is the filename of the buffer on which the table should be
 rendered (or nil)."
   (if custom-id
     (if (and table-file-name (s-equals? table-file-name (buffer-file-name buffer)))
-      (format "[[#%s][%s]]" custom-id description)
-      (format "[[file:%s::#%s][%s]]" (org-kanban//relative-filename buffer) custom-id description))
+      (org-link-make-string (format "#%s" custom-id) description)
+      (org-link-make-string (format "file:%s::#%s" (org-kanban//relative-filename buffer) custom-id) description))
     nil))
 
 (defun org-kanban//link-for-id (id description)
   "Create a link for ID with DESCRIPTION."
   (if id
-    (format "[[id:%s][%s]]" id description)
+    (org-link-make-string (format "id:%s" id) description)
     nil))
 
 (defun org-kanban//link-for-heading (heading file description)
   "Create a link for a HEADING optionally a FILE and DESCRIPTION."
   (if heading
-      (format "[[file:%s::*%s][%s]]" (org-kanban//relative-filename file) heading description)
+      (org-link-make-string (format "file:%s::*%s" (org-kanban//relative-filename file) (org-link-unescape heading)) description)
     (error "Illegal state")))
 
 (defun org-kanban//escape-description (description)
