@@ -52,3 +52,15 @@ Feature: Progress cookies and heading escaping
     When I go to line "6"
     And I run org-kanban/next
     Then I should see "* DONE Literal"
+
+  Scenario: Cross-file links are each opened from the kanban buffer
+    Given I insert these lines:
+      | #+BEGIN: kanban :scope (feature-allow-function-in-scope-example.org) |
+      | #+END: |
+    When I update the kanban table
+    Then the kanban links should open these headings:
+      | 1 |
+      | 2 |
+      | 3 |
+      | 4 |
+    And I should see "#+BEGIN: kanban"

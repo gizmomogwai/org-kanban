@@ -44,9 +44,10 @@
             (org-link-search-must-match-exact-headline t))
         (should (= (length links) (length expected)))
         (cl-mapc (lambda (position row)
-                   (goto-char position)
-                   (org-open-at-point)
-                   (should (equal (org-get-heading t t t t) (car row))))
+                   (save-window-excursion
+                     (goto-char position)
+                     (org-open-at-point)
+                     (should (equal (org-get-heading t t t t) (car row)))))
                  links expected)))))
 
 (And "^I run \\(.+\\)$"
