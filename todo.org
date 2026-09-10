@@ -1,2 +1,5 @@
+#+TODO: TODO IN-PROGRESS | DONE
 * Todos
+** DONE review pull request https://github.com/gizmomogwai/org-kanban/pull/53
+** TODO add AGENTS.md .. first agent based pull request that just failed rake test ...
 ** TODO write test for multi file org kanban table

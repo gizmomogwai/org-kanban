@@ -1,8 +1,8 @@
 task :default => :test
 
-desc 'prepare'
+desc 'prepare development environment'
 task :prepare do
-  sh "cask install"
+  sh "eask install-deps --development"
 end
 
 def get_match(content, regexp)
@@ -17,25 +17,23 @@ desc 'test'
 task :test, [:verbose] do |t, args|
   melpa_version = get_match(File.read('org-kanban.el', encoding: 'UTF-8'), Regexp.new('Package-Version: (.*)'))
   elisp_version = get_match(File.read('org-kanban.el', encoding: 'UTF-8'), Regexp.new('\\(message "org-kanban (.*)"\\)\\)'))
-  cask_version = get_match(File.read('Cask', encoding: 'UTF-8'), Regexp.new('\\(package "org-kanban" "(.*)" "Kanban for org-mode."\\)'))
+  eask_version = get_match(File.read('Eask', encoding: 'UTF-8'), Regexp.new('\\(package "org-kanban" "(.*)" ".*"\\)'))
   if melpa_version != elisp_version or
-    melpa_version != cask_version or
-    elisp_version != cask_version
     puts "melpa_version: #{melpa_version}"
     puts "elisp_version: #{elisp_version}"
-    puts "cask_version: #{cask_version}"
+    puts "eask_version: #{eask_version}"
     raise 'versions inconsistent'
   else
-    puts "Testing version #{cask_version}"
+    puts "Testing version #{eask_version}"
   end
-  sh 'cask list'
-  sh 'cask eval "(org-version t t t)"'
+  sh 'eask list'
+  sh 'eask eval "(org-version t t t)"'
   sh "rm -rf *.elc"
-  sh "cask eval \"(byte-compile-file \\\"org-kanban.el\\\")\""
-  if args[:verbose]
-    sh "cask exec ecukes --debug"
+  sh "eask eval \"(byte-compile-file \\\"org-kanban.el\\\")\""
+  if args[:verbose] == "true"
+    sh "eask exec ecukes --reporter magnars --quiet" # --debug
   else
-    sh "cask exec ecukes --reporter progress"
+    sh "eask exec ecukes --reporter dot --quiet "
   end
 end
 

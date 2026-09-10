@@ -1,4 +1,4 @@
-;;; org-kanban.el --- kanban dynamic block for org-mode. -*- lexical-binding: t -*-
+;;; org-kanban.el --- Kanban dynamic block for org-mode -*- lexical-binding: t -*-
 ;; Copyright (C) 2016 Christian Köstlin
 
 ;; This file is NOT part of GNU Emacs.
@@ -10,10 +10,11 @@
 ;;         Vlk <zdenek.mzourek@gmail.com>
 ;;         Pieter Hijma <pieterhijma@users.noreply.github.com>
 ;;         Darius Foo <darius.foo.tw@gmail.com>
+;;         Jae Hee Lee <dschaehi@gmail.com>
 ;; Keywords: org-mode, org, kanban, tools
-;; Package-Requires: ((s) (dash "2.17.0"))
-;; Package-Version: 0.6.15
-;; Homepage: http://github.com/gizmomogwai/org-kanban
+;; Package-Requires: ((emacs "31.1") (s "1.0") (dash "2.17.0"))
+;; Package-Version: 0.6.16
+;; Homepage: https://github.com/gizmomogwai/org-kanban
 
 ;;; Commentary:
 ;; To create a kanban table for an org file, simply put the dynamic block
@@ -34,7 +35,7 @@
 (require 'wid-edit)
 (require 'widget)
 
-(cl-defstruct flag "Used for bool flags from the dyn-block options." default value)
+(cl-defstruct org-kanban//flag "Used for bool flags from the dyn-block options." default value)
 
 (defun org-kanban//sanity-check-parameters (context layout)
   "Check for CONTEXT if LAYOUT is consistent."
@@ -86,8 +87,7 @@ e.g. buffer, heading-components, allowed keywords, ids, priority, ..."
     (org-entry-get nil "CUSTOM_ID")
     (org-entry-get nil "ID")
     (org-entry-get nil "PRIORITY")
-    (org-entry-get nil "TODO")
-    ))
+    (org-entry-get nil "TODO")))
 
 (defun org-kanban//todo-info-get-buffer (todo-info)
   "Get the buffer from a TODO-INFO."
@@ -205,18 +205,14 @@ This means, that the org-kanban table links are in one of several forms:
     (if
       (and (stringp kanban) (string-equal search-for kanban))
       (let* (
-              (layouted-heading (funcall layout (org-kanban//escape-description heading)))
-              )
-        (if (or (flag-default link) (flag-value link))
+              (layouted-heading (funcall layout (org-kanban//escape-description heading))))
+        (if (or (org-kanban//flag-default link) (org-kanban//flag-value link))
           (or
             (org-kanban//link-for-custom-id custom-id file layouted-heading table-file-name)
             (org-kanban//link-for-id id layouted-heading)
-            (org-kanban//link-for-heading (org-kanban//escape-heading heading) file layouted-heading)
-            )
-          layouted-heading
-          ))
-      "")
-    )
+            (org-kanban//link-for-heading (org-kanban//escape-heading heading) file layouted-heading))
+          layouted-heading))
+      ""))
 
 (defun org-kanban//todo-keywords (files mirrored range-fun)
   "Get list of org todos from FILES.
@@ -653,8 +649,7 @@ Supported are pP and oO."
           ((eq c ?O) (lambda (a b) (org-kanban--compare-by-state a b all-keywords '>)))
           ((eq c ?p) (lambda (a b) (org-kanban--compare-by-priority a b 'string<)))
           ((eq c ?P) (lambda (a b) (org-kanban--compare-by-priority a b 'string>)))
-          (t (error "Unknown spec character %s" (char-to-string c)))
-          ))
+          (t (error "Unknown spec character %s" (char-to-string c)))))
       spec)))
 
 (defun org-kanban//range-fun (value keywords from to)
@@ -664,8 +659,7 @@ Supported are pP and oO."
       (let* (
               (from-idx (-elem-index from keywords))
               (to-idx (-elem-index to keywords))
-              (value-idx (-elem-index value keywords))
-              )
+              (value-idx (-elem-index value keywords)))
         (and from-idx to-idx value-idx (>= value-idx from-idx) (<= value-idx to-idx)))
       t)
     t))
@@ -686,7 +680,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
 `:range`, `:depth` and `:compressed`."
   (insert
     (let*
-      ( (link (make-flag :default (not (plist-member params :link)) :value (plist-get params :link)))
+      ( (link (make-org-kanban//flag :default (not (plist-member params :link)) :value (plist-get params :link)))
         (mirrored (plist-get params :mirrored))
         (compressed (plist-get params :compressed))
         (match (plist-get params :match))
@@ -728,19 +722,16 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                  (let* ((rows (-map row-for filtered)))
                    (if rows
                      (--reduce (format "%s\n%s" acc it) rows)
-                     ""
-                     ))))
+                     ""))))
         (headers (plist-get params :headers))
-        (header-string (if headers (concat (string-join headers "\n") "\n") ""))
-        )
-        (format "%s|%s|\n|--|\n%s" header-string table-title table)
-        ))
+        (header-string (if headers (concat (string-join headers "\n") "\n") "")))
+        (format "%s|%s|\n|--|\n%s" header-string table-title table)))
   (org-table-align))
 
 (defun org-kanban/version ()
   "Print org-kanban version."
   (interactive)
-  (message "org-kanban 0.6.15"))
+  (message "org-kanban 0.6.16"))
 
 (defun org-kanban--scope-action (button)
   "Set scope from a BUTTON."
@@ -819,8 +810,7 @@ PARAMS may contain `:mirrored`, `:match`, `:scope`, `:layout`,
                     (if match (format " :match \"%s\"" match))
                     (if layout (format " :layout (\"%s\" . %s)" (car layout) (cdr layout)))
                     (if scope (format " :scope %s" scope))
-                    (if compressed " :compressed t")
-                    )))))
+                    (if compressed " :compressed t"))))))
 
 (defun org-kanban--calculate-preview (mirrored match layout scope range sort-spec-string depth compressed link headers skip-columns)
   "Calculate the org-kanban header.
@@ -841,11 +831,10 @@ DEPTH, COMPRESSED, LINK (flag), HEADERS and SKIP-COLUMNS"
                   (if (and depth (> (length depth) 0))
                     (format ":depth %s" depth))
                   (if compressed ":compressed t")
-                  (if (not (flag-default link)) (format ":link %s" (flag-value link)))
+                  (if (not (org-kanban//flag-default link)) (format ":link %s" (org-kanban//flag-value link)))
                   (if (and headers (> (length headers) 0)) (format ":headers %s" headers))
                   (if (and skip-columns (> (length skip-columns) 0))
-                    (format (concat ":skip-columns % " (if (stringp skip-columns) "s" "S")) skip-columns))
-                  ))))
+                    (format (concat ":skip-columns % " (if (stringp skip-columns) "s" "S")) skip-columns))))))
 
 (defun org-kanban--update-preview (preview mirrored match layout scope range sort-spec-string depth compressed link headers skip-columns)
   "Update the PREVIEW widget with the org-kanban header.
@@ -861,7 +850,7 @@ PARAMETERS the org-kanban parameters."
   (switch-to-buffer "*org-kanban-configure*")
   (let (
          (inhibit-read-only t)
-         (link (make-flag :default (not (plist-member parameters :link)) :value (plist-get parameters :link)))
+         (link (make-org-kanban//flag :default (not (plist-member parameters :link)) :value (plist-get parameters :link)))
          (headers (plist-get parameters :headers))
          (mirrored (plist-get parameters :mirrored))
          (compressed (plist-get parameters :compressed))
@@ -880,8 +869,7 @@ PARAMETERS the org-kanban parameters."
          (depth-widget nil)
          (link-widget nil)
          (headers-widget nil)
-         (skip-columns-widget nil)
-         )
+         (skip-columns-widget nil))
 
     (erase-buffer)
     (remove-overlays)
@@ -1048,15 +1036,15 @@ PARAMETERS the org-kanban parameters."
     (widget-insert (propertize "Link: " 'face 'font-lock-keyword-face))
     (setq link-widget (widget-create 'toggle
       :format "%[%v%]"
-      :value (flag-value link)
+      :value (org-kanban//flag-value link)
       :notify (lambda (widget &rest _ignore)
-                (setf (flag-value link) (widget-value widget) (flag-default link) nil)
+                (setf (org-kanban//flag-value link) (widget-value widget) (org-kanban//flag-default link) nil)
                 (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers skip-columns))))
     (widget-insert " ")
     (widget-create 'push-button
-      :notify (lambda (_widget &rest _ignore)
+      :notify (lambda (_widget &rest _ignore)o
                 (widget-value-set link-widget "on")
-                (setf (flag-default link) t)
+                (setf (org-kanban//flag-default link) t)
                 (org-kanban--update-preview preview mirrored match layout scope range sort-spec-string depth compressed link headers skip-columns))
       (propertize "Use default" 'face 'font-lock-string-face))
     (widget-insert "\n")
